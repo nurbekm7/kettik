@@ -4,6 +4,7 @@ import 'package:shop_app/components/socal_card.dart';
 import '../../../size_config.dart';
 import 'sign_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -19,37 +20,21 @@ class Body extends StatelessWidget {
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04),
                 Text(
-                  "С возвращением",
+                  AppLocalizations.of(context)!.helloWorld,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: getProportionateScreenWidth(28),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                SizedBox(height: SizeConfig.screenHeight * 0.04),
                 Text(
-                  "Войдите по номеру телефона или зарегистрируйтесь",
+                  AppLocalizations.of(context)!.sign_in_body,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 SignForm(),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SocalCard(
-                      icon: "assets/icons/google-icon.svg",
-                      press: () {},
-                    ),
-                    SocalCard(
-                      icon: "assets/icons/facebook-2.svg",
-                      press: () {},
-                    ),
-                    SocalCard(
-                      icon: "assets/icons/twitter.svg",
-                      press: () {},
-                    ),
-                  ],
-                ),
                 SizedBox(height: getProportionateScreenHeight(20)),
                 NoAccountText(),
               ],
