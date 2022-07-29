@@ -1,29 +1,52 @@
-import 'package:flutter/widgets.dart';
-import 'package:shop_app/screens/cart/cart_screen.dart';
-import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
-import 'package:shop_app/screens/details/details_screen.dart';
-import 'package:shop_app/screens/forgot_password/forgot_password_screen.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
-import 'package:shop_app/screens/login_success/login_success_screen.dart';
-import 'package:shop_app/screens/otp/otp_screen.dart';
-import 'package:shop_app/screens/profile/profile_screen.dart';
-import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
-import 'package:shop_app/screens/splash/splash_screen.dart';
+import 'package:kettik/screens/home/home_screen.dart';
+import 'package:kettik/screens/otp/otp_screen.dart';
+import 'package:kettik/screens/sign_in/sign_in_binding.dart';
+import 'package:kettik/screens/sign_in/sign_in_screen.dart';
 
-import 'screens/sign_up/sign_up_screen.dart';
+import 'package:get/get.dart';
+import 'package:kettik/screens/splash/splash_screen.dart';
 
-// We use name route
-// All our routes will be available here
-final Map<String, WidgetBuilder> routes = {
-  SplashScreen.routeName: (context) => SplashScreen(),
-  SignInScreen.routeName: (context) => SignInScreen(),
-  ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
-  LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),
-  SignUpScreen.routeName: (context) => SignUpScreen(),
-  CompleteProfileScreen.routeName: (context) => CompleteProfileScreen(),
-  OtpScreen.routeName: (context) => OtpScreen(),
-  HomeScreen.routeName: (context) => HomeScreen(),
-  DetailsScreen.routeName: (context) => DetailsScreen(),
-  CartScreen.routeName: (context) => CartScreen(),
-  ProfileScreen.routeName: (context) => ProfileScreen(),
-};
+class AppPages {
+  AppPages._();
+
+  static const INITIAL = Routes.SPLASH;
+
+  static final routes = [
+    GetPage(
+      name: _Paths.HOME,
+      page: () => HomeScreen(),
+      // binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.SIGN_IN,
+      page: () => SignInScreen(),
+      binding: SignInBinding(),
+    ),
+    GetPage(
+      name: _Paths.OTP,
+      page: () => OtpScreen(),
+      // binding: ReportBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPLASH,
+      page: () => SplashScreen(),
+      // binding: SplashBinding(),
+    ),
+  ];
+}
+
+abstract class Routes {
+  Routes._();
+  static const HOME = _Paths.HOME;
+  static const SIGN_IN = _Paths.SIGN_IN;
+  static const OTP = _Paths.OTP;
+  static const SPLASH = _Paths.SPLASH;
+}
+
+abstract class _Paths {
+  _Paths._();
+  static const HOME = '/home';
+  static const SIGN_IN = '/sign_in';
+  static const OTP = '/otp';
+  static const SPLASH = '/splash';
+}

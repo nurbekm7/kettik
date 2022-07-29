@@ -1,7 +1,0 @@
-{
-    "helloWorld": "Hello World!",
-    "@helloWorld": {
-      "description": "The conventional newborn programmer greeting"
-    },
-    "sign_in_body":"Sign in with your phone number or register"
-}

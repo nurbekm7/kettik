@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/default_button.dart';
-import 'package:shop_app/models/Product.dart';
-import 'package:shop_app/size_config.dart';
+import 'package:kettik/components/default_button.dart';
+import 'package:kettik/models/Product.dart';
+import 'package:kettik/size_config.dart';
 
 import 'color_dots.dart';
 import 'product_description.dart';

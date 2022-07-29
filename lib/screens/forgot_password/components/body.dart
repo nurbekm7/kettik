@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/custom_surfix_icon.dart';
-import 'package:shop_app/components/default_button.dart';
-import 'package:shop_app/components/form_error.dart';
-import 'package:shop_app/components/no_account_text.dart';
-import 'package:shop_app/size_config.dart';
+import 'package:kettik/components/custom_surfix_icon.dart';
+import 'package:kettik/components/default_button.dart';
+import 'package:kettik/components/form_error.dart';
+import 'package:kettik/size_config.dart';
 
 import '../../../constants.dart';
 
@@ -105,8 +104,7 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
               }
             },
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.1),
-          NoAccountText(),
+          SizedBox(height: SizeConfig.screenHeight * 0.1)
         ],
       ),
     );

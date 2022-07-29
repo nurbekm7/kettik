@@ -1,40 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/routes.dart';
-import 'package:shop_app/screens/profile/profile_screen.dart';
-import 'package:shop_app/screens/splash/splash_screen.dart';
-import 'package:shop_app/theme.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'dart:io';
+import 'package:kettik/components/analytics_controller.dart';
+import 'package:kettik/components/connectivity_controller.dart';
+import 'package:kettik/components/languages.dart';
+import 'package:kettik/components/settings_service.dart';
+import 'package:kettik/routes.dart';
+import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await initServices();
+  await ScreenUtil.ensureScreenSize();
+
+  runApp(DevicePreview(
+    enabled: false,
+    builder: (context) => ScreenUtilInit(
+      designSize: const Size(412, 732),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (BuildContext context, Widget? child) {
+        return GetMaterialApp(
+          //device prev
+          useInheritedMediaQuery: true,
+          builder: DevicePreview.appBuilder,
+          //rest
+          translations: Languages(),
+          locale: Get.find<SettingsService>().locale,
+          fallbackLocale: const Locale('en', 'US'), //todo
+          title: "KETTIK",
+          initialRoute: AppPages.INITIAL,
+          navigatorObservers: <NavigatorObserver>[
+            Get.find<AnalyticsService>().observer
+          ],
+          debugShowCheckedModeBanner: false,
+          // initialBinding: SplashBinding(),
+          theme: ThemeData(fontFamily: 'Muli'),
+          getPages: AppPages.routes,
+        );
+      },
+    ),
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [
-        Locale('en', ''), // English, no country code
-        Locale('kk', ''),
-        Locale('ru', '')
-      ],
+Future<void> initServices() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-      theme: theme(),
-      // home: SplashScreen(),
-      // We use routeName so that we dont need to remember the name
-      initialRoute: SplashScreen.routeName,
-      routes: routes,
-    );
-  }
+  //track during development
+  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  await GetStorage.init();
+  await Get.putAsync<SettingsService>(() async => SettingsService());
+  await Get.putAsync<AnalyticsService>(() async => AnalyticsService());
+  final controller = Get.put<ConnectivityController>(ConnectivityController());
+  controller.initCheckConnectivity();
 }
