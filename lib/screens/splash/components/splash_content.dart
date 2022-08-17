@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
-import '../../../size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashContent extends StatelessWidget {
   const SplashContent({
@@ -19,19 +19,18 @@ class SplashContent extends StatelessWidget {
         Text(
           "KETTIK",
           style: TextStyle(
-            fontSize: getProportionateScreenWidth(36),
+            fontSize: 36.w,
             color: kPrimaryColor,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(text!,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: getProportionateScreenWidth(16))),
+            textAlign: TextAlign.center, style: TextStyle(fontSize: 16.w)),
         Spacer(flex: 2),
         Image.asset(
           image!,
-          height: getProportionateScreenHeight(265),
-          width: getProportionateScreenWidth(235),
+          height: 265.h,
+          width: 235.w,
         ),
       ],
     );

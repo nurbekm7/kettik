@@ -2,26 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:kettik/components/custom_surfix_icon.dart';
 import 'package:kettik/components/default_button.dart';
 import 'package:kettik/components/form_error.dart';
-import 'package:kettik/size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants.dart';
 
 class Body extends StatelessWidget {
+  late Size _size;
   @override
   Widget build(BuildContext context) {
+    _size = MediaQuery.of(context).size;
+
     return SizedBox(
       width: double.infinity,
       child: SingleChildScrollView(
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(horizontal: 20.h),
           child: Column(
             children: [
-              SizedBox(height: SizeConfig.screenHeight * 0.04),
+              SizedBox(height: _size.height * 0.04),
               Text(
                 "Forgot Password",
                 style: TextStyle(
-                  fontSize: getProportionateScreenWidth(28),
+                  fontSize: 28.sp,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
@@ -30,7 +32,7 @@ class Body extends StatelessWidget {
                 "Please enter your email and we will send \nyou a link to return to your account",
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: SizeConfig.screenHeight * 0.1),
+              SizedBox(height: _size.height * 0.1),
               ForgotPassForm(),
             ],
           ),
@@ -51,6 +53,8 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
   String? email;
   @override
   Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
+
     return Form(
       key: _formKey,
       child: Column(
@@ -93,9 +97,9 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
               suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
             ),
           ),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30.h),
           FormError(errors: errors),
-          SizedBox(height: SizeConfig.screenHeight * 0.1),
+          SizedBox(height: _size.height * 0.1),
           DefaultButton(
             text: "Continue",
             press: () {
@@ -104,7 +108,7 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
               }
             },
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.1)
+          SizedBox(height: _size.height * 0.1)
         ],
       ),
     );

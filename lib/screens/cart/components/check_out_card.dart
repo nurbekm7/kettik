@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kettik/components/default_button.dart';
 
 import '../../../constants.dart';
-import '../../../size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CheckoutCard extends StatelessWidget {
   const CheckoutCard({
@@ -14,8 +14,8 @@ class CheckoutCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        vertical: getProportionateScreenWidth(15),
-        horizontal: getProportionateScreenWidth(30),
+        vertical: 15.w,
+        horizontal: 30.w,
       ),
       // height: 174,
       decoration: BoxDecoration(
@@ -41,8 +41,8 @@ class CheckoutCard extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.all(10),
-                  height: getProportionateScreenWidth(40),
-                  width: getProportionateScreenWidth(40),
+                  height: 50.h,
+                  width: 50.h,
                   decoration: BoxDecoration(
                     color: Color(0xFFF5F6F9),
                     borderRadius: BorderRadius.circular(10),
@@ -59,7 +59,7 @@ class CheckoutCard extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: getProportionateScreenHeight(20)),
+            SizedBox(height: 20.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -75,7 +75,7 @@ class CheckoutCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: getProportionateScreenWidth(190),
+                  width: 190.w,
                   child: DefaultButton(
                     text: "Check Out",
                     press: () {},

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kettik/constants.dart';
 
-import '../size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RoundedIconBtn extends StatelessWidget {
   const RoundedIconBtn({
@@ -18,8 +18,8 @@ class RoundedIconBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: getProportionateScreenWidth(40),
-      width: getProportionateScreenWidth(40),
+      height: 50.h,
+      width: 50.h,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         boxShadow: [

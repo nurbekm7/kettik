@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:kettik/constants.dart';
-import 'package:kettik/size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'otp_form.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
     return SizedBox(
       width: double.infinity,
       child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: SizeConfig.screenHeight * 0.05),
+              SizedBox(height: _size.height * 0.05),
               Text(
                 'otp'.tr,
                 style: headingStyle,
@@ -23,7 +23,7 @@ class Body extends StatelessWidget {
               Text("We sent your code to +1 898 860 ***"),
               buildTimer(),
               OtpForm(),
-              SizedBox(height: SizeConfig.screenHeight * 0.1),
+              SizedBox(height: _size.height * 0.1),
               GestureDetector(
                 onTap: () {
                   // OTP code resend

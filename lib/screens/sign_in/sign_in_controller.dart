@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kettik/screens/home/home_screen.dart';
 import '../otp/otp_screen.dart';
 
 class AuthController extends GetxController {
@@ -71,6 +72,7 @@ class AuthController extends GetxController {
           .then((authRes) async {
         _firebaseUser = authRes.user!;
         print(_firebaseUser);
+        Get.offAll(HomeScreen());
         // final _usersCollection = _firestore.collection('users');
         // _usersCollection.where("phone", isEqualTo: _phoneNumber).get().then(
         //     (value) {

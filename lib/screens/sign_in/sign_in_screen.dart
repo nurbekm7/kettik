@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kettik/components/form_error.dart';
 import 'package:kettik/helper/keyboard.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -17,31 +17,31 @@ class SignInScreen extends GetView<AuthController> {
 
   @override
   Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
     return Scaffold(
         body: SafeArea(
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(horizontal: 20.h),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04),
+                SizedBox(height: _size.height * 0.04),
                 Text(
                   'helloWorld'.tr,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: getProportionateScreenWidth(28),
+                    fontSize: 28.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: SizeConfig.screenHeight * 0.04),
+                SizedBox(height: _size.height * 0.04),
                 Text(
                   'sign_in_body'.tr,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
+                SizedBox(height: _size.height * 0.08),
                 Form(
                   key: _formKey,
                   child: Column(
@@ -70,9 +70,9 @@ class SignInScreen extends GetView<AuthController> {
                           countryIso = number.isoCode!;
                         },
                       ),
-                      SizedBox(height: getProportionateScreenHeight(30)),
+                      SizedBox(height: 30.h),
                       FormError(errors: errors),
-                      SizedBox(height: getProportionateScreenHeight(20)),
+                      SizedBox(height: 20.h),
                       DefaultButton(
                         text: 'continueText'.tr,
                         press: () {
@@ -84,8 +84,8 @@ class SignInScreen extends GetView<AuthController> {
                     ],
                   ),
                 ),
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
-                SizedBox(height: getProportionateScreenHeight(20))
+                SizedBox(height: _size.height * 0.08),
+                SizedBox(height: 20.h)
               ],
             ),
           ),

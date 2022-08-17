@@ -104,7 +104,9 @@ class Languages extends Translations {
           "terms_and_condition":
               "By continuing your confirm that you agree \nwith our Term and Condition",
           "otp": "Проверка одноразового пароля",
-          "phone_verification": "Верификация"
+          "phone_verification": "Верификация",
+          "sender": "Отправители",
+          "courier": "Курьеры",
         }
       };
 }

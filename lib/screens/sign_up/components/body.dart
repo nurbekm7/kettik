@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:kettik/components/socal_card.dart';
 import 'package:kettik/constants.dart';
-import 'package:kettik/size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'sign_up_form.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
     return SafeArea(
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
+                SizedBox(height: _size.height * 0.04), // 4%
                 Text('register_account'.tr, style: headingStyle),
                 Text(
                   'register_account_desc'.tr,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
+                SizedBox(height: _size.height * 0.08),
                 SignUpForm(),
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
+                SizedBox(height: _size.height * 0.08),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -43,7 +43,7 @@ class Body extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: getProportionateScreenHeight(20)),
+                SizedBox(height: 20.h),
                 Text(
                   '',
                   textAlign: TextAlign.center,

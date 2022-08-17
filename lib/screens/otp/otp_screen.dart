@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kettik/components/global_widgets/loading_overlay.dart';
 import 'package:kettik/screens/sign_in/sign_in_controller.dart';
-import 'package:kettik/size_config.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import '../../../components/default_button.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'components/body.dart';
 
@@ -38,21 +39,21 @@ class OtpScreen extends GetView<AuthController> {
           child: SafeArea(
             bottom: false,
             child: Scaffold(
-                appBar: AppBar(
-                  systemOverlayStyle: SystemUiOverlayStyle(
-                    statusBarColor: Colors.black,
-                  ),
-                  backgroundColor: Colors.black,
-                  title: AutoSizeText(
-                    'phone_verification'.tr,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18.sp),
-                  ),
-                  centerTitle: true,
-                  automaticallyImplyLeading: false,
-                ),
+                // appBar: AppBar(
+                //   systemOverlayStyle: SystemUiOverlayStyle(
+                //     statusBarColor: Colors.black,
+                //   ),
+                //   backgroundColor: Colors.black,
+                //   title: AutoSizeText(
+                //     'phone_verification'.tr,
+                //     style: TextStyle(
+                //         color: Colors.white,
+                //         fontWeight: FontWeight.w600,
+                //         fontSize: 18.sp),
+                //   ),
+                //   centerTitle: true,
+                //   automaticallyImplyLeading: false,
+                // ),
                 backgroundColor: Colors.white,
                 resizeToAvoidBottomInset: true,
                 body: Form(
@@ -132,38 +133,51 @@ class OtpScreen extends GetView<AuthController> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 60.h,
+                                      height: 30.h,
                                     ),
+                                    // Spacer(flex: 3),
                                     Expanded(
                                       child: Align(
                                         alignment: Alignment.bottomCenter,
                                         child: Column(
                                           children: [
-                                            Container(
-                                              margin: EdgeInsets.all(0),
-                                              width: double.infinity,
-                                              child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  minimumSize:
-                                                      Size(_size.width, 50.h),
-                                                  primary: Colors.black,
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              6)),
-                                                ),
-                                                onPressed: () async {
-                                                  // controller.submitOTP(
-                                                  //     otp: _pinPutController
-                                                  //         .text);
-                                                },
-                                                child: Text(
-                                                  'next'.tr,
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 16.sp),
-                                                ),
-                                              ),
+                                            DefaultButton(
+                                              text: 'continueText'.tr,
+                                              press: () async {
+                                                controller.submitOTP(
+                                                    otp:
+                                                        _pinPutController.text);
+                                              },
+                                            ),
+
+                                            // Container(
+                                            //   margin: EdgeInsets.all(0),
+                                            //   width: double.infinity,
+                                            //   child: ElevatedButton(
+                                            //     style: ElevatedButton.styleFrom(
+                                            //       minimumSize:
+                                            //           Size(_size.width, 50.h),
+                                            //       primary: kPrimaryColor,
+                                            //       shape: RoundedRectangleBorder(
+                                            //           borderRadius:
+                                            //               BorderRadius.circular(
+                                            //                   6)),
+                                            //     ),
+                                            //     onPressed: () async {
+                                            //       controller.submitOTP(
+                                            //           otp: _pinPutController
+                                            //               .text);
+                                            //     },
+                                            //     child: Text(
+                                            //       'next'.tr,
+                                            //       style: TextStyle(
+                                            //           color: Colors.white,
+                                            //           fontSize: 16.sp),
+                                            //     ),
+                                            //   ),
+                                            // ),
+                                            SizedBox(
+                                              height: 10.h,
                                             ),
                                             Opacity(
                                               opacity: 1.0,

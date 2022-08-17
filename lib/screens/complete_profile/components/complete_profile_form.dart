@@ -5,7 +5,7 @@ import 'package:kettik/components/form_error.dart';
 import 'package:kettik/screens/otp/otp_screen.dart';
 
 import '../../../constants.dart';
-import '../../../size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CompleteProfileForm extends StatefulWidget {
   @override
@@ -41,14 +41,14 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       child: Column(
         children: [
           buildFirstNameFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30.h),
           buildLastNameFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30.h),
           buildPhoneNumberFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30.h),
           buildAddressFormField(),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(40)),
+          SizedBox(height: 40.h),
           DefaultButton(
             text: "continue",
             press: () {

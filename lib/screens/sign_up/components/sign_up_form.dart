@@ -5,7 +5,7 @@ import 'package:kettik/components/form_error.dart';
 import 'package:kettik/screens/complete_profile/complete_profile_screen.dart';
 
 import '../../../constants.dart';
-import '../../../size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -41,12 +41,12 @@ class _SignUpFormState extends State<SignUpForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30.h),
           buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30.h),
           buildConformPassFormField(),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(40)),
+          SizedBox(height: 40.h),
           DefaultButton(
             text: "Continue",
             press: () {

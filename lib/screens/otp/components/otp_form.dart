@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kettik/components/default_button.dart';
-import 'package:kettik/size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants.dart';
 
@@ -42,15 +42,16 @@ class _OtpFormState extends State<OtpForm> {
 
   @override
   Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
     return Form(
       child: Column(
         children: [
-          SizedBox(height: SizeConfig.screenHeight * 0.15),
+          SizedBox(height: _size.height * 0.15),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: getProportionateScreenWidth(60),
+                width: 60.w,
                 child: TextFormField(
                   autofocus: true,
                   obscureText: true,
@@ -64,7 +65,7 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(60),
+                width: 60.w,
                 child: TextFormField(
                   focusNode: pin2FocusNode,
                   obscureText: true,
@@ -76,7 +77,7 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(60),
+                width: 60.w,
                 child: TextFormField(
                   focusNode: pin3FocusNode,
                   obscureText: true,
@@ -88,7 +89,7 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(60),
+                width: 60.w,
                 child: TextFormField(
                   focusNode: pin4FocusNode,
                   obscureText: true,
@@ -106,7 +107,7 @@ class _OtpFormState extends State<OtpForm> {
               ),
             ],
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.15),
+          SizedBox(height: _size.height * 0.15),
           DefaultButton(
             text: "Continue",
             press: () {},

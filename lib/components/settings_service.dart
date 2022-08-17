@@ -20,7 +20,6 @@ class SettingsService extends GetxService {
   late String env = '';
   @override
   void onInit() {
-    initSharedPrefs();
     super.onInit();
   }
 
@@ -70,7 +69,7 @@ class SettingsService extends GetxService {
     env = env;
   }
 
-  void initSharedPrefs() async {
+  Future<void> initSharedPrefs() async {
     print("logged_in: " + _getStorage.read('logged_in').toString());
     _getStorage = GetStorage();
     firstRun = _getStorage.read('first_run') ?? true;

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kettik/size_config.dart';
+import 'package:kettik/components/settings_service.dart';
+import 'package:kettik/screens/home/home_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kettik/constants.dart';
 import 'package:kettik/screens/sign_in/sign_in_screen.dart';
 import 'package:get/get.dart';
@@ -27,7 +29,6 @@ class _SplashScreen extends State<SplashScreen> {
       {"text": 'introTitle3'.tr, "image": "assets/images/splash_3.png"},
     ];
     // You have to call it on your starting screen
-    SizeConfig().init(context);
     return Scaffold(
         body: SafeArea(
       child: SizedBox(
@@ -52,8 +53,7 @@ class _SplashScreen extends State<SplashScreen> {
             Expanded(
               flex: 2,
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(20)),
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Column(
                   children: <Widget>[
                     Spacer(),
@@ -68,7 +68,8 @@ class _SplashScreen extends State<SplashScreen> {
                     DefaultButton(
                       text: 'continueText'.tr,
                       press: () async {
-                        Get.offAll(SignInScreen(), binding: SignInBinding());
+                        Get.find<SettingsService>().onBoarding();
+                        Get.offAll(HomeScreen());
                       },
                     ),
                     Spacer(),

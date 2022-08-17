@@ -11,11 +11,15 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await initServices();
+  late GetStorage _getStorage = GetStorage();
+
   await ScreenUtil.ensureScreenSize();
 
   runApp(DevicePreview(
@@ -32,9 +36,11 @@ void main() async {
           //rest
           translations: Languages(),
           locale: Get.find<SettingsService>().locale,
-          fallbackLocale: const Locale('en', 'US'), //todo
+          fallbackLocale: const Locale('ru', 'RU'), //todo
           title: "KETTIK",
-          initialRoute: AppPages.INITIAL,
+          initialRoute: Get.find<SettingsService>().firstRun
+              ? AppPages.INITIAL
+              : AppPages.HOME,
           navigatorObservers: <NavigatorObserver>[
             Get.find<AnalyticsService>().observer
           ],
@@ -49,16 +55,23 @@ void main() async {
 }
 
 Future<void> initServices() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    //track during development
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
-  //track during development
-  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  await GetStorage.init();
-  await Get.putAsync<SettingsService>(() async => SettingsService());
-  await Get.putAsync<AnalyticsService>(() async => AnalyticsService());
-  final controller = Get.put<ConnectivityController>(ConnectivityController());
-  controller.initCheckConnectivity();
+    await GetStorage.init();
+    await Get.putAsync<SettingsService>(() async => SettingsService());
+    await Get.find<SettingsService>().initSharedPrefs();
+    await Get.putAsync<AnalyticsService>(() async => AnalyticsService());
+    final controller =
+        Get.put<ConnectivityController>(ConnectivityController());
+    controller.initCheckConnectivity();
+  } catch (e) {
+    print("Failed to initServices: $e");
+    Fluttertoast.showToast(msg: 'Please check internet connection');
+  }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kettik/size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-const kPrimaryColor = Color(0xFFFF7643);
-const kPrimaryLightColor = Color(0xFFFFECDF);
+const kPrimaryColor = Color(0xff5a4d94);
+const kPrimaryLightColor = Color.fromARGB(255, 89, 81, 122);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
@@ -10,11 +10,13 @@ const kPrimaryGradientColor = LinearGradient(
 );
 const kSecondaryColor = Color(0xFF979797);
 const kTextColor = Color(0xFF757575);
-
+const kTabColor = Color.fromARGB(15, 31, 16, 128);
+const kLightGrey = Color(0xfff1f3f5);
 const kAnimationDuration = Duration(milliseconds: 200);
+const kPrimaryBtnColor = Color(0xffFFBD09);
 
 final headingStyle = TextStyle(
-  fontSize: getProportionateScreenWidth(28),
+  fontSize: 28.h,
   fontWeight: FontWeight.bold,
   color: Colors.black,
   height: 1.5,
@@ -35,8 +37,7 @@ const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kAddressNullError = "Please Enter your address";
 
 final otpInputDecoration = InputDecoration(
-  contentPadding:
-      EdgeInsets.symmetric(vertical: getProportionateScreenWidth(15)),
+  contentPadding: EdgeInsets.symmetric(vertical: 15.h),
   border: outlineInputBorder(),
   focusedBorder: outlineInputBorder(),
   enabledBorder: outlineInputBorder(),
@@ -44,7 +45,7 @@ final otpInputDecoration = InputDecoration(
 
 OutlineInputBorder outlineInputBorder() {
   return OutlineInputBorder(
-    borderRadius: BorderRadius.circular(getProportionateScreenWidth(15)),
+    borderRadius: BorderRadius.circular(15.w),
     borderSide: BorderSide(color: kTextColor),
   );
 }
