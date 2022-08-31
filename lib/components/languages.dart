@@ -24,7 +24,9 @@ class Languages extends Translations {
           "register_account_desc":
               "Complete your details or continue \nwith social media",
           "terms_and_condition":
-              "By continuing your confirm that you agree \nwith our Term and Condition"
+              "By continuing your confirm that you agree \nwith our Term and Condition",
+          "home": "Kettik.kz",
+          "profile": "Кабинет"
         },
         'en_US': {
           "helloWorld": "Welcome",
@@ -55,7 +57,9 @@ class Languages extends Translations {
           "enter_code_below": "Enter OTP code below",
           "next": "Next",
           "did_not_get_the_code": "Didn\'t get the code? ",
-          "resend": "Resend"
+          "resend": "Resend",
+          "home": "Kettik.kz",
+          "profile": "Кабинет"
         },
         'ru_KZ': {
           "helloWorld": "Добро пожаловать",
@@ -79,7 +83,9 @@ class Languages extends Translations {
               "Complete your details or continue \nwith social media",
           "terms_and_condition":
               "By continuing your confirm that you agree \nwith our Term and Condition",
-          "otp": "Проверка одноразового пароля"
+          "otp": "Проверка одноразового пароля",
+          "home": "Kettik.kz",
+          "profile": "Кабинет"
         },
         'ru_RU': {
           "helloWorld": "Добро пожаловать",
@@ -107,6 +113,12 @@ class Languages extends Translations {
           "phone_verification": "Верификация",
           "sender": "Отправители",
           "courier": "Курьеры",
+          "home": "Kettik.kz",
+          "profile": "Кабинет",
+          "from": "ОТКУДА:",
+          "to": "КУДА:",
+          "wight": "ВEC ",
+          "send_request": "Позвонить"
         }
       };
 }

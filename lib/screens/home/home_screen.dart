@@ -4,7 +4,10 @@ import 'package:kettik/components/coustom_bottom_nav_bar.dart';
 import 'package:kettik/enums.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kettik/models/RequestEntity.dart';
+import 'package:kettik/screens/filter/filter_binding.dart';
+import 'package:kettik/screens/filter/filter_screen.dart';
 import 'package:kettik/screens/home/components/folding_request_card.dart';
+import 'package:kettik/screens/transaction/transaction_screen.dart';
 import '../home/components/categories.dart';
 import '../home/components/special_offers.dart';
 import '../home/components/popular_product.dart';
@@ -22,8 +25,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   static String routeName = "/home";
-
+  String? _selected = "";
+  List<RequestEntity> requestEntityList = demoCarts;
   TextEditingController controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
@@ -40,20 +45,19 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: kPrimaryColor,
             actions: <Widget>[
               IconButton(
-                icon: Icon(FontAwesomeIcons.filterCircleDollar,
-                    color: Colors.white.withOpacity(0.5)),
+                icon: Image.asset('assets/icons/filter.png'),
                 onPressed: () {
-                  // do something
+                  _openDialog();
                 },
               )
             ],
             bottom: TabBar(tabs: [
               Tab(
-                icon: Icon(Icons.people),
+                icon: Icon(Icons.post_add),
                 child: AutoSizeText('sender'.tr),
               ),
               Tab(
-                icon: Icon(Icons.location_city),
+                icon: Icon(FontAwesomeIcons.personWalking),
                 child: AutoSizeText('courier'.tr),
               ),
             ]),
@@ -80,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             // width: _size.width,
                             // child: RequestCard(requestEntity: demoCarts[index]),
                             child: FoldingRequestCard(
-                                requestEntity: demoCarts[index]),
+                                requestEntity: requestEntityList[index]),
                           ),
                         ),
                       ),
@@ -89,37 +93,80 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
-            Container(
-              child: ListView(
+            AnimationLimiter(
+              child: ListView.builder(
+                // physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
-                children: [
-                  Container(
-                    // height: 200.h,
-                    // width: _size.width,
-                    // child: RequestCard(requestEntity: demoCarts[index]),
-                    child: FoldingRequestCard(requestEntity: demoCarts[0]),
-                  ),
-                  Container(
-                    // height: 200.h,
-                    // width: _size.width,
-                    // child: RequestCard(requestEntity: demoCarts[index]),
-                    child: FoldingRequestCard(requestEntity: demoCarts[1]),
-                  )
-                ],
+                primary: false,
+                shrinkWrap: true,
+                itemCount: demoCarts.length,
+                itemBuilder: (context, index) {
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    duration: const Duration(milliseconds: 375),
+                    child: SlideAnimation(
+                      // verticalOffset: 50.0,
+                      child: FadeInAnimation(
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.all(8),
+                          child: Container(
+                            // height: 200.h,
+                            // width: _size.width,
+                            // child: RequestCard(requestEntity: demoCarts[index]),
+                            child: FoldingRequestCard(
+                                requestEntity: requestEntityList[index]),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
               ),
-            )
+            ),
           ]),
           bottomNavigationBar: CustomBottomNavBar(cIndex: 0),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: new FloatingActionButton(
             onPressed: () {
-              print("floating ");
+              _openAddTransDialog();
             },
             tooltip: 'Increment',
             child: new Icon(Icons.add),
             backgroundColor: kPrimaryBtnColor,
           )),
     );
+  }
+
+  Future _openDialog() async {
+    RequestEntity? requestEntity =
+        await Navigator.of(context).push(new MaterialPageRoute<RequestEntity>(
+            builder: (BuildContext context) {
+              return new FilterDiolog();
+            },
+            fullscreenDialog: true));
+    print(requestEntity);
+    if (requestEntity != null) {
+      print("requestEntity: ${requestEntity.id}");
+      setState(() {
+        requestEntityList.add(requestEntity);
+      });
+    }
+  }
+
+  Future _openAddTransDialog() async {
+    RequestEntity? requestEntity =
+        await Navigator.of(context).push(new MaterialPageRoute<RequestEntity>(
+            builder: (BuildContext context) {
+              return new CreateTransactionScreen();
+            },
+            fullscreenDialog: true));
+    print(requestEntity);
+    if (requestEntity != null) {
+      print("requestEntity: ${requestEntity.id}");
+      setState(() {
+        requestEntityList.add(requestEntity);
+      });
+    }
   }
 }

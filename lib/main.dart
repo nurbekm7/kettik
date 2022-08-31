@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:kettik/components/analytics_controller.dart';
 import 'package:kettik/components/connectivity_controller.dart';
 import 'package:kettik/components/languages.dart';
@@ -36,6 +37,8 @@ void main() async {
           //rest
           translations: Languages(),
           locale: Get.find<SettingsService>().locale,
+          localizationsDelegates: [GlobalMaterialLocalizations.delegate],
+          supportedLocales: [const Locale('en'), const Locale('ru')],
           fallbackLocale: const Locale('ru', 'RU'), //todo
           title: "KETTIK",
           initialRoute: Get.find<SettingsService>().firstRun

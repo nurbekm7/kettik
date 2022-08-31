@@ -45,10 +45,10 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       items: [
         BottomNavigationBarItem(
             icon: Icon(Icons.home, color: Color.fromARGB(255, 0, 0, 0)),
-            label: 'Home'.tr),
+            label: 'home'.tr),
         BottomNavigationBarItem(
             icon: Icon(Icons.person, color: Color.fromARGB(255, 0, 0, 0)),
-            label: 'Profile'.tr)
+            label: 'profile'.tr)
       ],
       onTap: (index) {
         _incrementTab(index);

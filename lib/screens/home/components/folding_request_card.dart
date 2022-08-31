@@ -37,7 +37,7 @@ class FoldingRequestCard extends StatelessWidget {
 
   GestureDetector frontWidget() {
     return GestureDetector(
-      onTap: () => _foldingCellKey?.currentState?.toggleFold(),
+      onTap: () => _foldingCellKey.currentState?.toggleFold(),
       child: Container(
         color: Color(0xffdfd4f4),
         alignment: Alignment.center,
@@ -79,7 +79,7 @@ class FoldingRequestCard extends StatelessWidget {
                               child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: AutoSizeText(
-                              requestEntity.fromTime,
+                              requestEntity.toTime,
                               style: TextStyle(
                                   color: Colors.white, fontSize: 20.0),
                             ),
@@ -124,7 +124,8 @@ class FoldingRequestCard extends StatelessWidget {
                               child: Align(
                                 alignment: Alignment.topRight,
                                 child: AutoSizeText(
-                                    'Вес: ' + requestEntity.weight.toString(),
+                                    'wight'.tr +
+                                        requestEntity.weight.toString(),
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16.sp,
@@ -167,7 +168,7 @@ class FoldingRequestCard extends StatelessWidget {
 
   GestureDetector innerTopWidget() {
     return GestureDetector(
-      onTap: () => _foldingCellKey?.currentState?.toggleFold(),
+      onTap: () => _foldingCellKey.currentState?.toggleFold(),
       child: Container(
         color: kLightGrey,
         alignment: Alignment.center,
@@ -282,7 +283,7 @@ class FoldingRequestCard extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: [
-                        AutoSizeText('FROM'.tr,
+                        AutoSizeText('from'.tr,
                             style:
                                 TextStyle(color: kTextColor, fontSize: 14.0)),
                         SizedBox(height: 5),
@@ -295,7 +296,7 @@ class FoldingRequestCard extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: [
-                        AutoSizeText('TO'.tr,
+                        AutoSizeText('to'.tr,
                             style: TextStyle(
                                 color: kTextColor, fontSize: 14.0.sp)),
                         SizedBox(height: 5),
@@ -308,7 +309,7 @@ class FoldingRequestCard extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: [
-                        AutoSizeText('WEIGHT'.tr,
+                        AutoSizeText('wight'.tr,
                             style: TextStyle(
                                 color: kTextColor, fontSize: 14.0.sp)),
                         SizedBox(height: 5),
@@ -337,7 +338,7 @@ class FoldingRequestCard extends StatelessWidget {
                     launch('tel:' + requestEntity.user.phoneNumber);
                   }, //TODO show phone number
                   child: AutoSizeText(
-                    'SEND_REQUEST'.tr,
+                    'send_request'.tr,
                     style: TextStyle(color: Colors.black),
                   ),
                   style: ElevatedButton.styleFrom(primary: kPrimaryBtnColor),
