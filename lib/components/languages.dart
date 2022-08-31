@@ -26,7 +26,11 @@ class Languages extends Translations {
           "terms_and_condition":
               "By continuing your confirm that you agree \nwith our Term and Condition",
           "home": "Kettik.kz",
-          "profile": "Кабинет"
+          "profile": "Кабинет",
+          "my_transactions": "Мой объявления",
+          "delete_account": "Удалить аккаунт",
+          "help": "Помощь",
+          "logout": "Выйти"
         },
         'en_US': {
           "helloWorld": "Welcome",
@@ -59,7 +63,11 @@ class Languages extends Translations {
           "did_not_get_the_code": "Didn\'t get the code? ",
           "resend": "Resend",
           "home": "Kettik.kz",
-          "profile": "Кабинет"
+          "profile": "Кабинет",
+          "my_transactions": "Мой объявления",
+          "delete_account": "Удалить аккаунт",
+          "help": "Помощь",
+          "logout": "Выйти"
         },
         'ru_KZ': {
           "helloWorld": "Добро пожаловать",
@@ -85,7 +93,11 @@ class Languages extends Translations {
               "By continuing your confirm that you agree \nwith our Term and Condition",
           "otp": "Проверка одноразового пароля",
           "home": "Kettik.kz",
-          "profile": "Кабинет"
+          "profile": "Кабинет",
+          "my_transactions": "Мой объявления",
+          "delete_account": "Удалить аккаунт",
+          "help": "Помощь",
+          "logout": "Выйти"
         },
         'ru_RU': {
           "helloWorld": "Добро пожаловать",
@@ -118,7 +130,11 @@ class Languages extends Translations {
           "from": "ОТКУДА:",
           "to": "КУДА:",
           "wight": "ВEC ",
-          "send_request": "Позвонить"
+          "send_request": "Позвонить",
+          "my_transactions": "Мой объявления",
+          "delete_account": "Удалить аккаунт",
+          "help": "Помощь",
+          "logout": "Выйти"
         }
       };
 }

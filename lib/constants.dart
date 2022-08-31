@@ -13,7 +13,7 @@ const kTextColor = Color(0xFF757575);
 const kTabColor = Color.fromARGB(15, 31, 16, 128);
 const kLightGrey = Color(0xfff1f3f5);
 const kAnimationDuration = Duration(milliseconds: 200);
-const kPrimaryBtnColor = Color(0xffFFBD09);
+const kPrimaryBtnColor = Color(0xfff79932);
 
 final headingStyle = TextStyle(
   fontSize: 28.h,

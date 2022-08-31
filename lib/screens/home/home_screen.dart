@@ -8,9 +8,6 @@ import 'package:kettik/screens/filter/filter_binding.dart';
 import 'package:kettik/screens/filter/filter_screen.dart';
 import 'package:kettik/screens/home/components/folding_request_card.dart';
 import 'package:kettik/screens/transaction/transaction_screen.dart';
-import '../home/components/categories.dart';
-import '../home/components/special_offers.dart';
-import '../home/components/popular_product.dart';
 import 'package:get/get.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -131,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               _openAddTransDialog();
             },
-            tooltip: 'Increment',
+            tooltip: 'Add',
             child: new Icon(Icons.add),
             backgroundColor: kPrimaryBtnColor,
           )),

@@ -94,6 +94,7 @@ class CreateTransactionState extends State<CreateTransactionScreen> {
               ),
             ),
             Column(
+              mainAxisSize: MainAxisSize.max,
               children: [
                 CSCPicker(
                   countrySearchPlaceholder: "Страна",
@@ -215,12 +216,17 @@ class CreateTransactionState extends State<CreateTransactionScreen> {
             SizedBox(
               height: 20.h,
             ),
-            DefaultButton(
-              text: 'Отправить'.tr,
-              press: () {
-                // if all are valid then go to success screen
-                KeyboardUtil.hideKeyboard(context);
-              },
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: DefaultButton(
+                  text: 'Отправить'.tr,
+                  press: () {
+                    // if all are valid then go to success screen
+                    KeyboardUtil.hideKeyboard(context);
+                  },
+                ),
+              ),
             )
           ],
         ),
