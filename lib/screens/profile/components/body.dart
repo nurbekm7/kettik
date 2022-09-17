@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kettik/screens/my_ads/my_ads_screen.dart';
 
 import 'profile_menu.dart';
 import 'profile_pic.dart';
@@ -16,7 +17,7 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "my_transactions".tr,
             icon: "assets/icons/Conversation.svg",
-            press: () => {},
+            press: () => {Get.off(MyAdsScreen())},
           ),
           // ProfileMenu(
           //   text: "Notifications",

@@ -17,7 +17,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 
-class CreateTransactionScreen extends StatefulWidget {
+class CreateRequestScreen extends StatefulWidget {
   final int initialWeight = 0;
   late final List<RequestEntity> requestEntityList = List.empty();
 
@@ -26,29 +26,34 @@ class CreateTransactionScreen extends StatefulWidget {
   // FilterDiolog.edit(this.requestEntityList) : initialWeight = requestEntityList;
 
   @override
-  CreateTransactionState createState() {
+  CreateRequestState createState() {
     // if (requestEntityList != null) {
     //   return new FilterDiologState(requestEntityList.dateTime,
     //       weighEntryToEdit.weight, weighEntryToEdit.note);
     // } else {
-    return new CreateTransactionState(new DateTime.now(), initialWeight, "");
+    return new CreateRequestState();
     // }
   }
 }
 
-class CreateTransactionState extends State<CreateTransactionScreen> {
+class CreateRequestState extends State<CreateRequestScreen> {
+  List<String> list = <String>[
+    'Выберите категорию',
+    'Нужно отправить',
+    'Могу доставить'
+  ];
   DateTime _dateTime = new DateTime.now();
-  int _weight;
-  String _note;
+  late int _weight;
+  String _note = '';
   TextEditingController _textController = new TextEditingController(text: "");
   List<RequestEntity> requestEntityList = List.empty();
 
-  CreateTransactionState(this._dateTime, this._weight, this._note);
+  late String dropdownValue = "Выберите категорию";
 
   PreferredSizeWidget? _createAppBar(BuildContext context) {
     return new AppBar(
       backgroundColor: kPrimaryColor,
-      title: AutoSizeText('Подать объявление'.tr),
+      title: AutoSizeText('create_request'.tr),
       centerTitle: true,
       // actions: [x
       //   new FlatButton(
@@ -82,6 +87,29 @@ class CreateTransactionState extends State<CreateTransactionScreen> {
         padding: const EdgeInsets.all(8.0),
         child: new Column(
           children: [
+            DropdownButton<String>(
+              value: dropdownValue,
+              hint: Text('please_select'.tr),
+              icon: const Icon(Icons.arrow_downward),
+              elevation: 16,
+              style: const TextStyle(color: Colors.deepPurple),
+              underline: Container(
+                height: 2,
+                color: Colors.deepPurpleAccent,
+              ),
+              onChanged: (String? value) {
+                // This is called when the user selects an item.
+                setState(() {
+                  dropdownValue = value!;
+                });
+              },
+              items: list.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(

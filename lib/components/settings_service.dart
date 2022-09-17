@@ -12,6 +12,8 @@ class SettingsService extends GetxService {
   late String userId = '';
   late String localeLangCode = '';
   late Locale locale = Locale('en', 'US');
+  late bool isLoggedIn = false;
+
   //new
   late String userName = '';
   late String phoneNumber = '';
@@ -50,23 +52,9 @@ class SettingsService extends GetxService {
     phoneNumber = _getStorage.read('phoneNumber') ?? '';
   }
 
-  void alterDiologLoginError({required String errorCode}) async {
-    clean();
-    loggedIn = false;
-    await _getStorage.write('login_error', errorCode);
-    await Get.find<AnalyticsService>()
-        .logAnalyticsEvent(logKey: AnalyticsConts.LOGIN_ERROR_SOP3);
-    Get.offAll(() => HomeScreen());
-  }
-
   void onBoarding() async {
     await _getStorage.write('first_run', false);
     firstRun = false;
-  }
-
-  void setEnv({required String env}) async {
-    await _getStorage.write('env', env);
-    env = env;
   }
 
   Future<void> initSharedPrefs() async {

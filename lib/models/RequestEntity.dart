@@ -21,7 +21,7 @@ class RequestEntity {
       required this.user});
 }
 
-List<RequestEntity> demoCarts = [
+List<RequestEntity> demoRequestCarts = [
   RequestEntity(
       id: '0',
       description: '16 августа вылетаю Алматы Дубай возьму посылки',

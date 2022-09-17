@@ -30,7 +30,15 @@ class Languages extends Translations {
           "my_transactions": "Мой объявления",
           "delete_account": "Удалить аккаунт",
           "help": "Помощь",
-          "logout": "Выйти"
+          "logout": "Выйти",
+          "create_request": "Подать объявление",
+          "promo": "Акции",
+          "promo_price": "Цена со скидкой: ",
+          "currency": " \$",
+          "buyer": "Байер: ",
+          "send_request": "Написать",
+          "isender": "Я отправитель",
+          "icourier": "Я курьер",
         },
         'en_US': {
           "helloWorld": "Welcome",
@@ -67,7 +75,15 @@ class Languages extends Translations {
           "my_transactions": "Мой объявления",
           "delete_account": "Удалить аккаунт",
           "help": "Помощь",
-          "logout": "Выйти"
+          "logout": "Выйти",
+          "create_request": "Подать объявление",
+          "promo": "Акции",
+          "promo_price": "Цена со скидкой: ",
+          "currency": " \$",
+          "buyer": "Байер: ",
+          "send_request": "Написать",
+          "isender": "Я отправитель",
+          "icourier": "Я курьер",
         },
         'ru_KZ': {
           "helloWorld": "Добро пожаловать",
@@ -97,7 +113,15 @@ class Languages extends Translations {
           "my_transactions": "Мой объявления",
           "delete_account": "Удалить аккаунт",
           "help": "Помощь",
-          "logout": "Выйти"
+          "logout": "Выйти",
+          "create_request": "Подать объявление",
+          "promo": "Акции",
+          "promo_price": "Цена со скидкой: ",
+          "currency": " \$",
+          "buyer": "Байер: ",
+          "send_request": "Написать",
+          "isender": "Я отправитель",
+          "icourier": "Я курьер",
         },
         'ru_RU': {
           "helloWorld": "Добро пожаловать",
@@ -125,16 +149,23 @@ class Languages extends Translations {
           "phone_verification": "Верификация",
           "sender": "Отправители",
           "courier": "Курьеры",
+          "isender": "Я отправитель",
+          "icourier": "Я курьер",
           "home": "Kettik.kz",
           "profile": "Кабинет",
           "from": "ОТКУДА:",
           "to": "КУДА:",
           "wight": "ВEC ",
-          "send_request": "Позвонить",
+          "send_request": "Написать",
           "my_transactions": "Мой объявления",
           "delete_account": "Удалить аккаунт",
           "help": "Помощь",
-          "logout": "Выйти"
+          "logout": "Выйти",
+          "create_request": "Подать объявление",
+          "promo": "Акции",
+          "promo_price": "Цена со скидкой: ",
+          "currency": " \$",
+          "buyer": "Байер: "
         }
       };
 }

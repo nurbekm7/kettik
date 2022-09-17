@@ -9,34 +9,21 @@ import 'package:kettik/screens/filter/filter_binding.dart';
 import 'package:kettik/screens/filter/filter_screen.dart';
 import 'package:kettik/screens/home/components/folding_promo_card.dart';
 import 'package:kettik/screens/home/components/folding_request_card.dart';
-import 'package:kettik/screens/sign_in/sign_in_screen.dart';
 import 'package:kettik/screens/transaction/create_request_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kettik/constants.dart';
-import 'package:kettik/components/settings_service.dart';
-import 'package:flutter/scheduler.dart';
 
-class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+class MyAdsScreen extends StatefulWidget {
+  MyAdsScreen({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => new _HomeScreenState();
+  _MyAdsScreenState createState() => new _MyAdsScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    print("HomeScreen onInit: ${Get.find<SettingsService>().isLoggedIn}");
-    if (!Get.find<SettingsService>().isLoggedIn) {
-      _openSignInDialog();
-    }
-  }
-
+class _MyAdsScreenState extends State<MyAdsScreen> {
   List<RequestEntity> requestEntityList = demoRequestCarts;
-  List<PromoEntity> promoEntityList = demoCarts;
 
   TextEditingController controller = TextEditingController();
 
@@ -46,68 +33,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return DefaultTabController(
       initialIndex: 0,
-      length: 3,
+      length: 2,
       child: Scaffold(
           appBar: AppBar(
             title: AutoSizeText(
-              'Kettik',
+              'my_transactions'.tr,
               textAlign: TextAlign.center,
             ),
             backgroundColor: kPrimaryColor,
-            actions: <Widget>[
-              IconButton(
-                icon: Image.asset('assets/icons/filter.png'),
-                onPressed: () {
-                  _openDialog();
-                },
-              )
-            ],
+            actions: <Widget>[],
             bottom: TabBar(tabs: [
               Tab(
-                icon: Icon(Icons.production_quantity_limits),
-                child: AutoSizeText('promo'.tr, maxLines: 1),
-              ),
-              Tab(
                 icon: Icon(Icons.post_add),
-                child: AutoSizeText('sender'.tr, maxLines: 1),
+                child: AutoSizeText('isender'.tr),
               ),
               Tab(
                 icon: Icon(FontAwesomeIcons.personWalking),
-                child: AutoSizeText('courier'.tr, maxLines: 1),
+                child: AutoSizeText('icourier'.tr),
               ),
             ]),
           ),
           body: TabBarView(children: [
-            AnimationLimiter(
-              child: ListView.builder(
-                // physics: NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                primary: false,
-                shrinkWrap: true,
-                itemCount: demoCarts.length,
-                itemBuilder: (context, index) {
-                  return AnimationConfiguration.staggeredList(
-                    position: index,
-                    duration: const Duration(milliseconds: 375),
-                    child: SlideAnimation(
-                      // verticalOffset: 50.0,
-                      child: FadeInAnimation(
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.all(8),
-                          child: Container(
-                            // height: 200.h,
-                            // width: _size.width,
-                            // child: RequestCard(requestEntity: demoCarts[index]),
-                            child: FoldingPromoCard(
-                                promoEntity: promoEntityList[index]),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
             AnimationLimiter(
               child: ListView.builder(
                 // physics: NeverScrollableScrollPhysics(),
@@ -169,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             )
           ]),
-          bottomNavigationBar: CustomBottomNavBar(cIndex: 0),
+          bottomNavigationBar: CustomBottomNavBar(cIndex: 1),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: new FloatingActionButton(
@@ -213,17 +159,5 @@ class _HomeScreenState extends State<HomeScreen> {
         requestEntityList.add(requestEntity);
       });
     }
-  }
-
-  Future _openSignInDialog() async {
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      Navigator.of(context).push(MaterialPageRoute<String>(
-          builder: (BuildContext context) {
-            return SignInScreen();
-          },
-          fullscreenDialog: true));
-
-      setState(() {});
-    });
   }
 }

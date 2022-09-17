@@ -4,7 +4,7 @@ import 'package:kettik/components/coustom_bottom_nav_bar.dart';
 import 'package:kettik/enums.dart';
 import 'package:kettik/constants.dart';
 import 'package:kettik/models/RequestEntity.dart';
-import 'package:kettik/screens/transaction/transaction_screen.dart';
+import 'package:kettik/screens/transaction/create_request_screen.dart';
 import 'package:get/get.dart';
 
 import 'components/body.dart';
@@ -42,7 +42,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     RequestEntity? requestEntity =
         await Navigator.of(context).push(new MaterialPageRoute<RequestEntity>(
             builder: (BuildContext context) {
-              return new CreateTransactionScreen();
+              return new CreateRequestScreen();
             },
             fullscreenDialog: true));
     print(requestEntity);

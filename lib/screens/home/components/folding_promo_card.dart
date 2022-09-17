@@ -3,18 +3,21 @@ import 'package:flutter/material.dart';
 
 import 'package:folding_cell/folding_cell.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kettik/models/PromoEntity.dart';
 import 'package:kettik/models/RequestEntity.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:kettik/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shimmer/shimmer.dart';
 
-class FoldingRequestCard extends StatelessWidget {
-  final RequestEntity requestEntity;
+class FoldingPromoCard extends StatelessWidget {
+  final PromoEntity promoEntity;
   final _foldingCellKey = GlobalKey<SimpleFoldingCellState>();
   late Size _size;
-  FoldingRequestCard({Key? key, required this.requestEntity}) : super(key: key);
+  FoldingPromoCard({Key? key, required this.promoEntity}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class FoldingRequestCard extends StatelessWidget {
         key: _foldingCellKey,
         frontWidget: frontWidget(),
         innerWidget: innerTopWidget(),
-        cellSize: Size(MediaQuery.of(context).size.width.w, 140.h),
+        cellSize: Size(MediaQuery.of(context).size.width, 140),
         padding: EdgeInsets.all(5.0),
         animationDuration: Duration(milliseconds: 300),
         borderRadius: 3,
@@ -44,11 +47,11 @@ class FoldingRequestCard extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Expanded(
-              flex: 2,
+              flex: 1,
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.0),
-                  color: Color(0xff5a4d94),
+                  color: Color(0xffdfd4f4),
                 ),
                 child: Container(
                   child: Row(
@@ -57,33 +60,25 @@ class FoldingRequestCard extends StatelessWidget {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Container(
-                              child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: AutoSizeText(
-                              requestEntity.price.toString() + "currency".tr,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20.0),
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              width: 110.w,
+                              height: 120.h,
+                              imageUrl: promoEntity.imageUrl,
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) => Center(
+                                      child: Shimmer.fromColors(
+                                child: Container(),
+                                baseColor: Color.fromRGBO(224, 224, 224, 1),
+                                highlightColor:
+                                    Color.fromRGBO(245, 245, 245, 1),
+                              )),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
                             ),
-                          )),
-                          Container(
-                              child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: AutoSizeText(
-                              'До',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 20.0),
-                            ),
-                          )),
-                          Container(
-                              child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: AutoSizeText(
-                              requestEntity.toTime,
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 20.0),
-                            ),
-                          )),
+                          ),
                         ],
                       ),
                     ],
@@ -92,7 +87,7 @@ class FoldingRequestCard extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 3,
+              flex: 2,
               child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.0),
@@ -106,54 +101,35 @@ class FoldingRequestCard extends StatelessWidget {
                             Container(
                                 child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Icon(FontAwesomeIcons.locationDot,
-                                  color: kPrimaryColor, size: 20.0),
-                            )),
-                            Expanded(
-                                child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: AutoSizeText(requestEntity.from,
+                              child: AutoSizeText(promoEntity.name,
                                   style: TextStyle(
-                                    color: Colors.black,
+                                    color: kTextColor,
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.bold,
                                   )),
                             )),
-                            Expanded(
-                              // width: _size.width * 0.35,
-                              child: AutoSizeText(
-                                  'wight'.tr +
-                                      requestEntity.weight.toString() +
-                                      " kg",
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 16.sp)),
-                            ),
                           ],
                         ),
-                        Container(
-                            child: Row(
-                          children: <Widget>[
-                            Container(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(FontAwesomeIcons.locationDot,
-                                    color: kPrimaryColor, size: 20.0),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: AutoSizeText(requestEntity.to,
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: <Widget>[
+                              AutoSizeText("promo_price".tr,
+                                  style: TextStyle(
+                                      color: kTextColor, fontSize: 16.0.sp)),
+                              Flexible(
+                                child: AutoSizeText(
+                                    promoEntity.price.toString() +
+                                        "currency".tr,
                                     style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16.0.sp,
+                                      color: kTextColor,
+                                      fontSize: 18.0.sp,
                                       fontWeight: FontWeight.bold,
                                     )),
-                              ),
-                            )
-                          ],
-                        )),
+                              )
+                            ],
+                          ),
+                        ),
                       ])),
             ),
           ],
@@ -180,7 +156,7 @@ class FoldingRequestCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: AutoSizeText('# ' + requestEntity.id,
+                        child: AutoSizeText('# ' + promoEntity.id,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16.0,
@@ -191,14 +167,14 @@ class FoldingRequestCard extends StatelessWidget {
                         width: _size.width * 0.5,
                       ),
                       Expanded(
-                        child: AutoSizeText(
-                            requestEntity.price.toString() + "currency".tr,
-                            maxLines: 1,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                            )),
+                        child:
+                            AutoSizeText(promoEntity.price.toString() + ' USD',
+                                maxLines: 1,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                )),
                       ),
                     ],
                   ),
@@ -221,9 +197,10 @@ class FoldingRequestCard extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: AutoSizeText(
-                            requestEntity.user.firstName +
+                            "buyer".tr +
+                                promoEntity.user.firstName +
                                 ' ' +
-                                requestEntity.user.lastName,
+                                promoEntity.user.lastName,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20.sp,
@@ -283,38 +260,12 @@ class FoldingRequestCard extends StatelessWidget {
                             style:
                                 TextStyle(color: kTextColor, fontSize: 14.0)),
                         SizedBox(height: 5),
-                        AutoSizeText(requestEntity.from,
+                        AutoSizeText(promoEntity.from,
                             style:
                                 TextStyle(color: Colors.black, fontSize: 14.0)),
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        AutoSizeText('to'.tr,
-                            style: TextStyle(
-                                color: kTextColor, fontSize: 14.0.sp)),
-                        SizedBox(height: 5),
-                        AutoSizeText(requestEntity.to,
-                            style: TextStyle(
-                                color: Colors.black, fontSize: 14.0.sp))
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        AutoSizeText('wight'.tr,
-                            style: TextStyle(
-                                color: kTextColor, fontSize: 14.0.sp)),
-                        SizedBox(height: 5),
-                        AutoSizeText(requestEntity.weight.toString() + " kg",
-                            style: TextStyle(
-                                color: Colors.black, fontSize: 14.0.sp))
-                      ],
-                    ),
-                  )
                 ],
               ),
               Divider(),
@@ -322,7 +273,7 @@ class FoldingRequestCard extends StatelessWidget {
               //Priority
               Container(
                 padding: EdgeInsets.all(10),
-                child: AutoSizeText(requestEntity.description,
+                child: AutoSizeText(promoEntity.description,
                     style: TextStyle(color: Colors.black, fontSize: 18.0.sp)),
               ),
 
@@ -332,7 +283,7 @@ class FoldingRequestCard extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     launch('https://api.whatsapp.com/send/?phone=' +
-                        requestEntity.user.phoneNumber);
+                        promoEntity.user.phoneNumber);
                   }, //TODO show phone number
                   child: AutoSizeText(
                     'send_request'.tr,
