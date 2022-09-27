@@ -220,10 +220,7 @@ class FoldingRequestCard extends StatelessWidget {
                     Container(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: AutoSizeText(
-                            requestEntity.user.firstName +
-                                ' ' +
-                                requestEntity.user.lastName,
+                        child: AutoSizeText(requestEntity.user.name!,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20.sp,

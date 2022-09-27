@@ -1,4 +1,4 @@
-import 'package:kettik/models/User.dart';
+import 'package:kettik/models/UserProfile.dart';
 import 'package:kettik/models/UserReview.dart';
 
 //Request to send smth
@@ -8,7 +8,7 @@ class PromoEntity {
   final String imageUrl;
   final String description, from, until;
   final double price;
-  final User user;
+  final UserProfile user;
 
   PromoEntity(
       {required this.id,
@@ -31,15 +31,11 @@ List<PromoEntity> demoCarts = [
       from: 'ОАЭ',
       until: '17.08.2022',
       price: 1000.0,
-      user: User(
-          id: 0,
-          firstName: 'Timur',
-          lastName: 'Rodriges',
-          phoneNumber: '+971551141955',
-          rating: 3.0,
-          userReview: [
-            UserReview(id: 0, text: 'init', date: '01.01.2022', rating: 5.0)
-          ])),
+      user: UserProfile(
+        id: "0",
+        name: 'Timur',
+        phoneNumber: '+971551141955',
+      )),
   PromoEntity(
       id: '1',
       name: 'Iphone 14 Pro Max',
@@ -49,13 +45,9 @@ List<PromoEntity> demoCarts = [
       from: 'ОАЭ',
       until: '17.08.2022',
       price: 5020.0,
-      user: User(
-          id: 0,
-          firstName: 'Amir',
-          lastName: 'Zhakypov',
-          phoneNumber: '+971551141955',
-          rating: 1.0,
-          userReview: [
-            UserReview(id: 0, text: 'init', date: '01.01.2022', rating: 5.0)
-          ])),
+      user: UserProfile(
+        id: "0",
+        name: 'Amir',
+        phoneNumber: '+971551141955',
+      )),
 ];

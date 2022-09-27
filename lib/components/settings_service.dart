@@ -1,55 +1,63 @@
+import 'dart:convert';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kettik/components/analytics_controller.dart';
+import 'package:kettik/models/UserProfile.dart';
 import 'package:kettik/screens/home/home_screen.dart';
+import 'dart:developer' as debug;
+
+import 'package:kettik/screens/sign_up/sign_up_screen.dart';
 
 class SettingsService extends GetxService {
   late GetStorage _getStorage = GetStorage();
   late bool firstRun = true;
-  late bool loggedIn = false;
-  late String userToken = '';
-  late String userId = '';
   late String localeLangCode = '';
-  late Locale locale = Locale('en', 'US');
-  late bool isLoggedIn = false;
+  Locale locale = Locale('en', 'US');
+  late bool isLoggedIn;
+  UserProfile? userProfile;
+  User? userFirebsase;
 
-  //new
-  late String userName = '';
-  late String phoneNumber = '';
-
-  // late String reportFilePath = '';
-  late String env = '';
   @override
   void onInit() {
     super.onInit();
   }
 
+  void login({userProfileParam: UserProfile}) async {
+    isLoggedIn = true;
+    await _getStorage.write('logged_in', isLoggedIn);
+    await _getStorage.write('userProfile', jsonEncode(userProfileParam));
+    debug.log(
+        "Login userProfile from storage: ${_getStorage.read('userProfile')}");
+    userProfile = userProfileParam;
+
+    await Get.find<AnalyticsService>()
+        .logAnalyticsEvent(logKey: AnalyticsConts.LOGIN_LOG);
+  }
+
+  void signUp({userProfileParam: UserProfile}) async {
+    isLoggedIn = true;
+    await _getStorage.write('logged_in', isLoggedIn);
+    await _getStorage.write('userProfile', jsonEncode(userProfileParam));
+    userProfile = userProfileParam;
+    await Get.find<AnalyticsService>()
+        .logAnalyticsEvent(logKey: AnalyticsConts.SIGN_UP_COMPLETED_LOG);
+  }
+
   void logout() async {
-    env = _getStorage.read('env');
-    await _getStorage.erase();
-    await _getStorage.write('env', env);
-    loggedIn = false;
-    firstRun = _getStorage.read('first_run') ?? true;
-    userId = _getStorage.read('userId') ?? '';
-    userToken = _getStorage.read('userToken') ?? '';
-    userName = _getStorage.read('userName') ?? '';
-    phoneNumber = _getStorage.read('phoneNumber') ?? '';
+    clean();
     await Get.find<AnalyticsService>()
         .logAnalyticsEvent(logKey: AnalyticsConts.LOGOUT_LOG);
     Get.offAll(() => HomeScreen());
   }
 
   void clean() async {
-    env = _getStorage.read('env');
     await _getStorage.erase();
-    await _getStorage.write('env', env);
-    loggedIn = false;
+    userProfile = null;
+    isLoggedIn = false;
     firstRun = _getStorage.read('first_run') ?? true;
-    userId = _getStorage.read('userId') ?? '';
-    userToken = _getStorage.read('userToken') ?? '';
-    userName = _getStorage.read('userName') ?? '';
-    phoneNumber = _getStorage.read('phoneNumber') ?? '';
   }
 
   void onBoarding() async {
@@ -58,16 +66,13 @@ class SettingsService extends GetxService {
   }
 
   Future<void> initSharedPrefs() async {
-    print("logged_in: " + _getStorage.read('logged_in').toString());
     _getStorage = GetStorage();
     firstRun = _getStorage.read('first_run') ?? true;
-    loggedIn = _getStorage.read('logged_in') ?? false;
-    userId = _getStorage.read('userId') ?? '';
-    userToken = _getStorage.read('userToken') ?? '';
-    userName = _getStorage.read('userName') ?? '';
-    phoneNumber = _getStorage.read('phoneNumber') ?? '';
+    isLoggedIn = _getStorage.read('logged_in') ?? false;
     localeLangCode = _getStorage.read('locale') ?? 'en';
-    env = _getStorage.read('env') ?? '';
+    userProfile = _getStorage.read('userProfile') != null
+        ? UserProfile.fromJson(jsonDecode(_getStorage.read('userProfile')))
+        : null;
     locale = constructLocale(langCode: localeLangCode);
   }
 
@@ -75,14 +80,11 @@ class SettingsService extends GetxService {
     switch (langCode) {
       case 'en':
         return Locale('en', 'US');
+      case 'ru':
+        return Locale('ru', 'RU');
       default:
         return Locale('en', 'US');
     }
-  }
-
-  Future<void> saveUserToken({required String newToken}) async {
-    await _getStorage.write('userToken', newToken);
-    userToken = _getStorage.read('userToken') ?? '';
   }
 
   Future<void> saveUserLocale({required String newLocale}) async {
@@ -91,25 +93,11 @@ class SettingsService extends GetxService {
     locale = constructLocale(langCode: localeLangCode);
   }
 
-  Future<void> saveUserId({required String newId}) async {
-    await _getStorage.write('userId', newId);
-    userId = _getStorage.read('userId') ?? '';
-  }
-
   Future<void> hasLoggedIn() async {
     await _getStorage.write('logged_in', true);
   }
 
   Future<void> hasLoggedOut() async {
     await _getStorage.write('logged_in', false);
-  }
-
-  Future<void> loggedInType({required String loggedInType}) async {
-    await _getStorage.write('logged_in_type', loggedInType);
-  }
-
-  Future<void> savePhoneNumber({required String update}) async {
-    await _getStorage.write('phoneNumber', update);
-    phoneNumber = _getStorage.read('phoneNumber') ?? '';
   }
 }

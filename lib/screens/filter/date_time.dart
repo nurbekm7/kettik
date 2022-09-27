@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
+import 'package:get/get.dart';
+import 'package:kettik/components/settings_service.dart';
 
 class DateTimeItem extends StatelessWidget {
   DateTimeItem({Key? key, DateTime? dateTime, required this.onChanged})
@@ -48,7 +49,7 @@ class DateTimeItem extends StatelessWidget {
     DateTime? dateTimePicked = await showDatePicker(
         context: context,
         initialDate: date,
-        locale: const Locale("ru", "RU"),
+        locale: Get.find<SettingsService>().locale,
         firstDate: date.subtract(const Duration(days: 20000)),
         lastDate: new DateTime.now());
 

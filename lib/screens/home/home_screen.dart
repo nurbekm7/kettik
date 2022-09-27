@@ -26,15 +26,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    print("HomeScreen onInit: ${Get.find<SettingsService>().isLoggedIn}");
-    if (!Get.find<SettingsService>().isLoggedIn) {
-      _openSignInDialog();
-    }
-  }
-
   List<RequestEntity> requestEntityList = demoRequestCarts;
   List<PromoEntity> promoEntityList = demoCarts;
 
@@ -43,14 +34,17 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-
+    String kettikName = (Get.find<SettingsService>().userProfile == null
+        ? ""
+        : Get.find<SettingsService>().userProfile!.name ??
+            Get.find<SettingsService>().userProfile!.phoneNumber);
     return DefaultTabController(
       initialIndex: 0,
       length: 3,
       child: Scaffold(
           appBar: AppBar(
             title: AutoSizeText(
-              'Kettik',
+              kettikName + ' Kettik',
               textAlign: TextAlign.center,
             ),
             backgroundColor: kPrimaryColor,
@@ -58,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
               IconButton(
                 icon: Image.asset('assets/icons/filter.png'),
                 onPressed: () {
-                  _openDialog();
+                  _openFilterDialog();
                 },
               )
             ],
@@ -174,7 +168,11 @@ class _HomeScreenState extends State<HomeScreen> {
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: new FloatingActionButton(
             onPressed: () {
-              _openAddTransDialog();
+              if (!Get.find<SettingsService>().isLoggedIn) {
+                _openSignInDialog();
+              } else {
+                _openAddTransDialog();
+              }
             },
             tooltip: 'Add',
             child: new Icon(Icons.add),
@@ -183,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future _openDialog() async {
+  Future _openFilterDialog() async {
     RequestEntity? requestEntity =
         await Navigator.of(context).push(new MaterialPageRoute<RequestEntity>(
             builder: (BuildContext context) {

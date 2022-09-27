@@ -1,23 +1,33 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'package:folding_cell/folding_cell.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kettik/components/settings_service.dart';
 import 'package:kettik/models/PromoEntity.dart';
-import 'package:kettik/models/RequestEntity.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:kettik/constants.dart';
+import 'package:kettik/screens/sign_in/sign_in_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 
-class FoldingPromoCard extends StatelessWidget {
+class FoldingPromoCard extends StatefulWidget {
+  FoldingPromoCard({Key? key, required this.promoEntity}) : super(key: key);
+  final PromoEntity promoEntity;
+
+  @override
+  _FoldingPromoCardState createState() =>
+      new _FoldingPromoCardState(promoEntity: promoEntity);
+}
+
+class _FoldingPromoCardState extends State<FoldingPromoCard> {
   final PromoEntity promoEntity;
   final _foldingCellKey = GlobalKey<SimpleFoldingCellState>();
   late Size _size;
-  FoldingPromoCard({Key? key, required this.promoEntity}) : super(key: key);
+  _FoldingPromoCardState({required this.promoEntity});
 
   @override
   Widget build(BuildContext context) {
@@ -196,11 +206,7 @@ class FoldingPromoCard extends StatelessWidget {
                     Container(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: AutoSizeText(
-                            "buyer".tr +
-                                promoEntity.user.firstName +
-                                ' ' +
-                                promoEntity.user.lastName,
+                        child: AutoSizeText("buyer".tr + promoEntity.user.name!,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20.sp,
@@ -282,8 +288,12 @@ class FoldingPromoCard extends StatelessWidget {
                 width: _size.width,
                 child: ElevatedButton(
                   onPressed: () {
-                    launch('https://api.whatsapp.com/send/?phone=' +
-                        promoEntity.user.phoneNumber);
+                    if (!Get.find<SettingsService>().isLoggedIn) {
+                      _openSignInDialog();
+                    } else {
+                      launch('https://api.whatsapp.com/send/?phone=' +
+                          promoEntity.user.phoneNumber);
+                    }
                   }, //TODO show phone number
                   child: AutoSizeText(
                     'send_request'.tr,
@@ -297,5 +307,17 @@ class FoldingPromoCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future _openSignInDialog() async {
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      Navigator.of(context).push(MaterialPageRoute<String>(
+          builder: (BuildContext context) {
+            return SignInScreen();
+          },
+          fullscreenDialog: true));
+
+      setState(() {});
+    });
   }
 }

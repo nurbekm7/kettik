@@ -4,8 +4,11 @@ import 'package:kettik/components/coustom_bottom_nav_bar.dart';
 import 'package:kettik/enums.dart';
 import 'package:kettik/constants.dart';
 import 'package:kettik/models/RequestEntity.dart';
+import 'package:kettik/screens/sign_in/sign_in_screen.dart';
 import 'package:kettik/screens/transaction/create_request_screen.dart';
 import 'package:get/get.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:kettik/components/settings_service.dart';
 
 import 'components/body.dart';
 
@@ -18,6 +21,17 @@ class ProfileScreen extends StatefulWidget {
 
 class ProfileScreenState extends State<ProfileScreen> {
   static String routeName = "/profile";
+
+  @override
+  void initState() {
+    super.initState();
+    print(
+        "ProfileScreenState onInit: ${Get.find<SettingsService>().isLoggedIn}");
+    if (!Get.find<SettingsService>().isLoggedIn) {
+      _openSignInDialog();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,5 +66,17 @@ class ProfileScreenState extends State<ProfileScreen> {
         // requestEntityList.add(requestEntity);
       });
     }
+  }
+
+  Future _openSignInDialog() async {
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      Navigator.of(context).push(MaterialPageRoute<String>(
+          builder: (BuildContext context) {
+            return SignInScreen();
+          },
+          fullscreenDialog: true));
+
+      setState(() {});
+    });
   }
 }

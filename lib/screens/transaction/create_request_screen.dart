@@ -2,12 +2,10 @@ import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:kettik/components/default_button.dart';
 import 'package:kettik/helper/keyboard.dart';
 import 'package:kettik/models/RequestEntity.dart';
 import 'package:kettik/screens/filter/date_time.dart';
-import 'package:meta/meta.dart';
 import 'package:get/get.dart';
 import 'package:kettik/constants.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -15,7 +13,6 @@ import 'package:csc_picker/csc_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart';
-import 'dart:convert';
 
 class CreateRequestScreen extends StatefulWidget {
   final int initialWeight = 0;
@@ -37,34 +34,20 @@ class CreateRequestScreen extends StatefulWidget {
 }
 
 class CreateRequestState extends State<CreateRequestScreen> {
-  List<String> list = <String>[
-    'Выберите категорию',
-    'Нужно отправить',
-    'Могу доставить'
-  ];
+  List<String> list = <String>['ihint'.tr, 'isender'.tr, 'icourier'.tr];
   DateTime _dateTime = new DateTime.now();
   late int _weight;
   String _note = '';
   TextEditingController _textController = new TextEditingController(text: "");
   List<RequestEntity> requestEntityList = List.empty();
 
-  late String dropdownValue = "Выберите категорию";
+  late String dropdownReqTypeValue = 'ihint'.tr;
 
   PreferredSizeWidget? _createAppBar(BuildContext context) {
     return new AppBar(
       backgroundColor: kPrimaryColor,
       title: AutoSizeText('create_request'.tr),
       centerTitle: true,
-      // actions: [x
-      //   new FlatButton(
-      //     onPressed: () {
-      //       Navigator.of(context).pop(requestEntityList);
-      //     },
-      //     child: new AutoSizeText(
-      //       'SAVE',
-      //     ),
-      //   ),
-      // ],
     );
   }
 
@@ -88,7 +71,7 @@ class CreateRequestState extends State<CreateRequestScreen> {
         child: new Column(
           children: [
             DropdownButton<String>(
-              value: dropdownValue,
+              value: dropdownReqTypeValue,
               hint: Text('please_select'.tr),
               icon: const Icon(Icons.arrow_downward),
               elevation: 16,
@@ -100,7 +83,7 @@ class CreateRequestState extends State<CreateRequestScreen> {
               onChanged: (String? value) {
                 // This is called when the user selects an item.
                 setState(() {
-                  dropdownValue = value!;
+                  dropdownReqTypeValue = value!;
                 });
               },
               items: list.map<DropdownMenuItem<String>>((String value) {
@@ -125,22 +108,22 @@ class CreateRequestState extends State<CreateRequestScreen> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 CSCPicker(
-                  countrySearchPlaceholder: "Страна",
-                  countryDropdownLabel: "Страна",
+                  countrySearchPlaceholder: "country".tr,
+                  countryDropdownLabel: "country".tr,
                   onCountryChanged: (value) {
                     setState(() {
                       countryValue = value;
                     });
                   },
-                  stateSearchPlaceholder: "Область",
-                  stateDropdownLabel: "Область",
+                  stateSearchPlaceholder: "region".tr,
+                  stateDropdownLabel: "region".tr,
                   onStateChanged: (value) {
                     setState(() {
                       stateValue = value;
                     });
                   },
-                  citySearchPlaceholder: "Город",
-                  cityDropdownLabel: "Город",
+                  citySearchPlaceholder: "city".tr,
+                  cityDropdownLabel: "city".tr,
                   onCityChanged: (value) {
                     setState(() {
                       cityValue = value;
@@ -164,22 +147,22 @@ class CreateRequestState extends State<CreateRequestScreen> {
             Column(
               children: [
                 CSCPicker(
-                  countrySearchPlaceholder: "Страна",
-                  countryDropdownLabel: "Страна",
+                  countrySearchPlaceholder: "country".tr,
+                  countryDropdownLabel: "country".tr,
                   onCountryChanged: (value) {
                     setState(() {
                       countryValue = value;
                     });
                   },
-                  stateSearchPlaceholder: "Область",
-                  stateDropdownLabel: "Область",
+                  stateSearchPlaceholder: "region".tr,
+                  stateDropdownLabel: "region".tr,
                   onStateChanged: (value) {
                     setState(() {
                       stateValue = value;
                     });
                   },
-                  citySearchPlaceholder: "Город",
-                  cityDropdownLabel: "Город",
+                  citySearchPlaceholder: "city".tr,
+                  cityDropdownLabel: "city".tr,
                   onCityChanged: (value) {
                     setState(() {
                       cityValue = value;
@@ -205,7 +188,7 @@ class CreateRequestState extends State<CreateRequestScreen> {
               ),
               title: new TextField(
                 decoration: new InputDecoration(
-                  hintText: 'Вес',
+                  hintText: 'weight'.tr,
                 ),
                 controller: _textController,
                 keyboardType: TextInputType.number,
@@ -220,7 +203,7 @@ class CreateRequestState extends State<CreateRequestScreen> {
               leading: new Icon(Icons.money, color: Colors.grey[500]),
               title: new TextField(
                 decoration: new InputDecoration(
-                  hintText: 'Цена',
+                  hintText: 'price'.tr,
                 ),
                 controller: _textController,
                 keyboardType: TextInputType.number,
@@ -235,7 +218,7 @@ class CreateRequestState extends State<CreateRequestScreen> {
               leading: new Icon(Icons.speaker_notes, color: Colors.grey[500]),
               title: new TextField(
                 decoration: new InputDecoration(
-                  hintText: 'Описание',
+                  hintText: 'description'.tr,
                 ),
                 controller: _textController,
                 onChanged: (value) => _note = value,
@@ -248,7 +231,7 @@ class CreateRequestState extends State<CreateRequestScreen> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: DefaultButton(
-                  text: 'Отправить'.tr,
+                  text: 'send'.tr,
                   press: () {
                     // if all are valid then go to success screen
                     KeyboardUtil.hideKeyboard(context);

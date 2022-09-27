@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAeCweON-Cxc1796CiYdm6ZVzVA4XkYDm8',
-    appId: '1:132470415583:android:2c6f5864c0e75709ba496a',
+    appId: '1:132470415583:android:eeed3ac8ba77891eba496a',
     messagingSenderId: '132470415583',
     projectId: 'kettik-19d03',
     storageBucket: 'kettik-19d03.appspot.com',
@@ -59,11 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDqnpIXdAu6XCNeFdKwWvVvQxWCLvc9eBY',
-    appId: '1:132470415583:ios:fbdaf672958f322dba496a',
+    appId: '1:132470415583:ios:40c24b1b9af5eb83ba496a',
     messagingSenderId: '132470415583',
     projectId: 'kettik-19d03',
     storageBucket: 'kettik-19d03.appspot.com',
-    iosClientId: '132470415583-3snsvdubc1pdpi0rsh56tai3thuupgne.apps.googleusercontent.com',
-    iosBundleId: 'com.example.shopApp',
+    androidClientId: '132470415583-4qp25ob7g3eod2oel8113ahh5cjnmfg7.apps.googleusercontent.com',
+    iosClientId: '132470415583-qi8qlga777pqc368pd9qbsf3tg8iq7fm.apps.googleusercontent.com',
+    iosBundleId: 'kz.kettik',
   );
 }

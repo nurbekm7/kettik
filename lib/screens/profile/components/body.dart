@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kettik/components/settings_service.dart';
 import 'package:kettik/screens/my_ads/my_ads_screen.dart';
 
 import 'profile_menu.dart';
@@ -37,7 +38,9 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "logout".tr,
             icon: "assets/icons/Log out.svg",
-            press: () {},
+            press: () {
+              Get.find<SettingsService>().logout();
+            },
           ),
         ],
       ),

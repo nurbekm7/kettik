@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kettik/constants.dart';
 import 'package:kettik/screens/sign_in/sign_in_screen.dart';
 import 'package:get/get.dart';
-import '../sign_in/sign_in_binding.dart';
 // This is the best practice
 import 'components/splash_content.dart';
 import '../../../components/default_button.dart';

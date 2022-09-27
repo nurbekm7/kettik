@@ -24,7 +24,7 @@ class Languages extends Translations {
           "register_account_desc":
               "Complete your details or continue \nwith social media",
           "terms_and_condition":
-              "By continuing your confirm that you agree \nwith our Term and Condition",
+              "By continuing your confirm that you agree \nwith our Term and Condition & Privacy Policy",
           "home": "Kettik.kz",
           "profile": "Кабинет",
           "my_transactions": "Мой объявления",
@@ -39,6 +39,17 @@ class Languages extends Translations {
           "send_request": "Написать",
           "isender": "Я отправитель",
           "icourier": "Я курьер",
+          "ihint": "Выберите тип",
+          "country": "Страна",
+          "region": "Область",
+          "city": "Город",
+          "weight": "Вес",
+          "price": "Цена",
+          "description": "Описание",
+          "send": "Отправить",
+          "name_label": "Ваше имя ",
+          "name_hint": "Имя Фамилия",
+          "continue": "Продолжить"
         },
         'en_US': {
           "helloWorld": "Welcome",
@@ -58,14 +69,13 @@ class Languages extends Translations {
           "dont_have_an_account": "Don’t have an account?",
           "sign_up": "Sign Up",
           "register_account": "Register Account",
-          "register_account_desc":
-              "Complete your details or continue \nwith social media",
+          "register_account_desc": "Чтобы продолжить заполните все поля",
           "terms_and_condition":
-              "By continuing your confirm that you agree \nwith our Term and Condition",
+              "By continuing your confirm that you agree \nwith our Term and Condition & Privacy Policy",
           "otp": "OTP Verification",
           "phone_verification": "Phone Verification",
           "we_have_sent_code":
-              "We have sent SMS with One Time Password code to you",
+              "We have sent SMS with One Time Password code to ",
           "enter_code_below": "Enter OTP code below",
           "next": "Next",
           "did_not_get_the_code": "Didn\'t get the code? ",
@@ -84,10 +94,21 @@ class Languages extends Translations {
           "send_request": "Написать",
           "isender": "Я отправитель",
           "icourier": "Я курьер",
+          "ihint": "Выберите тип",
+          "country": "Страна",
+          "region": "Область",
+          "city": "Город",
+          "weight": "Вес",
+          "price": "Цена",
+          "description": "Описание",
+          "send": "Отправить",
+          "name_label": "Ваше имя ",
+          "name_hint": "Имя Фамилия",
+          "continue": "Продолжить"
         },
         'ru_KZ': {
           "helloWorld": "Добро пожаловать",
-          "sign_in_body": "Введите ваш номер телефона",
+          "sign_in_body": "Введите ваш номер телефона WhatsApp",
           "introTitle1": "Добро пожаловать в Kettik App !",
           "introTitle2":
               "Мы помогаем людям найти друг друга \n Тех кому нужно что то срочно отправить и тех кто готов на этом заработать",
@@ -106,7 +127,7 @@ class Languages extends Translations {
           "register_account_desc":
               "Complete your details or continue \nwith social media",
           "terms_and_condition":
-              "By continuing your confirm that you agree \nwith our Term and Condition",
+              "By continuing your confirm that you agree \nwith our Term and Condition & Privacy Policy",
           "otp": "Проверка одноразового пароля",
           "home": "Kettik.kz",
           "profile": "Кабинет",
@@ -122,6 +143,17 @@ class Languages extends Translations {
           "send_request": "Написать",
           "isender": "Я отправитель",
           "icourier": "Я курьер",
+          "ihint": "Выберите тип",
+          "country": "Страна",
+          "region": "Область",
+          "city": "Город",
+          "weight": "Вес",
+          "price": "Цена",
+          "description": "Описание",
+          "send": "Отправить",
+          "name_label": "Ваше имя ",
+          "name_hint": "Имя Фамилия",
+          "continue": "Продолжить"
         },
         'ru_RU': {
           "helloWorld": "Добро пожаловать",
@@ -140,11 +172,11 @@ class Languages extends Translations {
           "forgot_password": "Забыл пароль",
           "dont_have_an_account": "У вас нет аккаунта?",
           "sign_up": "Зарегистрироваться",
-          "register_account": "Register Account",
+          "register_account": "Регистрация",
           "register_account_desc":
               "Complete your details or continue \nwith social media",
           "terms_and_condition":
-              "By continuing your confirm that you agree \nwith our Term and Condition",
+              "By continuing your confirm that you agree \nwith our Term and Condition & Privacy Policy",
           "otp": "Проверка одноразового пароля",
           "phone_verification": "Верификация",
           "sender": "Отправители",
@@ -165,7 +197,18 @@ class Languages extends Translations {
           "promo": "Акции",
           "promo_price": "Цена со скидкой: ",
           "currency": " \$",
-          "buyer": "Байер: "
+          "buyer": "Байер: ",
+          "ihint": "Выберите тип",
+          "country": "Страна",
+          "region": "Область",
+          "city": "Город",
+          "weight": "Вес",
+          "price": "Цена",
+          "description": "Описание",
+          "send": "Отправить",
+          "name_label": "Ваше имя ",
+          "name_hint": "Имя Фамилия",
+          "continue": "Продолжить"
         }
       };
 }

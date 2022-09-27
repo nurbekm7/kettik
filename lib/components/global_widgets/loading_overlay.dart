@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:kettik/screens/sign_in/sign_in_controller.dart';
+import 'package:kettik/screens/sign_in/auth_controller.dart';
 
 class LoadingOverlay extends StatelessWidget {
   final dynamic child;

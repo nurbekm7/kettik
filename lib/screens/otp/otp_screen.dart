@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kettik/components/global_widgets/loading_overlay.dart';
-import 'package:kettik/screens/sign_in/sign_in_controller.dart';
+import 'package:kettik/screens/sign_in/auth_controller.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import '../../../components/default_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -79,7 +74,8 @@ class OtpScreen extends GetView<AuthController> {
                                     Padding(
                                       padding: EdgeInsets.only(bottom: 36.0.h),
                                       child: Text(
-                                        'we_have_sent_code'.tr,
+                                        'we_have_sent_code'.tr +
+                                            controller.getPhoneNumber(),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontWeight: FontWeight.w600,

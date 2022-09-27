@@ -4,6 +4,7 @@ import 'package:kettik/components/analytics_controller.dart';
 import 'package:kettik/components/connectivity_controller.dart';
 import 'package:kettik/components/languages.dart';
 import 'package:kettik/components/settings_service.dart';
+import 'package:kettik/dependency_injection.dart';
 import 'package:kettik/routes.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -48,7 +49,7 @@ void main() async {
             Get.find<AnalyticsService>().observer
           ],
           debugShowCheckedModeBanner: false,
-          // initialBinding: SplashBinding(),
+          initialBinding: DependencyInjection(),
           theme: ThemeData(fontFamily: 'Muli'),
           getPages: AppPages.routes,
         );
@@ -67,9 +68,9 @@ Future<void> initServices() async {
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
     await GetStorage.init();
+    await Get.putAsync<AnalyticsService>(() async => AnalyticsService());
     await Get.putAsync<SettingsService>(() async => SettingsService());
     await Get.find<SettingsService>().initSharedPrefs();
-    await Get.putAsync<AnalyticsService>(() async => AnalyticsService());
     final controller =
         Get.put<ConnectivityController>(ConnectivityController());
     controller.initCheckConnectivity();

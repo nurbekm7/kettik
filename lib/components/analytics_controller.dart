@@ -27,6 +27,8 @@ class AnalyticsService extends GetxService {
 }
 
 class AnalyticsConts {
+  static String SIGN_UP_COMPLETED_LOG = 'SIGN_UP_COMPLETED_LOG';
+  static String SIGN_UP_LOG = 'SIGN_UP_LOG';
   static String LOGIN_LOG = 'LOGIN_LOG';
   static String LOGOUT_LOG = 'LOGOUT_LOG';
   static String OPEN_NEWS = 'OPEN_NEWS';

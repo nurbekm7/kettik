@@ -1,8 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:kettik/components/socal_card.dart';
 import 'package:kettik/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:kettik/screens/home/home_screen.dart';
 import 'sign_up_form.dart';
 
 class Body extends StatelessWidget {
@@ -13,38 +15,47 @@ class Body extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
           child: SingleChildScrollView(
             child: Column(
               children: [
+                Container(
+                  padding: const EdgeInsetsDirectional.only(end: 10),
+                  alignment: Alignment.topRight,
+                  child: CloseButton(
+                    onPressed: () {
+                      Get.off(HomeScreen());
+                    },
+                  ),
+                ),
                 SizedBox(height: _size.height * 0.04), // 4%
-                Text('register_account'.tr, style: headingStyle),
-                Text(
+                AutoSizeText('register_account'.tr, style: headingStyle),
+                AutoSizeText(
                   'register_account_desc'.tr,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: _size.height * 0.08),
                 SignUpForm(),
                 SizedBox(height: _size.height * 0.08),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SocalCard(
-                      icon: "assets/icons/google-icon.svg",
-                      press: () {},
-                    ),
-                    SocalCard(
-                      icon: "assets/icons/facebook-2.svg",
-                      press: () {},
-                    ),
-                    SocalCard(
-                      icon: "assets/icons/twitter.svg",
-                      press: () {},
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     SocalCard(
+                //       icon: "assets/icons/google-icon.svg",
+                //       press: () {},
+                //     ),
+                //     SocalCard(
+                //       icon: "assets/icons/facebook-2.svg",
+                //       press: () {},
+                //     ),
+                //     SocalCard(
+                //       icon: "assets/icons/twitter.svg",
+                //       press: () {},
+                //     ),
+                //   ],
+                // ),
                 SizedBox(height: 20.h),
-                Text(
+                AutoSizeText(
                   '',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.caption,
