@@ -167,6 +167,7 @@ class _FoldingPromoCardState extends State<FoldingPromoCard> {
                     children: [
                       Expanded(
                         child: AutoSizeText('# ' + promoEntity.id,
+                            maxLines: 1,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16.0,
@@ -266,7 +267,7 @@ class _FoldingPromoCardState extends State<FoldingPromoCard> {
                             style:
                                 TextStyle(color: kTextColor, fontSize: 14.0)),
                         SizedBox(height: 5),
-                        AutoSizeText(promoEntity.from,
+                        AutoSizeText(promoEntity.from.city,
                             style:
                                 TextStyle(color: Colors.black, fontSize: 14.0)),
                       ],
@@ -291,8 +292,26 @@ class _FoldingPromoCardState extends State<FoldingPromoCard> {
                     if (!Get.find<SettingsService>().isLoggedIn) {
                       _openSignInDialog();
                     } else {
-                      launch('https://api.whatsapp.com/send/?phone=' +
-                          promoEntity.user.phoneNumber);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("alert_title".tr),
+                            content: Text("alert_content".tr),
+                            actions: [
+                              TextButton(
+                                child: Text("OK"),
+                                onPressed: () {
+                                  launch(
+                                      'https://api.whatsapp.com/send/?phone=' +
+                                          promoEntity.user.phoneNumber);
+                                },
+                              ),
+                            ],
+                          );
+                          ;
+                        },
+                      );
                     }
                   }, //TODO show phone number
                   child: AutoSizeText(

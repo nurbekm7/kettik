@@ -46,7 +46,7 @@ class SignInScreen extends GetView<AuthController> {
                         alignment: Alignment.topRight,
                         child: CloseButton(
                           onPressed: () {
-                            Get.off(HomeScreen());
+                            Get.off(() => HomeScreen());
                           },
                         ),
                       ),

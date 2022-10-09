@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:kettik/components/analytics_controller.dart';
 import 'package:kettik/components/connectivity_controller.dart';
 import 'package:kettik/components/languages.dart';
@@ -16,6 +17,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'dart:io';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,18 +35,23 @@ void main() async {
       builder: (BuildContext context, Widget? child) {
         return GetMaterialApp(
           //device prev
-          useInheritedMediaQuery: true,
           builder: DevicePreview.appBuilder,
           //rest
           translations: Languages(),
           locale: Get.find<SettingsService>().locale,
           localizationsDelegates: [GlobalMaterialLocalizations.delegate],
-          supportedLocales: [const Locale('en'), const Locale('ru')],
-          fallbackLocale: const Locale('ru', 'RU'), //todo
+          // supportedLocales: [
+          //   const Locale('en'),
+          //   const Locale('ru'),
+          //   const Locale('kz')
+          // ],
+          fallbackLocale: WidgetsBinding.instance.window.locales.first, //todo
+
           title: "KETTIK",
           initialRoute: Get.find<SettingsService>().firstRun
               ? AppPages.INITIAL
               : AppPages.HOME,
+          // initialRoute: AppPages.THOME,
           navigatorObservers: <NavigatorObserver>[
             Get.find<AnalyticsService>().observer
           ],

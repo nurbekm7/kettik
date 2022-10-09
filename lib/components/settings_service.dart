@@ -9,14 +9,12 @@ import 'package:kettik/models/UserProfile.dart';
 import 'package:kettik/screens/home/home_screen.dart';
 import 'dart:developer' as debug;
 
-import 'package:kettik/screens/sign_up/sign_up_screen.dart';
-
 class SettingsService extends GetxService {
   late GetStorage _getStorage = GetStorage();
   late bool firstRun = true;
   late String localeLangCode = '';
-  Locale locale = Locale('en', 'US');
-  late bool isLoggedIn;
+  Locale locale = WidgetsBinding.instance.window.locales.first;
+  late bool isLoggedIn = false;
   UserProfile? userProfile;
   User? userFirebsase;
 
@@ -73,7 +71,7 @@ class SettingsService extends GetxService {
     userProfile = _getStorage.read('userProfile') != null
         ? UserProfile.fromJson(jsonDecode(_getStorage.read('userProfile')))
         : null;
-    locale = constructLocale(langCode: localeLangCode);
+    // locale = constructLocale(langCode: localeLangCode);
   }
 
   Locale constructLocale({required String langCode}) {

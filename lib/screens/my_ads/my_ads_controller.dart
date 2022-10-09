@@ -1,0 +1,109 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:kettik/components/settings_service.dart';
+import 'package:kettik/models/PromoEntity.dart';
+import 'package:kettik/models/RequestEntity.dart';
+import 'package:kettik/models/UserProfile.dart';
+import 'package:get/get.dart';
+
+class MyAdsController extends GetxController {
+  List<RequestEntity> mySenderEntityList = List.empty();
+  List<RequestEntity> myCourierEntityList = List.empty();
+  List<PromoEntity> promoEntityList = demoCarts;
+  bool showLoadingOverlay = false;
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+  @override
+  void onClose() {}
+
+  void loadData() async {
+    getCourierRequests();
+    getSenderRequests();
+  }
+
+  Future<List<RequestEntity>> toRequestEntity(RequestType requestType,
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> data) async {
+    return data
+        .map((e) => RequestEntity(
+            id: e.id,
+            description: e.data()["description"],
+            price: e.data()["price"],
+            weight: e.data()["weight"],
+            from: Destination(
+                country: e.data()["from"]["country"],
+                region: e.data()["from"]["region"],
+                city: e.data()["from"]["city"]),
+            to: Destination(
+                country: e.data()["to"]["country"],
+                region: e.data()["to"]["region"],
+                city: e.data()["to"]["city"]),
+            deadline: (e.data()["deadline"] as Timestamp).toDate(),
+            user: UserProfile(
+                id: e.data()["user"]["id"],
+                name: e.data()["user"]["name"],
+                phoneNumber: e.data()["user"]["phoneNumber"],
+                photoURL: e.data()["user"]["photoURL"]),
+            requestType: requestType))
+        .toList();
+  }
+
+  void getSenderRequests() async {
+    try {
+      print("getSenderRequests: ");
+      db
+          .collection("sender_transaction")
+          .where("user.phoneNumber",
+              isEqualTo: Get.find<SettingsService>().userProfile!.phoneNumber)
+          .orderBy("deadline")
+          .get()
+          .then(
+        (res) async {
+          mySenderEntityList = res.docs.length == 0
+              ? mySenderEntityList
+              : await toRequestEntity(RequestType.sender, res.docs);
+          print("mySenderEntityList: " + mySenderEntityList.toString());
+        },
+        onError: (e) => print("Error completing: $e"),
+      );
+      update();
+    } catch (e) {
+      print("get_my_sender_requests_exception: " + e.toString());
+
+      Fluttertoast.showToast(msg: 'get_my_sender_requests_exception'.tr);
+    }
+  }
+
+  void getCourierRequests() async {
+    try {
+      db
+          .collection("courier_transaction")
+          .where("user.phoneNumber",
+              isEqualTo: Get.find<SettingsService>().userProfile!.phoneNumber)
+          .orderBy("deadline")
+          .get()
+          .then(
+        (res) async {
+          myCourierEntityList = res.docs.length == 0
+              ? myCourierEntityList
+              : await toRequestEntity(RequestType.courier, res.docs);
+          print("courierEntityList: " + myCourierEntityList.toString());
+        },
+        onError: (e) => print("Error completing: $e"),
+      );
+      update();
+    } catch (e) {
+      print("get_my_courier_requests_exception: " + e.toString());
+      Fluttertoast.showToast(msg: 'get_my_courier_requests_exception'.tr);
+    }
+  }
+}

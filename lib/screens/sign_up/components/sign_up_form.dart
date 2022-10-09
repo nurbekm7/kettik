@@ -85,7 +85,7 @@ class _SignUpFormState extends State<SignUpForm> {
       onSaved: (newValue) => name = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: 'kNamelNullError');
+          removeError(error: kNamelNullError);
           name = value;
         }
         return null;

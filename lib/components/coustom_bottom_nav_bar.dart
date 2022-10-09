@@ -25,12 +25,12 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       switch (pIndex) {
         case 0:
           print('0: ' + index.toString());
-          Get.offAll(HomeScreen());
+          Get.off(() => HomeScreen());
 
           break;
         case 1:
           print('1: ' + index.toString());
-          Get.offAll(ProfileScreen());
+          Get.off(() => ProfileScreen());
           break;
       }
     });

@@ -72,7 +72,7 @@ class FilterController extends GetxController {
           .then((authRes) async {
         _firebaseUser = authRes.user!;
         print(_firebaseUser);
-        Get.offAll(HomeScreen());
+        Get.offAll(() => HomeScreen());
         // final _usersCollection = _firestore.collection('users');
         // _usersCollection.where("phone", isEqualTo: _phoneNumber).get().then(
         //     (value) {

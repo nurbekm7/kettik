@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 const kPrimaryColor = Color(0xff5a4d94);
 const kPrimaryLightColor = Color.fromARGB(255, 89, 81, 122);
@@ -35,6 +36,16 @@ const String kMatchPassError = "Passwords don't match";
 const String kNamelNullError = "Please Enter your name";
 const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kAddressNullError = "Please Enter your address";
+String kWrongRequestType = "kWrongRequestType".tr;
+String kNullCountryField = "kNullCountryField".tr;
+String kNullRegionField = "kNullRegionField".tr;
+String kNullCityField = "kNullCityField".tr;
+String kNullToCountryField = "kNullToCountryField".tr;
+String kNullToRegionField = "kNullToRegionField".tr;
+String kNullToCityField = "kNullToCityField".tr;
+String kNullWeightField = "kNullWeightField".tr;
+String kNullPriceField = "kNullPriceField".tr;
+String kNullNoteField = "kNullNoteField".tr;
 
 final otpInputDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 15.h),

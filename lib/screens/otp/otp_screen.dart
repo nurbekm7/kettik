@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kettik/components/global_widgets/loading_overlay.dart';
+import 'package:kettik/screens/home/home_screen.dart';
 import 'package:kettik/screens/sign_in/auth_controller.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pin_put/pin_put.dart';
@@ -68,6 +69,16 @@ class OtpScreen extends GetView<AuthController> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Container(
+                                      padding:
+                                          const EdgeInsetsDirectional.all(10),
+                                      alignment: Alignment.topRight,
+                                      child: CloseButton(
+                                        onPressed: () {
+                                          Get.off(() => HomeScreen());
+                                        },
+                                      ),
+                                    ),
                                     SizedBox(
                                       height: 24.h,
                                     ),

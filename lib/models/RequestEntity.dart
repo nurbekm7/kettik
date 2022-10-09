@@ -1,35 +1,63 @@
 import 'package:kettik/models/UserProfile.dart';
-import 'package:kettik/models/UserReview.dart';
+import 'package:get/get.dart';
+
+enum RequestType { sender, courier }
+
+class Destination {
+  final String country, region, city;
+
+  Destination(
+      {required this.country, required this.region, required this.city});
+
+  Map<String, dynamic> toJson() =>
+      {'country': country, 'region': region, 'city': city};
+}
 
 //Request to send smth
 class RequestEntity {
-  final String id;
-  final String description, from, to, toTime;
-  final double price, weight;
-  final bool isFavourite;
+  String? id;
+  final String description;
+  final Destination from, to;
+  final DateTime deadline;
+  final int? price;
+  final double? weight;
   final UserProfile user;
+  final RequestType requestType;
 
   RequestEntity(
-      {required this.id,
+      {this.id,
       required this.description,
       required this.from, // departure city
       required this.to, // arrival city
-      required this.toTime, // крайний срок
-      this.price = 0.0,
-      this.weight = 0.0,
-      this.isFavourite = false,
-      required this.user});
+      required this.deadline, // last date
+      this.price,
+      this.weight,
+      required this.user,
+      required this.requestType});
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'description': description,
+        'from': from.toJson(),
+        'to': to.toJson(),
+        'deadline': deadline,
+        'price': price,
+        'weight': weight,
+        'user': user.toJson()
+      };
 }
 
 List<RequestEntity> demoRequestCarts = [
   RequestEntity(
       id: '0',
       description: '16 августа вылетаю Алматы Дубай возьму посылки',
-      from: 'Almaty',
-      to: 'Dubai',
-      toTime: '17.08.2022',
-      price: 1000.0,
+      from:
+          Destination(country: 'Kazakhstan', region: 'Almaty', city: 'Almaty'),
+      to: Destination(country: 'UAE', region: 'Dubai', city: 'Dubai'),
+      deadline: DateTime.parse("2022-10-27 00:00:00.000"),
+      price: 1000,
       weight: 1,
+      requestType: RequestType.sender,
       user: UserProfile(
         id: '0',
         name: 'Timur',
@@ -38,11 +66,13 @@ List<RequestEntity> demoRequestCarts = [
   RequestEntity(
       id: '1',
       description: 'Нужно отправить телефон до 16 августа из Абу Даби в Алматы',
-      from: 'Almaty',
-      to: 'Dubai',
-      toTime: '17.08.2022',
-      price: 5020.0,
+      from:
+          Destination(country: 'Kazakhstan', region: 'Almaty', city: 'Almaty'),
+      to: Destination(country: 'UAE', region: 'Dubai', city: 'Dubai'),
+      deadline: DateTime.parse("2022-10-27 00:00:00.000"),
+      price: 5020,
       weight: 1,
+      requestType: RequestType.sender,
       user: UserProfile(
         id: '0',
         name: 'Amir',
@@ -51,11 +81,13 @@ List<RequestEntity> demoRequestCarts = [
   RequestEntity(
       id: '2',
       description: '11 август вылетаю Дубай Алматы возьму почту или багаж',
-      from: 'Almaty',
-      to: 'Dubai',
-      toTime: '2.08.2022',
-      price: 0.0,
+      from:
+          Destination(country: 'Kazakhstan', region: 'Almaty', city: 'Almaty'),
+      to: Destination(country: 'UAE', region: 'Dubai', city: 'Dubai'),
+      deadline: DateTime.parse("2022-10-27 00:00:00.000"),
+      price: 0,
       weight: 5,
+      requestType: RequestType.sender,
       user: UserProfile(
         id: '0',
         name: 'Nurbek',
@@ -64,11 +96,13 @@ List<RequestEntity> demoRequestCarts = [
   RequestEntity(
       id: '2',
       description: '11 август вылетаю Дубай Алматы возьму почту или багаж',
-      from: 'Almaty',
-      to: 'Dubai',
-      toTime: '2.08.2022',
-      price: 0.0,
+      from:
+          Destination(country: 'Kazakhstan', region: 'Almaty', city: 'Almaty'),
+      to: Destination(country: 'UAE', region: 'Dubai', city: 'Dubai'),
+      deadline: DateTime.parse("2022-10-27 00:00:00.000"),
+      price: 0,
       weight: 5,
+      requestType: RequestType.sender,
       user: UserProfile(
         id: "0",
         name: 'Nurbek',
@@ -77,11 +111,13 @@ List<RequestEntity> demoRequestCarts = [
   RequestEntity(
       id: '2',
       description: '11 август вылетаю Дубай Алматы возьму почту или багаж',
-      from: 'Almaty',
-      to: 'Dubai',
-      toTime: '2.08.2022',
-      price: 0.0,
+      from:
+          Destination(country: 'Kazakhstan', region: 'Almaty', city: 'Almaty'),
+      to: Destination(country: 'UAE', region: 'Dubai', city: 'Dubai'),
+      deadline: DateTime.parse("2022-10-27 00:00:00.000"),
+      price: 0,
       weight: 5,
+      requestType: RequestType.sender,
       user: UserProfile(
         id: "0",
         name: 'Nurbek',
@@ -90,11 +126,13 @@ List<RequestEntity> demoRequestCarts = [
   RequestEntity(
       id: '2',
       description: '11 август вылетаю Дубай Алматы возьму почту или багаж',
-      from: 'Almaty',
-      to: 'Dubai',
-      toTime: '2.08.2022',
-      price: 0.0,
+      from:
+          Destination(country: 'Kazakhstan', region: 'Almaty', city: 'Almaty'),
+      to: Destination(country: 'UAE', region: 'Dubai', city: 'Dubai'),
+      deadline: DateTime.parse("2022-10-27 00:00:00.000"),
+      price: 0,
       weight: 5,
+      requestType: RequestType.sender,
       user: UserProfile(
         id: "0",
         name: 'Nurbek',

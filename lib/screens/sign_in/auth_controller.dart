@@ -96,7 +96,7 @@ class AuthController extends GetxController {
           debug.log('userProfile!.name == null: $userProfile');
           //DO SIGN_UP
           showLoadingOverlay = false;
-          Get.off(SignUpScreen());
+          Get.off(() => SignUpScreen());
         } else {
           //DO SIGN_IN
           showLoadingOverlay = false;
@@ -126,5 +126,10 @@ class AuthController extends GetxController {
         photoURL: _firebaseUser!.photoURL);
     Get.find<SettingsService>().signUp(userProfileParam: userProfile);
     Get.off(() => HomeScreen());
+  }
+
+  void deleteAccount() async {
+    await FirebaseAuth.instance.currentUser!.delete();
+    Get.find<SettingsService>().logout();
   }
 }

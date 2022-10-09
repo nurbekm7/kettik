@@ -31,6 +31,7 @@ class AnalyticsConts {
   static String SIGN_UP_LOG = 'SIGN_UP_LOG';
   static String LOGIN_LOG = 'LOGIN_LOG';
   static String LOGOUT_LOG = 'LOGOUT_LOG';
+  static String DELETE_ACCOUNT = 'DELETE_ACCOUNT';
   static String OPEN_NEWS = 'OPEN_NEWS';
   static String OPEN_MEDIA = 'OPEN_MEDIA';
   static String OPEN_PARTICIPATION_LOCATIONS_LOG =

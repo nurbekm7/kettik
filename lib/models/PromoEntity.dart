@@ -1,3 +1,4 @@
+import 'package:kettik/models/RequestEntity.dart';
 import 'package:kettik/models/UserProfile.dart';
 import 'package:kettik/models/UserReview.dart';
 
@@ -6,8 +7,10 @@ class PromoEntity {
   final String id;
   final String name;
   final String imageUrl;
-  final String description, from, until;
-  final double price;
+  final String description;
+  final Destination from;
+  final DateTime until;
+  final int price;
   final UserProfile user;
 
   PromoEntity(
@@ -17,7 +20,7 @@ class PromoEntity {
       required this.description,
       required this.from, // departure city
       required this.until, // крайний срок
-      this.price = 0.0,
+      this.price = 0,
       required this.user});
 }
 
@@ -28,9 +31,10 @@ List<PromoEntity> demoCarts = [
       imageUrl:
           'https://m-cdn.phonearena.com/images/phones/83636-350/Apple-iPhone-14-Pro-Max.jpg',
       description: '+10% за доставку',
-      from: 'ОАЭ',
-      until: '17.08.2022',
-      price: 1000.0,
+      from:
+          Destination(country: 'Kazakhstan', region: 'Almaty', city: 'Almaty'),
+      until: DateTime.parse("2022-10-27 00:00:00.000"),
+      price: 1000,
       user: UserProfile(
         id: "0",
         name: 'Timur',
@@ -42,9 +46,10 @@ List<PromoEntity> demoCarts = [
       imageUrl:
           'https://m-cdn.phonearena.com/images/phones/83636-350/Apple-iPhone-14-Pro-Max.jpg',
       description: '+10% за доставку',
-      from: 'ОАЭ',
-      until: '17.08.2022',
-      price: 5020.0,
+      from:
+          Destination(country: 'Kazakhstan', region: 'Almaty', city: 'Almaty'),
+      until: DateTime.parse("2022-10-27 00:00:00.000"),
+      price: 1000,
       user: UserProfile(
         id: "0",
         name: 'Amir',

@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:ffi';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 import 'package:kettik/components/settings_service.dart';
@@ -24,6 +27,7 @@ class DateTimeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting();
     return new Row(
       children: <Widget>[
         new Expanded(
@@ -31,7 +35,7 @@ class DateTimeItem extends StatelessWidget {
             onTap: (() => _showDatePicker(context)),
             child: new Padding(
                 padding: new EdgeInsets.symmetric(vertical: 8.0),
-                child: new Text(
+                child: new AutoSizeText(
                     new DateFormat('EEEE, d MMM ', 'ru').format(date))),
           ),
         ),
@@ -51,7 +55,7 @@ class DateTimeItem extends StatelessWidget {
         initialDate: date,
         locale: Get.find<SettingsService>().locale,
         firstDate: date.subtract(const Duration(days: 20000)),
-        lastDate: new DateTime.now());
+        lastDate: date.add(const Duration(days: 999999)));
 
     if (dateTimePicked != null) {
       onChanged(new DateTime(

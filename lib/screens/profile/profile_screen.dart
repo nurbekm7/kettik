@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:kettik/components/coustom_bottom_nav_bar.dart';
-import 'package:kettik/enums.dart';
 import 'package:kettik/constants.dart';
 import 'package:kettik/models/RequestEntity.dart';
 import 'package:kettik/screens/sign_in/sign_in_screen.dart';
@@ -20,8 +19,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class ProfileScreenState extends State<ProfileScreen> {
-  static String routeName = "/profile";
-
   @override
   void initState() {
     super.initState();
@@ -36,7 +33,9 @@ class ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: AutoSizeText("profile".tr),
+          title: Get.find<SettingsService>().userProfile == null
+              ? AutoSizeText("")
+              : AutoSizeText(Get.find<SettingsService>().userProfile!.name!),
           backgroundColor: kPrimaryColor,
         ),
         body: Body(),
