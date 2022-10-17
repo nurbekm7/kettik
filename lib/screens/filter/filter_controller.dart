@@ -23,6 +23,7 @@ class FilterController extends GetxController {
 
   @override
   void onClose() {
+    print("onClose: FilterController");
     filteredSenderEntityList = List.empty();
     filteredCourierEntityList = List.empty();
   }
@@ -71,8 +72,7 @@ class FilterController extends GetxController {
       }
 
       showLoadingOverlay = false;
-
-      Get.off(() => FilterResultScreen());
+      Get.offAll(() => FilterResultScreen());
     }).catchError((e) {
       print(e);
       showLoadingOverlay = false;

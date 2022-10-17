@@ -83,7 +83,10 @@ class Languages extends Translations {
           "find": "Нәтижелерді көрсету",
           "filter": "Іздеу",
           "from_value": "бастап",
-          "to_value": "дейін"
+          "to_value": "дейін",
+          "account_delete_title": "Аккаунтты жою",
+          "account_delete_body": "Аккаунтты шынымен жойғыңыз келе ме?",
+          "no": "Жоқ"
         },
         'en_US': {
           "helloWorld": "Welcome",
@@ -167,7 +170,11 @@ class Languages extends Translations {
           "find": "Show results",
           "filter": "Filter",
           "from_value": "from",
-          "to_value": "to"
+          "to_value": "to",
+          "account_delete_title": "Deleting an account",
+          "account_delete_body":
+              "Are you sure you want to delete your account?",
+          "no": "No"
         },
         'ru_KZ': {
           "helloWorld": "Қош келдіңіз",
@@ -249,7 +256,10 @@ class Languages extends Translations {
           "find": "Нәтижелерді көрсету",
           "filter": "Іздеу",
           "from_value": "бастап",
-          "to_value": "дейін"
+          "to_value": "дейін",
+          "account_delete_title": "Аккаунтты жою",
+          "account_delete_body": "Аккаунтты шынымен жойғыңыз келе ме?",
+          "no": "Жоқ"
         },
         'ru_RU': {
           "helloWorld": "Добро пожаловать",
@@ -335,7 +345,10 @@ class Languages extends Translations {
           "find": "Показать результаты",
           "filter": "Фильтр",
           "from_value": "от",
-          "to_value": "до"
+          "to_value": "до",
+          "account_delete_title": "Удаление аккаунта",
+          "account_delete_body": "Вы уверенны что хотите удалить ваш аккаунт?",
+          "no": "Нет"
         }
       };
 }

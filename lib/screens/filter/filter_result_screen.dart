@@ -35,7 +35,10 @@ class _FilterResultScreenState extends State<FilterResultScreen> {
             appBar: AppBar(
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => Get.offAll(() => HomeScreen()),
+                onPressed: () {
+                  controller.onClose();
+                  Get.offAll(() => HomeScreen());
+                },
               ),
               title: AutoSizeText('filter'.tr,
                   textAlign: TextAlign.start, maxLines: 1),

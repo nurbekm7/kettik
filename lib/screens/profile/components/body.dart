@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:kettik/components/settings_service.dart';
 import 'package:kettik/screens/about/about_screen.dart';
@@ -32,7 +33,7 @@ class Body extends StatelessWidget {
             text: "delete_account".tr,
             icon: "assets/icons/Trash.svg",
             press: () {
-              Get.find<AuthController>().deleteAccount();
+              showAlertDialog(context);
             },
           ),
           ProfileMenu(
@@ -58,6 +59,38 @@ class Body extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("no".tr),
+      onPressed: () {},
+    );
+    Widget continueButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        Get.find<AuthController>().deleteAccount();
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("account_delete_title".tr),
+      content: Text("account_delete_body".tr),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

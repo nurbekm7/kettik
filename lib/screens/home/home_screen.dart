@@ -33,180 +33,218 @@ class _HomeScreenState extends State<HomeScreen> {
     String kettikName = (Get.find<SettingsService>().userProfile == null
         ? ""
         : ", " + Get.find<SettingsService>().userProfile!.name!);
-    return GetBuilder<HomeController>(builder: (controller) {
-      controller.loadData();
-      return DefaultTabController(
-        initialIndex: 0,
-        length: 3,
-        child: Scaffold(
-            appBar: AppBar(
-              title: AutoSizeText('Kettik' + kettikName,
-                  textAlign: TextAlign.start, maxLines: 1),
-              backgroundColor: kPrimaryColor,
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.tune),
-                  onPressed: () {
-                    _openFilterDialog();
-                  },
-                )
-              ],
-              bottom: TabBar(tabs: [
-                Tab(
-                  icon: Icon(Icons.production_quantity_limits),
-                  child: AutoSizeText('promo'.tr, maxLines: 1),
-                ),
-                Tab(
-                  icon: Icon(Icons.post_add),
-                  child: AutoSizeText('sender'.tr, maxLines: 1),
-                ),
-                Tab(
-                  icon: Icon(FontAwesomeIcons.personWalking),
-                  child: AutoSizeText('courier'.tr, maxLines: 1),
-                ),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: GetBuilder<HomeController>(builder: (controller) {
+        return DefaultTabController(
+          initialIndex: 0,
+          length: 3,
+          child: Scaffold(
+              appBar: AppBar(
+                title: AutoSizeText('Kettik' + kettikName,
+                    textAlign: TextAlign.start, maxLines: 1),
+                backgroundColor: kPrimaryColor,
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.tune),
+                    onPressed: () {
+                      _openFilterDialog();
+                    },
+                  )
+                ],
+                bottom: TabBar(tabs: [
+                  Tab(
+                    icon: Icon(Icons.production_quantity_limits),
+                    child: AutoSizeText('promo'.tr, maxLines: 1),
+                  ),
+                  Tab(
+                    icon: Icon(Icons.post_add),
+                    child: AutoSizeText('sender'.tr, maxLines: 1),
+                  ),
+                  Tab(
+                    icon: Icon(FontAwesomeIcons.personWalking),
+                    child: AutoSizeText('courier'.tr, maxLines: 1),
+                  ),
+                ]),
+              ),
+              body: TabBarView(children: [
+                Container(
+                    child: controller.promoEntityList.isNotEmpty
+                        ? AnimationLimiter(
+                            child: RefreshIndicator(
+                              onRefresh: () async {
+                                print("RefreshIndicator");
+                                controller.loadData();
+                              },
+                              child: ListView.builder(
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                primary: false,
+                                shrinkWrap: true,
+                                itemCount: controller.promoEntityList.length,
+                                itemBuilder: (context, index) {
+                                  return AnimationConfiguration.staggeredList(
+                                    position: index,
+                                    duration: const Duration(milliseconds: 375),
+                                    child: SlideAnimation(
+                                      child: FadeInAnimation(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.all(
+                                                  8),
+                                          child: Container(
+                                            child: FoldingPromoCard(
+                                                promoEntity: controller
+                                                    .promoEntityList[index]),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        : RefreshIndicator(
+                            onRefresh: () async {
+                              print("RefreshIndicator Icon");
+                              controller.loadData();
+                            },
+                            child: ListView(
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                primary: false,
+                                shrinkWrap: true,
+                                children: [
+                                  Icon(Icons.arrow_downward, size: 100.w)
+                                ]))),
+                Container(
+                    child: controller.senderEntityList.isNotEmpty
+                        ? RefreshIndicator(
+                            onRefresh: () async {
+                              print("RefreshIndicator");
+                              controller.loadData();
+                            },
+                            child: AnimationLimiter(
+                              child: ListView.builder(
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                primary: false,
+                                shrinkWrap: true,
+                                itemCount: controller.senderEntityList.length,
+                                itemBuilder: (context, index) {
+                                  return AnimationConfiguration.staggeredList(
+                                    position: index,
+                                    duration: const Duration(milliseconds: 375),
+                                    child: SlideAnimation(
+                                      // verticalOffset: 50.0,
+                                      child: FadeInAnimation(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.all(
+                                                  8),
+                                          child: Container(
+                                            // height: 200.h,
+                                            // width: _size.width,
+                                            // child: RequestCard(requestEntity: demoCarts[index]),
+                                            child: FoldingRequestCard(
+                                                requestEntity: controller
+                                                    .senderEntityList[index]),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        : RefreshIndicator(
+                            onRefresh: () async {
+                              print("RefreshIndicator Icon");
+                              controller.loadData();
+                            },
+                            child: ListView(
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                primary: false,
+                                shrinkWrap: true,
+                                children: [
+                                  Icon(Icons.arrow_downward, size: 100.w)
+                                ]))),
+                Container(
+                    child: controller.courierEntityList.isNotEmpty
+                        ? RefreshIndicator(
+                            onRefresh: () async {
+                              print("RefreshIndicator");
+                              controller.loadData();
+                            },
+                            child: AnimationLimiter(
+                              child: ListView.builder(
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                primary: false,
+                                shrinkWrap: true,
+                                itemCount: controller.courierEntityList.length,
+                                itemBuilder: (context, index) {
+                                  return AnimationConfiguration.staggeredList(
+                                    position: index,
+                                    duration: const Duration(milliseconds: 375),
+                                    child: SlideAnimation(
+                                      // verticalOffset: 50.0,
+                                      child: FadeInAnimation(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.all(
+                                                  8),
+                                          child: Container(
+                                            // height: 200.h,
+                                            // width: _size.width,
+                                            // child: RequestCard(requestEntity: demoCarts[index]),
+                                            child: FoldingRequestCard(
+                                                requestEntity: controller
+                                                    .courierEntityList[index]),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        : RefreshIndicator(
+                            onRefresh: () async {
+                              print("RefreshIndicator Icon");
+                              controller.loadData();
+                            },
+                            child: ListView(
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                primary: false,
+                                shrinkWrap: true,
+                                children: [
+                                  Icon(Icons.arrow_downward, size: 100.w)
+                                ])))
               ]),
-            ),
-            body: TabBarView(children: [
-              Container(
-                child: controller.promoEntityList.isNotEmpty
-                    ? AnimationLimiter(
-                        child: RefreshIndicator(
-                          onRefresh: () async {
-                            print("RefreshIndicator");
-                            controller.loadData();
-                          },
-                          child: ListView.builder(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            primary: false,
-                            shrinkWrap: true,
-                            itemCount: controller.promoEntityList.length,
-                            itemBuilder: (context, index) {
-                              return AnimationConfiguration.staggeredList(
-                                position: index,
-                                duration: const Duration(milliseconds: 375),
-                                child: SlideAnimation(
-                                  child: FadeInAnimation(
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.all(8),
-                                      child: Container(
-                                        child: FoldingPromoCard(
-                                            promoEntity: controller
-                                                .promoEntityList[index]),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      )
-                    : Icon(Icons.arrow_downward, size: 100.w),
-              ),
-              Container(
-                child: controller.senderEntityList.isNotEmpty
-                    ? RefreshIndicator(
-                        onRefresh: () async {
-                          print("RefreshIndicator");
-                          controller.loadData();
-                        },
-                        child: AnimationLimiter(
-                          child: ListView.builder(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            primary: false,
-                            shrinkWrap: true,
-                            itemCount: controller.senderEntityList.length,
-                            itemBuilder: (context, index) {
-                              return AnimationConfiguration.staggeredList(
-                                position: index,
-                                duration: const Duration(milliseconds: 375),
-                                child: SlideAnimation(
-                                  // verticalOffset: 50.0,
-                                  child: FadeInAnimation(
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.all(8),
-                                      child: Container(
-                                        // height: 200.h,
-                                        // width: _size.width,
-                                        // child: RequestCard(requestEntity: demoCarts[index]),
-                                        child: FoldingRequestCard(
-                                            requestEntity: controller
-                                                .senderEntityList[index]),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      )
-                    : Icon(Icons.arrow_downward, size: 100.w),
-              ),
-              Container(
-                child: controller.courierEntityList.isNotEmpty
-                    ? RefreshIndicator(
-                        onRefresh: () async {
-                          print("RefreshIndicator");
-                          controller.loadData();
-                        },
-                        child: AnimationLimiter(
-                          child: ListView.builder(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            primary: false,
-                            shrinkWrap: true,
-                            itemCount: controller.courierEntityList.length,
-                            itemBuilder: (context, index) {
-                              return AnimationConfiguration.staggeredList(
-                                position: index,
-                                duration: const Duration(milliseconds: 375),
-                                child: SlideAnimation(
-                                  // verticalOffset: 50.0,
-                                  child: FadeInAnimation(
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.all(8),
-                                      child: Container(
-                                        // height: 200.h,
-                                        // width: _size.width,
-                                        // child: RequestCard(requestEntity: demoCarts[index]),
-                                        child: FoldingRequestCard(
-                                            requestEntity: controller
-                                                .courierEntityList[index]),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      )
-                    : Icon(Icons.arrow_downward, size: 100.w),
-              )
-            ]),
-            bottomNavigationBar: CustomBottomNavBar(cIndex: 0),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: new FloatingActionButton(
-              onPressed: () {
-                if (!Get.find<SettingsService>().isLoggedIn) {
-                  _openSignInDialog();
-                } else {
-                  _openAddTransDialog();
-                }
-              },
-              tooltip: 'Add',
-              child: new Icon(Icons.add),
-              backgroundColor: kPrimaryBtnColor,
-            )),
-      );
-    });
+              bottomNavigationBar: CustomBottomNavBar(cIndex: 0),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerDocked,
+              floatingActionButton: new FloatingActionButton(
+                onPressed: () {
+                  if (!Get.find<SettingsService>().isLoggedIn) {
+                    _openSignInDialog();
+                  } else {
+                    _openAddTransDialog();
+                  }
+                },
+                tooltip: 'Add',
+                child: new Icon(Icons.add),
+                backgroundColor: kPrimaryBtnColor,
+              )),
+        );
+      }),
+    );
   }
 
   Future _openFilterDialog() async {

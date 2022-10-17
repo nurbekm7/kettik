@@ -29,15 +29,18 @@ class HomeController extends GetxController {
   }
 
   void loadData() async {
+    showLoadingOverlay = true;
     getPromoList();
     getCourierRequests();
     getSenderRequests();
+    showLoadingOverlay = false;
   }
 
   Future<void> getPromoList() async {
     try {
       db.collection("promo").orderBy("until").get().then(
         (res) async {
+          print("promoEntityList res.docs: " + res.docs.toString());
           promoEntityList = res.docs.length == 0
               ? promoEntityList
               : await toPromoEntity(res.docs);
@@ -45,15 +48,21 @@ class HomeController extends GetxController {
         },
         onError: (e) => print("Error completing: $e"),
       );
-      update();
+      Future.delayed(Duration(milliseconds: 20), () {
+        update();
+      });
     } catch (e) {
-      Fluttertoast.showToast(msg: 'get_promo_list_exception'.tr);
+      print(e.toString());
+      Fluttertoast.showToast(
+          msg: 'get_promo_list_exception'.tr + " " + e.toString());
     }
   }
 
   Future<List<PromoEntity>> toPromoEntity(
       List<QueryDocumentSnapshot<Map<String, dynamic>>> data) async {
     return data
+        .where((element) =>
+            compareDateTime((element.data()["deadline"] as Timestamp).toDate()))
         .map((e) => PromoEntity(
               id: e.id,
               name: e.data()["name"],
@@ -77,6 +86,8 @@ class HomeController extends GetxController {
   Future<List<RequestEntity>> toRequestEntity(RequestType requestType,
       List<QueryDocumentSnapshot<Map<String, dynamic>>> data) async {
     return data
+        .where((element) =>
+            compareDateTime((element.data()["deadline"] as Timestamp).toDate()))
         .map((e) => RequestEntity(
             id: e.id,
             description: e.data()["description"],
@@ -104,6 +115,8 @@ class HomeController extends GetxController {
     try {
       db.collection("sender_transaction").orderBy("deadline").get().then(
         (res) async {
+          print("senderEntityList res.docs: " + res.docs.toString());
+
           senderEntityList = res.docs.length == 0
               ? senderEntityList
               : await toRequestEntity(RequestType.sender, res.docs);
@@ -111,7 +124,9 @@ class HomeController extends GetxController {
         },
         onError: (e) => print("Error completing: $e"),
       );
-      update();
+      Future.delayed(Duration(milliseconds: 20), () {
+        update();
+      });
     } catch (e) {
       Fluttertoast.showToast(msg: 'get_sender_requests_exception'.tr);
     }
@@ -121,6 +136,8 @@ class HomeController extends GetxController {
     try {
       db.collection("courier_transaction").orderBy("deadline").get().then(
         (res) async {
+          print("courierEntityList res.docs: " + res.docs.toString());
+
           courierEntityList = res.docs.length == 0
               ? courierEntityList
               : await toRequestEntity(RequestType.courier, res.docs);
@@ -128,10 +145,19 @@ class HomeController extends GetxController {
         },
         onError: (e) => print("Error completing: $e"),
       );
-      update();
+      Future.delayed(Duration(milliseconds: 20), () {
+        update();
+      });
     } catch (e) {
       print("get_courier_requests_exception: " + e.toString());
       Fluttertoast.showToast(msg: 'get_courier_requests_exception'.tr);
     }
+  }
+
+  bool compareDateTime(DateTime deadline) {
+    var now = DateTime.now();
+    return now.year <= deadline.year &&
+        now.month <= deadline.month &&
+        now.day <= deadline.day;
   }
 }

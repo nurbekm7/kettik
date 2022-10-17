@@ -27,6 +27,7 @@ class DateTimeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(Get.find<SettingsService>().localeLangCode);
     initializeDateFormatting();
     return new Row(
       children: <Widget>[
@@ -35,8 +36,9 @@ class DateTimeItem extends StatelessWidget {
             onTap: (() => _showDatePicker(context)),
             child: new Padding(
                 padding: new EdgeInsets.symmetric(vertical: 8.0),
-                child: new AutoSizeText(
-                    new DateFormat('EEEE, d MMM ', 'ru').format(date))),
+                child: new AutoSizeText(new DateFormat('EEEE, d MMM ',
+                        Get.find<SettingsService>().localeLangCode)
+                    .format(date))),
           ),
         ),
         // new InkWell(

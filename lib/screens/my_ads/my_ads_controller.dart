@@ -15,7 +15,7 @@ class MyAdsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if (Get.find<SettingsService>().isLoggedIn == true) {
+    if (Get.find<SettingsService>().isLoggedIn) {
       loadData();
     }
   }
@@ -23,26 +23,31 @@ class MyAdsController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    if (Get.find<SettingsService>().isLoggedIn == true) {
+    if (Get.find<SettingsService>().isLoggedIn) {
       loadData();
     }
   }
 
   @override
   void onClose() {
-    if (Get.find<SettingsService>().isLoggedIn == true) {
+    if (Get.find<SettingsService>().isLoggedIn) {
       loadData();
     }
   }
 
   void loadData() {
+    showLoadingOverlay = true;
+    print("loadData request: ");
     getCourierRequests();
     getSenderRequests();
+    showLoadingOverlay = false;
   }
 
   Future<List<RequestEntity>> toRequestEntity(RequestType requestType,
       List<QueryDocumentSnapshot<Map<String, dynamic>>> data) async {
     return data
+        .where((element) =>
+            compareDateTime((element.data()["deadline"] as Timestamp).toDate()))
         .map((e) => RequestEntity(
             id: e.id,
             description: e.data()["description"],
@@ -84,7 +89,9 @@ class MyAdsController extends GetxController {
         },
         onError: (e) => print("Error completing: $e"),
       );
-      update();
+      Future.delayed(Duration(milliseconds: 20), () {
+        update();
+      });
     } catch (e) {
       print("get_my_sender_requests_exception: " + e.toString());
 
@@ -109,10 +116,19 @@ class MyAdsController extends GetxController {
         },
         onError: (e) => print("Error completing: $e"),
       );
-      update();
+      Future.delayed(Duration(milliseconds: 20), () {
+        update();
+      });
     } catch (e) {
       print("get_my_courier_requests_exception: " + e.toString());
       Fluttertoast.showToast(msg: 'get_my_courier_requests_exception'.tr);
     }
+  }
+
+  bool compareDateTime(DateTime deadline) {
+    var now = DateTime.now();
+    return now.year <= deadline.year &&
+        now.month <= deadline.month &&
+        now.day <= deadline.day;
   }
 }

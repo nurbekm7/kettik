@@ -8,17 +8,18 @@ import 'package:intl/intl.dart';
 import 'package:kettik/components/settings_service.dart';
 import 'package:kettik/models/RequestEntity.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:kettik/constants.dart';
 import 'package:kettik/screens/sign_in/sign_in_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class FoldingRequestCard extends StatelessWidget {
   final RequestEntity requestEntity;
   final _foldingCellKey = GlobalKey<SimpleFoldingCellState>();
   late Size _size;
-  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  final DateFormat formatter =
+      DateFormat.MMMd(Get.find<SettingsService>().locale.toString());
   FoldingRequestCard({Key? key, required this.requestEntity}) : super(key: key);
 
   @override
@@ -71,15 +72,15 @@ class FoldingRequestCard extends StatelessWidget {
                                   TextStyle(color: Colors.white, fontSize: 20),
                             ),
                           )),
-                          Container(
-                              child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: AutoSizeText(
-                              'До',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 20.0),
-                            ),
-                          )),
+                          // Container(
+                          //     child: Padding(
+                          //   padding: const EdgeInsets.all(8.0),
+                          //   child: AutoSizeText(
+                          //     'to_value'.tr,
+                          //     style: TextStyle(
+                          //         color: Colors.white, fontSize: 20.0),
+                          //   ),
+                          // )),
                           Container(
                               child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -333,46 +334,56 @@ class FoldingRequestCard extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(10),
                 child: AutoSizeText(requestEntity.description,
+                    maxLines: 3,
                     style: TextStyle(color: Colors.black, fontSize: 18.0.sp)),
               ),
 
               Container(
-                padding: EdgeInsets.all(10),
-                width: _size.width,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (!Get.find<SettingsService>().isLoggedIn) {
-                      _openSignInDialog(context);
-                    } else {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text("alert_title".tr),
-                            content: Text("alert_content".tr),
-                            actions: [
-                              TextButton(
-                                child: Text("OK"),
-                                onPressed: () {
-                                  launch(
-                                      'https://api.whatsapp.com/send/?phone=' +
-                                          requestEntity.user.phoneNumber);
+                  padding: EdgeInsets.all(10),
+                  width: _size.width,
+                  child: Get.find<SettingsService>().userProfile != null &&
+                          requestEntity.user.phoneNumber ==
+                              Get.find<SettingsService>()
+                                  .userProfile!
+                                  .phoneNumber
+                      ? SizedBox(
+                          height: 5.h,
+                        )
+                      : ElevatedButton(
+                          onPressed: () {
+                            if (!Get.find<SettingsService>().isLoggedIn) {
+                              _openSignInDialog(context);
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("alert_title".tr),
+                                    content: Text("alert_content".tr),
+                                    actions: [
+                                      TextButton(
+                                        child: Text("OK"),
+                                        onPressed: () {
+                                          launch(
+                                              'https://api.whatsapp.com/send/?phone=' +
+                                                  requestEntity
+                                                      .user.phoneNumber);
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                  ;
                                 },
-                              ),
-                            ],
-                          );
-                          ;
-                        },
-                      );
-                    }
-                  },
-                  child: AutoSizeText(
-                    'send_request'.tr,
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  style: ElevatedButton.styleFrom(primary: kPrimaryBtnColor),
-                ),
-              )
+                              );
+                            }
+                          },
+                          child: AutoSizeText(
+                            'send_request'.tr,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              primary: kPrimaryBtnColor),
+                        ))
             ],
           ),
         ),

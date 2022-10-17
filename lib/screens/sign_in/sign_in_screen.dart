@@ -78,8 +78,7 @@ class SignInScreen extends GetView<AuthController> {
                               children: [
                                 InternationalPhoneNumberInput(
                                   locale: Get.find<SettingsService>()
-                                      .locale
-                                      .toString(),
+                                      .localeLangCode,
                                   autoFocus: false,
                                   onSubmit: () => _submitedPhoneNumber(),
                                   onInputChanged: (PhoneNumber number) {

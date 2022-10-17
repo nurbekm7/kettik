@@ -134,8 +134,8 @@ class AuthController extends GetxController {
   }
 
   void deleteAccount() async {
-    List<String> courier_transaction_to_delete = List.empty();
-    List<String> sender_transaction_to_delete = List.empty();
+    // List<String> courier_transaction_to_delete = List.empty();
+    // List<String> sender_transaction_to_delete = List.empty();
 
     // db
     //     .collection('sender_transaction')

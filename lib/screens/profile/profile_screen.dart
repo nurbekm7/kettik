@@ -31,24 +31,28 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Get.find<SettingsService>().userProfile == null
-              ? AutoSizeText("")
-              : AutoSizeText(Get.find<SettingsService>().userProfile!.name!),
-          backgroundColor: kPrimaryColor,
-        ),
-        body: Body(),
-        bottomNavigationBar: CustomBottomNavBar(cIndex: 1),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: new FloatingActionButton(
-          onPressed: () {
-            _openAddTransDialog();
-          },
-          tooltip: 'Add',
-          child: new Icon(Icons.add),
-          backgroundColor: kPrimaryBtnColor,
-        ));
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+          appBar: AppBar(
+            title: Get.find<SettingsService>().userProfile == null
+                ? AutoSizeText("")
+                : AutoSizeText(Get.find<SettingsService>().userProfile!.name!),
+            backgroundColor: kPrimaryColor,
+          ),
+          body: Body(),
+          bottomNavigationBar: CustomBottomNavBar(cIndex: 1),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: new FloatingActionButton(
+            onPressed: () {
+              _openAddTransDialog();
+            },
+            tooltip: 'Add',
+            child: new Icon(Icons.add),
+            backgroundColor: kPrimaryBtnColor,
+          )),
+    );
   }
 
   Future _openAddTransDialog() async {

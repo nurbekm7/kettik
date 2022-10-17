@@ -22,10 +22,7 @@ class MyAdsScreen extends StatefulWidget {
 class _MyAdsScreenState extends State<MyAdsScreen> {
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-
     return GetBuilder<MyAdsController>(builder: (controller) {
-      controller.loadData();
       return DefaultTabController(
         initialIndex: 0,
         length: 2,
@@ -51,89 +48,111 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
             ),
             body: TabBarView(children: [
               Container(
-                child: controller.mySenderEntityList.isNotEmpty
-                    ? RefreshIndicator(
-                        onRefresh: () async {
-                          print("RefreshIndicator");
-                          controller.loadData();
-                        },
-                        child: AnimationLimiter(
-                          child: ListView.builder(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            primary: false,
-                            shrinkWrap: true,
-                            itemCount: controller.mySenderEntityList.length,
-                            itemBuilder: (context, index) {
-                              return AnimationConfiguration.staggeredList(
-                                position: index,
-                                duration: const Duration(milliseconds: 375),
-                                child: SlideAnimation(
-                                  // verticalOffset: 50.0,
-                                  child: FadeInAnimation(
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.all(8),
-                                      child: Container(
-                                        // height: 200.h,
-                                        // width: _size.width,
-                                        // child: RequestCard(requestEntity: demoCarts[index]),
-                                        child: FoldingRequestCard(
-                                            requestEntity: controller
-                                                .mySenderEntityList[index]),
+                  child: controller.mySenderEntityList.isNotEmpty
+                      ? RefreshIndicator(
+                          onRefresh: () async {
+                            print("RefreshIndicator");
+                            controller.loadData();
+                          },
+                          child: AnimationLimiter(
+                            child: ListView.builder(
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              primary: false,
+                              shrinkWrap: true,
+                              itemCount: controller.mySenderEntityList.length,
+                              itemBuilder: (context, index) {
+                                return AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  duration: const Duration(milliseconds: 375),
+                                  child: SlideAnimation(
+                                    // verticalOffset: 50.0,
+                                    child: FadeInAnimation(
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsetsDirectional.all(8),
+                                        child: Container(
+                                          // height: 200.h,
+                                          // width: _size.width,
+                                          // child: RequestCard(requestEntity: demoCarts[index]),
+                                          child: FoldingRequestCard(
+                                              requestEntity: controller
+                                                  .mySenderEntityList[index]),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                      )
-                    : Icon(Icons.arrow_downward, size: 100.w),
-              ),
+                        )
+                      : RefreshIndicator(
+                          onRefresh: () async {
+                            print("RefreshIndicator Icon");
+                            controller.loadData();
+                          },
+                          child: ListView(
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              primary: false,
+                              shrinkWrap: true,
+                              children: [
+                                Icon(Icons.arrow_downward, size: 100.w)
+                              ]))),
               Container(
-                child: controller.myCourierEntityList.isNotEmpty
-                    ? RefreshIndicator(
-                        onRefresh: () async {
-                          print("RefreshIndicator");
-                          controller.loadData();
-                        },
-                        child: AnimationLimiter(
-                          child: ListView.builder(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            primary: false,
-                            shrinkWrap: true,
-                            itemCount: controller.myCourierEntityList.length,
-                            itemBuilder: (context, index) {
-                              return AnimationConfiguration.staggeredList(
-                                position: index,
-                                duration: const Duration(milliseconds: 375),
-                                child: SlideAnimation(
-                                  // verticalOffset: 50.0,
-                                  child: FadeInAnimation(
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.all(8),
-                                      child: Container(
-                                        // height: 200.h,
-                                        // width: _size.width,
-                                        // child: RequestCard(requestEntity: demoCarts[index]),
-                                        child: FoldingRequestCard(
-                                            requestEntity: controller
-                                                .myCourierEntityList[index]),
+                  child: controller.myCourierEntityList.isNotEmpty
+                      ? RefreshIndicator(
+                          onRefresh: () async {
+                            print("RefreshIndicator");
+                            controller.loadData();
+                          },
+                          child: AnimationLimiter(
+                            child: ListView.builder(
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              primary: false,
+                              shrinkWrap: true,
+                              itemCount: controller.myCourierEntityList.length,
+                              itemBuilder: (context, index) {
+                                return AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  duration: const Duration(milliseconds: 375),
+                                  child: SlideAnimation(
+                                    // verticalOffset: 50.0,
+                                    child: FadeInAnimation(
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsetsDirectional.all(8),
+                                        child: Container(
+                                          // height: 200.h,
+                                          // width: _size.width,
+                                          // child: RequestCard(requestEntity: demoCarts[index]),
+                                          child: FoldingRequestCard(
+                                              requestEntity: controller
+                                                  .myCourierEntityList[index]),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                      )
-                    : Icon(Icons.arrow_downward, size: 100.w),
-              )
+                        )
+                      : RefreshIndicator(
+                          onRefresh: () async {
+                            print("RefreshIndicator Icon");
+                            controller.loadData();
+                          },
+                          child: ListView(
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              primary: false,
+                              shrinkWrap: true,
+                              children: [
+                                Icon(Icons.arrow_downward, size: 100.w)
+                              ])))
             ]),
             bottomNavigationBar: CustomBottomNavBar(cIndex: 1),
             floatingActionButtonLocation:
@@ -148,12 +167,6 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
             )),
       );
     });
-  }
-
-  Future<void> _pullRefresh(MyAdsController myAdsController) async {
-    print("Start _pullRefresh");
-    myAdsController.loadData();
-    setState(() {});
   }
 
   Future _openAddTransDialog() async {

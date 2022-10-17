@@ -12,7 +12,8 @@ import 'dart:developer' as debug;
 class SettingsService extends GetxService {
   late GetStorage _getStorage = GetStorage();
   late bool firstRun = true;
-  late String localeLangCode = '';
+  late String localeLangCode =
+      WidgetsBinding.instance.window.locales.first.languageCode;
   Locale locale = WidgetsBinding.instance.window.locales.first;
   late bool isLoggedIn = false;
   UserProfile? userProfile;
@@ -67,11 +68,9 @@ class SettingsService extends GetxService {
     _getStorage = GetStorage();
     firstRun = _getStorage.read('first_run') ?? true;
     isLoggedIn = _getStorage.read('logged_in') ?? false;
-    localeLangCode = _getStorage.read('locale') ?? 'en';
     userProfile = _getStorage.read('userProfile') != null
         ? UserProfile.fromJson(jsonDecode(_getStorage.read('userProfile')))
         : null;
-    // locale = constructLocale(langCode: localeLangCode);
   }
 
   Locale constructLocale({required String langCode}) {

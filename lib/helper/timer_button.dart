@@ -79,9 +79,11 @@ class _TimerButtonState extends State<TimerButton> {
 
   _timerUpdate() {
     Timer(const Duration(seconds: aSec), () async {
-      setState(() {
-        timeCounter--;
-      });
+      if (mounted) {
+        setState(() {
+          timeCounter--;
+        });
+      }
       if (timeCounter != 0)
         _timerUpdate();
       else
