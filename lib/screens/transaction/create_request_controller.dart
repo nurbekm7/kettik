@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kettik/models/RequestEntity.dart';
 import 'package:get/get.dart';
@@ -24,7 +23,7 @@ class CreateRequestController extends GetxController {
         .then((DocumentReference doc) async {
       print('DocumentSnapshot added with ID: ${doc.id}');
       showLoadingOverlay = false;
-      Get.off(MyAdsScreen());
+      Get.offAll(() => MyAdsScreen());
     }).catchError((e) {
       print(e);
       showLoadingOverlay = false;

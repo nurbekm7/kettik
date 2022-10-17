@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:kettik/models/PromoEntity.dart';
 import 'package:kettik/models/RequestEntity.dart';
 import 'package:kettik/models/UserProfile.dart';
@@ -15,21 +14,25 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getPromoList();
-    getCourierRequests();
-    getSenderRequests();
+    loadData();
   }
 
   @override
   void onReady() {
     super.onReady();
+    loadData();
+  }
+
+  @override
+  void onClose() {
+    loadData();
+  }
+
+  void loadData() async {
     getPromoList();
     getCourierRequests();
     getSenderRequests();
   }
-
-  @override
-  void onClose() {}
 
   Future<void> getPromoList() async {
     try {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kettik/components/settings_service.dart';
+import 'package:kettik/screens/about/about_screen.dart';
 import 'package:kettik/screens/my_ads/my_ads_screen.dart';
 import 'package:kettik/screens/sign_in/auth_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -20,7 +21,7 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "my_transactions".tr,
             icon: "assets/icons/Conversation.svg",
-            press: () => {Get.off(MyAdsScreen())},
+            press: () => {Get.offAll(() => MyAdsScreen())},
           ),
           // ProfileMenu(
           //   text: "Notifications",
@@ -35,10 +36,17 @@ class Body extends StatelessWidget {
             },
           ),
           ProfileMenu(
-            text: "help".tr,
-            icon: "assets/icons/Question mark.svg",
+            text: "contact_us".tr,
+            icon: "assets/icons/Mail.svg",
             press: () {
               launch('https://api.whatsapp.com/send/?phone=+971588050420');
+            },
+          ),
+          ProfileMenu(
+            text: "about".tr,
+            icon: "assets/icons/Question mark.svg",
+            press: () {
+              Get.off(() => AboutScreen());
             },
           ),
           ProfileMenu(

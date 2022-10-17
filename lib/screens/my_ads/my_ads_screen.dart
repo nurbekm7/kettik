@@ -33,7 +33,7 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
             appBar: AppBar(
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => Get.off(() => ProfileScreen()),
+                onPressed: () => Get.offAll(() => ProfileScreen()),
               ),
               title: AutoSizeText('my_transactions'.tr,
                   textAlign: TextAlign.center, maxLines: 1),
@@ -41,21 +41,25 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
               bottom: TabBar(tabs: [
                 Tab(
                   icon: Icon(Icons.post_add),
-                  child: AutoSizeText('sender'.tr, maxLines: 1),
+                  child: AutoSizeText('isender'.tr, maxLines: 1),
                 ),
                 Tab(
                   icon: Icon(FontAwesomeIcons.personWalking),
-                  child: AutoSizeText('courier'.tr, maxLines: 1),
+                  child: AutoSizeText('icourier'.tr, maxLines: 1),
                 ),
               ]),
             ),
-            body: RefreshIndicator(
-              onRefresh: () => _pullRefresh(controller),
-              child: TabBarView(children: [
-                Container(
-                  child: controller.mySenderEntityList.isNotEmpty
-                      ? AnimationLimiter(
+            body: TabBarView(children: [
+              Container(
+                child: controller.mySenderEntityList.isNotEmpty
+                    ? RefreshIndicator(
+                        onRefresh: () async {
+                          print("RefreshIndicator");
+                          controller.loadData();
+                        },
+                        child: AnimationLimiter(
                           child: ListView.builder(
+                            physics: const AlwaysScrollableScrollPhysics(),
                             scrollDirection: Axis.vertical,
                             primary: false,
                             shrinkWrap: true,
@@ -84,13 +88,20 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                               );
                             },
                           ),
-                        )
-                      : Icon(Icons.arrow_downward, size: 100.w),
-                ),
-                Container(
-                  child: controller.myCourierEntityList.isNotEmpty
-                      ? AnimationLimiter(
+                        ),
+                      )
+                    : Icon(Icons.arrow_downward, size: 100.w),
+              ),
+              Container(
+                child: controller.myCourierEntityList.isNotEmpty
+                    ? RefreshIndicator(
+                        onRefresh: () async {
+                          print("RefreshIndicator");
+                          controller.loadData();
+                        },
+                        child: AnimationLimiter(
                           child: ListView.builder(
+                            physics: const AlwaysScrollableScrollPhysics(),
                             scrollDirection: Axis.vertical,
                             primary: false,
                             shrinkWrap: true,
@@ -119,11 +130,11 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                               );
                             },
                           ),
-                        )
-                      : Icon(Icons.arrow_downward, size: 100.w),
-                )
-              ]),
-            ),
+                        ),
+                      )
+                    : Icon(Icons.arrow_downward, size: 100.w),
+              )
+            ]),
             bottomNavigationBar: CustomBottomNavBar(cIndex: 1),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
@@ -140,7 +151,8 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
   }
 
   Future<void> _pullRefresh(MyAdsController myAdsController) async {
-    myAdsController.onInit();
+    print("Start _pullRefresh");
+    myAdsController.loadData();
     setState(() {});
   }
 

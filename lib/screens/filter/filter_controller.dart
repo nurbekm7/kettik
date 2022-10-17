@@ -1,100 +1,113 @@
-import 'package:get/get.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kettik/screens/home/home_screen.dart';
-import '../otp/otp_screen.dart';
+import 'package:kettik/models/RequestEntity.dart';
+import 'package:kettik/models/UserProfile.dart';
+import 'package:get/get.dart';
+import 'package:kettik/screens/filter/filter_result_screen.dart';
 
 class FilterController extends GetxController {
+  List<RequestEntity> filteredSenderEntityList = List.empty();
+  List<RequestEntity> filteredCourierEntityList = List.empty();
   bool showLoadingOverlay = false;
-  late String _phoneNumber;
-  late AuthCredential _phoneAuthCredential;
-  String? _verificationId = '';
-  late User _firebaseUser;
-
-  Future<void> submitPhoneNumber({required String phone}) async {
-    print("submitPhoneNumber: $phone");
-    showLoadingOverlay = true;
-    update();
-    _phoneNumber = phone;
-    void verificationCompleted(AuthCredential phoneAuthCredential) {
-      _phoneAuthCredential = phoneAuthCredential;
-    }
-
-    void verificationFailed(FirebaseAuthException e) {
-      print(e);
-      if (e.code == 'too-many-requests') {
-        showLoadingOverlay = false;
-        update();
-        Fluttertoast.showToast(
-            msg: 'too many requests, pelase try again later');
-      }
-    }
-
-    void codeSent(String verificationId, [int? code]) {
-      _verificationId = verificationId;
-      showLoadingOverlay = false;
-      update();
-      Get.to(() => OtpScreen());
-    }
-
-    void codeAutoRetrievalTimeout(String verificationId) {
-      _verificationId = verificationId;
-    }
-
-    try {
-      await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: _phoneNumber,
-        timeout: Duration(milliseconds: 10000),
-        verificationCompleted: verificationCompleted,
-        verificationFailed: verificationFailed,
-        //both are called based on diff conditions, not tested both
-        codeSent: codeSent,
-        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
-      );
-    } on FirebaseAuthException catch (e) {
-      showLoadingOverlay = false;
-      update();
-      print('Failed with error code: ${e.code}');
-      print(e.message);
-      print(e.code);
-    }
+  RequestType selectedRequestType = RequestType.sender;
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  @override
+  void onInit() {
+    super.onInit();
   }
 
-  void submitOTP({required String otp}) async {
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    filteredSenderEntityList = List.empty();
+    filteredCourierEntityList = List.empty();
+  }
+
+  void filterRequest(RequestEntity requestEntity) async {
     showLoadingOverlay = true;
-
+    selectedRequestType = requestEntity.requestType;
+    var collection = requestEntity.requestType == RequestType.sender
+        ? "sender_transaction"
+        : "courier_transaction";
     update();
-    _phoneAuthCredential = PhoneAuthProvider.credential(
-        verificationId: _verificationId ?? '', smsCode: otp.trim());
-    try {
-      await FirebaseAuth.instance
-          .signInWithCredential(_phoneAuthCredential)
-          .then((authRes) async {
-        _firebaseUser = authRes.user!;
-        print(_firebaseUser);
-        Get.offAll(() => HomeScreen());
-        // final _usersCollection = _firestore.collection('users');
-        // _usersCollection.where("phone", isEqualTo: _phoneNumber).get().then(
-        //     (value) {
-        //   print("check phone number in firestore: ${value.docs.length}");
-        //   if (value.docs.isEmpty) {
+    var filterQuery =
+        requestEntity.from.city.isNotEmpty && requestEntity.to.city.isNotEmpty
+            ? db
+                .collection(collection)
+                .where("deadline", isLessThan: requestEntity.deadline)
+                .where("from.city", isEqualTo: requestEntity.from.city)
+                .where("to.city", isEqualTo: requestEntity.to.city)
+            : requestEntity.from.city.isNotEmpty
+                ? db
+                    .collection(collection)
+                    .where("deadline", isLessThan: requestEntity.deadline)
+                    .where("from.city", isEqualTo: requestEntity.from.city)
+                : requestEntity.from.city.isNotEmpty
+                    ? db
+                        .collection(collection)
+                        .where("deadline", isLessThan: requestEntity.deadline)
+                        .where("to.city", isEqualTo: requestEntity.to.city)
+                    : db
+                        .collection(collection)
+                        .where("deadline", isLessThan: requestEntity.deadline);
 
-        //   } else {
+    filterQuery.get().then((res) async {
+      print('filterRequest filtered: ${res.docs}');
 
-        //   }
+      if (requestEntity.requestType == RequestType.sender) {
+        filteredSenderEntityList = res.docs.length == 0
+            ? filteredSenderEntityList
+            : await toRequestEntity(
+                RequestType.sender, res.docs, requestEntity);
+      } else {
+        filteredCourierEntityList = res.docs.length == 0
+            ? filteredCourierEntityList
+            : await toRequestEntity(
+                RequestType.courier, res.docs, requestEntity);
+      }
 
-        // }, onError: (e) => print("Couldn't find phone: $e"));
-      }).catchError((e) {
-        print(e);
-        showLoadingOverlay = false;
-        update();
-        if (e.code == 'invalid-verification-code') {
-          Fluttertoast.showToast(msg: 'invalid_otp'.tr);
-        }
-      });
-    } catch (e) {
+      showLoadingOverlay = false;
+
+      Get.off(() => FilterResultScreen());
+    }).catchError((e) {
       print(e);
-      // Get.find<SettingsService>().logout();
-    }
+      showLoadingOverlay = false;
+      update();
+      Fluttertoast.showToast(msg: 'internal_server_error'.tr);
+    });
+  }
+
+  Future<List<RequestEntity>> toRequestEntity(
+      RequestType requestType,
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> data,
+      RequestEntity requestEntity) async {
+    return data
+        .where((element) => element.data()["price"] <= requestEntity.price!)
+        .where((element) => element.data()["weight"] <= requestEntity.weight!)
+        .map((e) => RequestEntity(
+            id: e.id,
+            description: e.data()["description"],
+            price: e.data()["price"],
+            weight: e.data()["weight"],
+            from: Destination(
+                country: e.data()["from"]["country"],
+                region: e.data()["from"]["region"],
+                city: e.data()["from"]["city"]),
+            to: Destination(
+                country: e.data()["to"]["country"],
+                region: e.data()["to"]["region"],
+                city: e.data()["to"]["city"]),
+            deadline: (e.data()["deadline"] as Timestamp).toDate(),
+            user: UserProfile(
+                id: e.data()["user"]["id"],
+                name: e.data()["user"]["name"],
+                phoneNumber: e.data()["user"]["phoneNumber"],
+                photoURL: e.data()["user"]["photoURL"]),
+            requestType: requestType))
+        .toList();
   }
 }

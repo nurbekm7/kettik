@@ -1,4 +1,4 @@
-package com.example.kettik
+package kz.kettik.app
 
 import io.flutter.embedding.android.FlutterActivity
 

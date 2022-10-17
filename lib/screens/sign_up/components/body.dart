@@ -24,7 +24,7 @@ class Body extends StatelessWidget {
                   alignment: Alignment.topRight,
                   child: CloseButton(
                     onPressed: () {
-                      Get.off(HomeScreen());
+                      Get.offAll(HomeScreen());
                     },
                   ),
                 ),

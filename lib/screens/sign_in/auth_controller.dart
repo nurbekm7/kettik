@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,6 +16,8 @@ class AuthController extends GetxController {
   String? _verificationId = '';
   User? _firebaseUser;
   UserProfile? userProfile;
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  int? _resendToken;
 
   String getPhoneNumber() {
     return _phoneNumber;
@@ -42,6 +45,8 @@ class AuthController extends GetxController {
 
       void codeSent(String verificationId, [int? code]) {
         _verificationId = verificationId;
+        _resendToken = code;
+
         showLoadingOverlay = false;
         update();
         Get.to(() => OtpScreen());
@@ -52,14 +57,14 @@ class AuthController extends GetxController {
       }
 
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: _phoneNumber,
-        timeout: Duration(milliseconds: 10000),
-        verificationCompleted: verificationCompleted,
-        verificationFailed: verificationFailed,
-        //both are called based on diff conditions, not tested both
-        codeSent: codeSent,
-        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
-      );
+          phoneNumber: _phoneNumber,
+          timeout: Duration(milliseconds: 10000),
+          verificationCompleted: verificationCompleted,
+          verificationFailed: verificationFailed,
+          //both are called based on diff conditions, not tested both
+          codeSent: codeSent,
+          codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+          forceResendingToken: _resendToken);
     } on FirebaseAuthException catch (e) {
       showLoadingOverlay = false;
       update();
@@ -113,7 +118,7 @@ class AuthController extends GetxController {
       });
     } catch (e) {
       print(e);
-      // Get.find<SettingsService>().logout();
+      Get.find<SettingsService>().logout();
     }
   }
 
@@ -125,11 +130,51 @@ class AuthController extends GetxController {
         phoneNumber: _firebaseUser!.phoneNumber!,
         photoURL: _firebaseUser!.photoURL);
     Get.find<SettingsService>().signUp(userProfileParam: userProfile);
-    Get.off(() => HomeScreen());
+    Get.offAll(() => HomeScreen());
   }
 
   void deleteAccount() async {
+    List<String> courier_transaction_to_delete = List.empty();
+    List<String> sender_transaction_to_delete = List.empty();
+
+    // db
+    //     .collection('sender_transaction')
+    //     .where('user.phoneNumber',
+    //         isEqualTo: Get.find<SettingsService>().userProfile!.phoneNumber)
+    //     .get()
+    //     .then(
+    //   (res) async {
+    //     res.docs.map((e) => {sender_transaction_to_delete.add(e.id)});
+    //   },
+    //   onError: (e) => print("Error completing delete: $e"),
+    // );
+    // sender_transaction_to_delete.forEach((element) {
+    //   deleteData(element, 'sender_transaction');
+    // });
+
+    // db
+    //     .collection('courier_transaction')
+    //     .where('user.phoneNumber',
+    //         isEqualTo: Get.find<SettingsService>().userProfile!.phoneNumber)
+    //     .get()
+    //     .then(
+    //   (res) async {
+    //     res.docs.map((e) => {courier_transaction_to_delete.add(e.id)});
+    //   },
+    //   onError: (e) => print("Error completing delete: $e"),
+    // );
+    // courier_transaction_to_delete.forEach((element) {
+    //   deleteData(element, 'courier_transaction');
+    // });
+
     await FirebaseAuth.instance.currentUser!.delete();
     Get.find<SettingsService>().logout();
+  }
+
+  void deleteData(String docId, String collectionName) async {
+    db.collection(collectionName).doc(docId).delete().then(
+          (doc) => print("Document deleted"),
+          onError: (e) => print("Error updating document $e"),
+        );
   }
 }

@@ -51,17 +51,17 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:132470415583:android:2c6f5864c0e75709ba496a",
+        "mobilesdk_app_id": "1:132470415583:android:66c42f58025b3f1cba496a",
         "android_client_info": {
-          "package_name": "com.example.shop_app"
+          "package_name": "kz.kettik.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "132470415583-cgqtj59d9sg4nt1ghtkssn0kua05j8f1.apps.googleusercontent.com",
+          "client_id": "132470415583-jh04j71f0mo9crbfg0pmg3fn2dtt54ui.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.shop_app",
+            "package_name": "kz.kettik.app",
             "certificate_hash": "f8f97e121578ab1a291106f522317dce965bf0a1"
           }
         },

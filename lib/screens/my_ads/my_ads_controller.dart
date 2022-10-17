@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:kettik/components/settings_service.dart';
 import 'package:kettik/models/PromoEntity.dart';
 import 'package:kettik/models/RequestEntity.dart';
@@ -10,23 +9,33 @@ import 'package:get/get.dart';
 class MyAdsController extends GetxController {
   List<RequestEntity> mySenderEntityList = List.empty();
   List<RequestEntity> myCourierEntityList = List.empty();
-  List<PromoEntity> promoEntityList = demoCarts;
+  List<PromoEntity> promoEntityList = List.empty();
   bool showLoadingOverlay = false;
   FirebaseFirestore db = FirebaseFirestore.instance;
   @override
   void onInit() {
     super.onInit();
+    if (Get.find<SettingsService>().isLoggedIn == true) {
+      loadData();
+    }
   }
 
   @override
   void onReady() {
     super.onReady();
+    if (Get.find<SettingsService>().isLoggedIn == true) {
+      loadData();
+    }
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    if (Get.find<SettingsService>().isLoggedIn == true) {
+      loadData();
+    }
+  }
 
-  void loadData() async {
+  void loadData() {
     getCourierRequests();
     getSenderRequests();
   }
@@ -57,7 +66,7 @@ class MyAdsController extends GetxController {
         .toList();
   }
 
-  void getSenderRequests() async {
+  void getSenderRequests() {
     try {
       print("getSenderRequests: ");
       db
@@ -83,7 +92,7 @@ class MyAdsController extends GetxController {
     }
   }
 
-  void getCourierRequests() async {
+  void getCourierRequests() {
     try {
       db
           .collection("courier_transaction")

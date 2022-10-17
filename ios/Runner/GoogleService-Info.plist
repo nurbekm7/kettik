@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>132470415583-3snsvdubc1pdpi0rsh56tai3thuupgne.apps.googleusercontent.com</string>
+	<string>132470415583-qi8qlga777pqc368pd9qbsf3tg8iq7fm.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.132470415583-3snsvdubc1pdpi0rsh56tai3thuupgne</string>
+	<string>com.googleusercontent.apps.132470415583-qi8qlga777pqc368pd9qbsf3tg8iq7fm</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>132470415583-4qp25ob7g3eod2oel8113ahh5cjnmfg7.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDqnpIXdAu6XCNeFdKwWvVvQxWCLvc9eBY</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.shopApp</string>
+	<string>kz.kettik</string>
 	<key>PROJECT_ID</key>
 	<string>kettik-19d03</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:132470415583:ios:fbdaf672958f322dba496a</string>
+	<string>1:132470415583:ios:40c24b1b9af5eb83ba496a</string>
 </dict>
 </plist>

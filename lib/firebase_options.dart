@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAeCweON-Cxc1796CiYdm6ZVzVA4XkYDm8',
-    appId: '1:132470415583:android:eeed3ac8ba77891eba496a',
+    appId: '1:132470415583:android:66c42f58025b3f1cba496a',
     messagingSenderId: '132470415583',
     projectId: 'kettik-19d03',
     storageBucket: 'kettik-19d03.appspot.com',

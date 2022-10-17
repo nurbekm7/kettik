@@ -1,5 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:kettik/components/global_widgets/loading_overlay.dart';
+import 'package:kettik/constants.dart';
+import 'package:kettik/helper/timer_button.dart';
 import 'package:kettik/screens/home/home_screen.dart';
 import 'package:kettik/screens/sign_in/auth_controller.dart';
 import 'package:get/get.dart';
@@ -75,7 +78,7 @@ class OtpScreen extends GetView<AuthController> {
                                       alignment: Alignment.topRight,
                                       child: CloseButton(
                                         onPressed: () {
-                                          Get.off(() => HomeScreen());
+                                          Get.offAll(() => HomeScreen());
                                         },
                                       ),
                                     ),
@@ -192,13 +195,29 @@ class OtpScreen extends GetView<AuthController> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  Text('did_not_get_the_code'
-                                                      .tr),
-                                                  Text(
-                                                    'resend'.tr,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w600),
+                                                  AutoSizeText(
+                                                      'did_not_get_the_code'
+                                                          .tr),
+                                                  TimerButton(
+                                                    buttonType:
+                                                        ButtonType.TextButton,
+                                                    label: 'resend'.tr,
+                                                    timeOutInSeconds: 10,
+                                                    onPressed: () {
+                                                      controller.submitPhoneNumber(
+                                                          phone: controller
+                                                              .getPhoneNumber());
+                                                    },
+                                                    disabledColor: kLightGrey,
+                                                    color: Colors.white,
+                                                    disabledTextStyle:
+                                                        TextStyle(
+                                                            fontSize: 16.0,
+                                                            color:
+                                                                Colors.black),
+                                                    activeTextStyle: TextStyle(
+                                                        fontSize: 16.0,
+                                                        color: Colors.black),
                                                   )
                                                 ],
                                               ),
