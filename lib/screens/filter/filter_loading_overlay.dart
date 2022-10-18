@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:kettik/screens/filter/filter_controller.dart';
-import 'package:kettik/screens/home/home_controller.dart';
-import 'package:kettik/screens/transaction/create_request_controller.dart';
 
 class FilterLoadingOverlay extends StatelessWidget {
   final dynamic child;

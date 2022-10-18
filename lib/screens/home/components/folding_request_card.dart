@@ -12,7 +12,6 @@ import 'package:get/get.dart';
 import 'package:kettik/constants.dart';
 import 'package:kettik/screens/sign_in/sign_in_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 class FoldingRequestCard extends StatelessWidget {
   final RequestEntity requestEntity;

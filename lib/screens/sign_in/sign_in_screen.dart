@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kettik/components/form_error.dart';
 import 'package:kettik/components/settings_service.dart';
 import 'package:kettik/helper/keyboard.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -16,7 +15,6 @@ class SignInScreen extends GetView<AuthController> {
   final TextEditingController _textEditController = TextEditingController();
   String countryIso = 'KZ';
   PhoneNumber number = PhoneNumber(isoCode: 'KZ');
-  final List<String?> errors = [];
   late Size _size;
 
   @override
@@ -106,7 +104,6 @@ class SignInScreen extends GetView<AuthController> {
                                   },
                                 ),
                                 SizedBox(height: 30.h),
-                                FormError(errors: errors),
                                 SizedBox(height: _size.height * 0.4),
                                 DefaultButton(
                                   text: 'continueText'.tr,

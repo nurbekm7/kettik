@@ -1,9 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:kettik/components/custom_surfix_icon.dart';
 import 'package:kettik/components/default_button.dart';
 import 'package:kettik/components/form_error.dart';
-import 'package:kettik/components/settings_service.dart';
 import 'package:get/get.dart';
 import 'package:kettik/screens/sign_in/auth_controller.dart';
 import 'dart:developer' as debug;
@@ -111,37 +109,4 @@ class _SignUpFormState extends State<SignUpForm> {
       ),
     );
   }
-
-  // TextFormField buildEmailFormField() {
-  //   return TextFormField(
-  //     keyboardType: TextInputType.emailAddress,
-  //     onSaved: (newValue) => email = newValue,
-  //     onChanged: (value) {
-  //       if (value.isNotEmpty) {
-  //         removeError(error: kEmailNullError);
-  //       } else if (emailValidatorRegExp.hasMatch(value)) {
-  //         removeError(error: kInvalidEmailError);
-  //       }
-  //       return null;
-  //     },
-  //     validator: (value) {
-  //       if (value!.isEmpty) {
-  //         addError(error: kEmailNullError);
-  //         return "";
-  //       } else if (!emailValidatorRegExp.hasMatch(value)) {
-  //         addError(error: kInvalidEmailError);
-  //         return "";
-  //       }
-  //       return null;
-  //     },
-  //     decoration: InputDecoration(
-  //       labelText: "Email",
-  //       hintText: "Enter your email",
-  //       // If  you are using latest version of flutter then lable text and hint text shown like this
-  //       // if you r using flutter less then 1.20.* then maybe this is not working properly
-  //       floatingLabelBehavior: FloatingLabelBehavior.always,
-  //       suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
-  //     ),
-  //   );
-  // }
 }

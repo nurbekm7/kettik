@@ -62,7 +62,7 @@ class HomeController extends GetxController {
       List<QueryDocumentSnapshot<Map<String, dynamic>>> data) async {
     return data
         .where((element) =>
-            compareDateTime((element.data()["deadline"] as Timestamp).toDate()))
+            compareDateTime((element.data()["until"] as Timestamp).toDate()))
         .map((e) => PromoEntity(
               id: e.id,
               name: e.data()["name"],
@@ -155,9 +155,7 @@ class HomeController extends GetxController {
   }
 
   bool compareDateTime(DateTime deadline) {
-    var now = DateTime.now();
-    return now.year <= deadline.year &&
-        now.month <= deadline.month &&
-        now.day <= deadline.day;
+    var now = DateTime.now().millisecondsSinceEpoch;
+    return now <= deadline.millisecondsSinceEpoch;
   }
 }

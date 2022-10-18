@@ -41,8 +41,11 @@ class _HomeScreenState extends State<HomeScreen> {
           length: 3,
           child: Scaffold(
               appBar: AppBar(
-                title: AutoSizeText('Kettik' + kettikName,
-                    textAlign: TextAlign.start, maxLines: 1),
+                title: Align(
+                  alignment: Alignment.topLeft,
+                  child: AutoSizeText('Kettik' + kettikName,
+                      textAlign: TextAlign.start, maxLines: 1),
+                ),
                 backgroundColor: kPrimaryColor,
                 actions: <Widget>[
                   IconButton(

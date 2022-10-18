@@ -9,9 +9,6 @@ import 'package:get/get.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../components/default_button.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'components/body.dart';
 
 class OtpScreen extends GetView<AuthController> {
   final TextEditingController _pinPutController = TextEditingController();

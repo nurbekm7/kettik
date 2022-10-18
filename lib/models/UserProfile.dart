@@ -9,15 +9,6 @@ class UserProfile {
       required this.phoneNumber,
       this.photoURL = ''});
 
-  // @override
-  // String toString() {
-  //   return '{'
-  //       'name: $name, '
-  //       'id: $id, '
-  //       'phoneNumber: $phoneNumber, '
-  //       'photoURL: $photoURL }';
-  // }
-
   UserProfile.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         id = json['id'],
