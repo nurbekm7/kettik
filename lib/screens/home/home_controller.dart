@@ -9,52 +9,38 @@ class HomeController extends GetxController {
   List<RequestEntity> senderEntityList = List.empty();
   List<RequestEntity> courierEntityList = List.empty();
   List<PromoEntity> promoEntityList = List.empty();
-  bool showLoadingOverlay = false;
   FirebaseFirestore db = FirebaseFirestore.instance;
   @override
   void onInit() {
     super.onInit();
-    loadData();
   }
 
   @override
   void onReady() {
     super.onReady();
-    loadData();
   }
 
   @override
-  void onClose() {
-    loadData();
-  }
+  void onClose() {}
 
-  void loadData() async {
-    showLoadingOverlay = true;
-    getPromoList();
-    getCourierRequests();
-    getSenderRequests();
-    showLoadingOverlay = false;
-  }
-
-  Future<void> getPromoList() async {
+  Future<List<PromoEntity>> getPromoList() async {
     try {
-      db.collection("promo").orderBy("until").get().then(
+      Future.delayed(const Duration(milliseconds: 20000), () {
+        print("Future.delayed(");
+      });
+      return db.collection("promo").orderBy("until").get().then(
         (res) async {
-          print("promoEntityList res.docs: " + res.docs.toString());
-          promoEntityList = res.docs.length == 0
+          return promoEntityList = res.docs.length == 0
               ? promoEntityList
               : await toPromoEntity(res.docs);
-          print("promoEntityList: " + promoEntityList.toString());
         },
         onError: (e) => print("Error completing: $e"),
       );
-      Future.delayed(Duration(milliseconds: 20), () {
-        update();
-      });
     } catch (e) {
       print(e.toString());
       Fluttertoast.showToast(
           msg: 'get_promo_list_exception'.tr + " " + e.toString());
+      return promoEntityList;
     }
   }
 
@@ -111,46 +97,42 @@ class HomeController extends GetxController {
         .toList();
   }
 
-  void getSenderRequests() async {
+  Future<List<RequestEntity>> getSenderRequests() async {
     try {
-      db.collection("sender_transaction").orderBy("deadline").get().then(
+      return db.collection("sender_transaction").orderBy("deadline").get().then(
         (res) async {
           print("senderEntityList res.docs: " + res.docs.toString());
-
-          senderEntityList = res.docs.length == 0
+          return senderEntityList = res.docs.length == 0
               ? senderEntityList
               : await toRequestEntity(RequestType.sender, res.docs);
-          print("senderEntityList: " + senderEntityList.toString());
         },
         onError: (e) => print("Error completing: $e"),
       );
-      Future.delayed(Duration(milliseconds: 20), () {
-        update();
-      });
     } catch (e) {
       Fluttertoast.showToast(msg: 'get_sender_requests_exception'.tr);
+      return senderEntityList;
     }
   }
 
-  void getCourierRequests() async {
+  Future<List<RequestEntity>> getCourierRequests() async {
     try {
-      db.collection("courier_transaction").orderBy("deadline").get().then(
+      return db
+          .collection("courier_transaction")
+          .orderBy("deadline")
+          .get()
+          .then(
         (res) async {
           print("courierEntityList res.docs: " + res.docs.toString());
-
-          courierEntityList = res.docs.length == 0
+          return courierEntityList = res.docs.length == 0
               ? courierEntityList
               : await toRequestEntity(RequestType.courier, res.docs);
-          print("courierEntityList: " + courierEntityList.toString());
         },
         onError: (e) => print("Error completing: $e"),
       );
-      Future.delayed(Duration(milliseconds: 20), () {
-        update();
-      });
     } catch (e) {
       print("get_courier_requests_exception: " + e.toString());
       Fluttertoast.showToast(msg: 'get_courier_requests_exception'.tr);
+      return courierEntityList;
     }
   }
 
