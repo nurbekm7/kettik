@@ -10,9 +10,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kettik/constants.dart';
 import 'package:kettik/screens/sign_in/sign_in_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class FoldingPromoCard extends StatefulWidget {
   FoldingPromoCard({Key? key, required this.promoEntity}) : super(key: key);
@@ -301,10 +301,11 @@ class _FoldingPromoCardState extends State<FoldingPromoCard> {
                             actions: [
                               TextButton(
                                 child: Text("OK"),
-                                onPressed: () {
-                                  launch(
+                                onPressed: () async {
+                                  await launchUrlString(
                                       'https://api.whatsapp.com/send/?phone=' +
-                                          promoEntity.user.phoneNumber);
+                                          promoEntity.user.phoneNumber,
+                                      mode: LaunchMode.externalApplication);
                                 },
                               ),
                             ],

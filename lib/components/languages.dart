@@ -91,11 +91,12 @@ class Languages extends Translations {
         'en_US': {
           "helloWorld": "Welcome",
           "sign_in_body": "Sign in with your WhatsApp phone number or register",
-          "introTitle1": "Welcome to Kettik App!",
+          "introTitle1":
+              "Welcome to Kettik App! \n Get access to discounted original products from all over the world!",
           "introTitle2":
               "We help people find each other. \n Those who need to send something urgently and those who are ready to make money on it",
           "introTitle3":
-              "You can order a purchase directly from a store from abroad",
+              "Become a verified Bayer \n And start collecting orders from all over the world.",
           "continueText": "Continiue",
           "phone": "Phone number",
           "phonePrompt": "Enter your phone number",
@@ -264,11 +265,12 @@ class Languages extends Translations {
         'ru_RU': {
           "helloWorld": "Добро пожаловать",
           "sign_in_body": "Введите ваш номер телефона c WhatsApp",
-          "introTitle1": "Добро пожаловать в Kettik App !",
+          "introTitle1":
+              "Добро пожаловать в Kettik App ! \n Получите доступ к оригинальным товарам, со скидкой со всего мира !",
           "introTitle2":
-              "Мы помогаем людям найти друг друга \n Тех кому нужно что то срочно отправить и тех кто готов на этом заработать",
+              "Мы помогаем людям найти друг друга. \n Тем, кому нужно что-то срочно отправить и тем, кто готов на этом заработать.",
           "introTitle3":
-              "Вы можете заказать покупку напрямую с магазина из за рубежа",
+              "Станьте верифицированным Байером \n И начните собирать заказы со всего мира.",
           "continueText": "Продолжить",
           "phone": "Номер телефона",
           "phonePrompt": "Введите номер телефона",

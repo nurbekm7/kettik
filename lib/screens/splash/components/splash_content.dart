@@ -16,6 +16,7 @@ class SplashContent extends StatelessWidget {
     return Column(
       children: <Widget>[
         Spacer(),
+        Spacer(),
         Text(
           "KETTIK",
           style: TextStyle(
@@ -24,9 +25,10 @@ class SplashContent extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        Spacer(),
         Text(text!,
             textAlign: TextAlign.center, style: TextStyle(fontSize: 16.w)),
-        Spacer(flex: 2),
+        Spacer(flex: 1),
         Image.asset(
           image!,
           height: 265.h,

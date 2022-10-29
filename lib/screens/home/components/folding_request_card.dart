@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kettik/constants.dart';
 import 'package:kettik/screens/sign_in/sign_in_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class FoldingRequestCard extends StatelessWidget {
   final RequestEntity requestEntity;
@@ -362,11 +362,13 @@ class FoldingRequestCard extends StatelessWidget {
                                     actions: [
                                       TextButton(
                                         child: Text("OK"),
-                                        onPressed: () {
-                                          launch(
+                                        onPressed: () async {
+                                          await launchUrlString(
                                               'https://api.whatsapp.com/send/?phone=' +
                                                   requestEntity
-                                                      .user.phoneNumber);
+                                                      .user.phoneNumber,
+                                              mode: LaunchMode
+                                                  .externalApplication);
                                         },
                                       ),
                                     ],
