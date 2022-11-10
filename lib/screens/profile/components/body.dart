@@ -3,7 +3,7 @@ import 'package:kettik/components/settings_service.dart';
 import 'package:kettik/screens/about/about_screen.dart';
 import 'package:kettik/screens/my_ads/my_ads_screen.dart';
 import 'package:kettik/screens/sign_in/auth_controller.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'profile_menu.dart';
 import 'profile_pic.dart';
@@ -16,7 +16,7 @@ class Body extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          ProfilePic(),
+          // ProfilePic(),
           SizedBox(height: 20),
           ProfileMenu(
             text: "my_transactions".tr,
@@ -39,7 +39,8 @@ class Body extends StatelessWidget {
             text: "contact_us".tr,
             icon: "assets/icons/Mail.svg",
             press: () {
-              launch('https://api.whatsapp.com/send/?phone=+971588050420');
+              launchUrlString(
+                  'https://api.whatsapp.com/send/?phone=+77021821875');
             },
           ),
           ProfileMenu(
@@ -65,10 +66,12 @@ class Body extends StatelessWidget {
     // set up the buttons
     Widget cancelButton = TextButton(
       child: Text("no".tr),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
     );
     Widget continueButton = TextButton(
-      child: Text("OK"),
+      child: Text("yes".tr),
       onPressed: () {
         Get.find<AuthController>().deleteAccount();
       },

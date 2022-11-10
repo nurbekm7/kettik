@@ -38,7 +38,7 @@ class _FoldingPromoCardState extends State<FoldingPromoCard> {
         key: _foldingCellKey,
         frontWidget: frontWidget(),
         innerWidget: innerTopWidget(),
-        cellSize: Size(MediaQuery.of(context).size.width, 140),
+        cellSize: Size(MediaQuery.of(context).size.width, 140.h),
         padding: EdgeInsets.all(5.0),
         animationDuration: Duration(milliseconds: 300),
         borderRadius: 3,
@@ -112,6 +112,7 @@ class _FoldingPromoCardState extends State<FoldingPromoCard> {
                                 child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: AutoSizeText(promoEntity.name,
+                                  maxLines: 3,
                                   style: TextStyle(
                                     color: kTextColor,
                                     fontSize: 16.sp,
@@ -179,7 +180,7 @@ class _FoldingPromoCardState extends State<FoldingPromoCard> {
                       ),
                       Expanded(
                         child:
-                            AutoSizeText(promoEntity.price.toString() + ' USD',
+                            AutoSizeText(promoEntity.price.toString() + ' \$',
                                 maxLines: 1,
                                 style: TextStyle(
                                   color: Colors.white,
@@ -281,6 +282,7 @@ class _FoldingPromoCardState extends State<FoldingPromoCard> {
               Container(
                 padding: EdgeInsets.all(10),
                 child: AutoSizeText(promoEntity.description,
+                    maxLines: 2,
                     style: TextStyle(color: Colors.black, fontSize: 18.0.sp)),
               ),
 
@@ -299,6 +301,12 @@ class _FoldingPromoCardState extends State<FoldingPromoCard> {
                             title: Text("alert_title".tr),
                             content: Text("alert_content".tr),
                             actions: [
+                              TextButton(
+                                child: Text("cancel".tr),
+                                onPressed: () async {
+                                  Navigator.of(context).pop(); // dismiss dialog
+                                },
+                              ),
                               TextButton(
                                 child: Text("OK"),
                                 onPressed: () async {
