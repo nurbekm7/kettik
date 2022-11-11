@@ -361,6 +361,13 @@ class FoldingRequestCard extends StatelessWidget {
                                     content: Text("alert_content".tr),
                                     actions: [
                                       TextButton(
+                                        child: Text("cancel".tr),
+                                        onPressed: () async {
+                                          Navigator.of(context)
+                                              .pop(); // dismiss dialog
+                                        },
+                                      ),
+                                      TextButton(
                                         child: Text("OK"),
                                         onPressed: () async {
                                           await launchUrlString(

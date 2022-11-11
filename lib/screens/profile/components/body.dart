@@ -40,7 +40,8 @@ class Body extends StatelessWidget {
             icon: "assets/icons/Mail.svg",
             press: () {
               launchUrlString(
-                  'https://api.whatsapp.com/send/?phone=+77021821875');
+                  'https://api.whatsapp.com/send/?phone=+77021821875',
+                  mode: LaunchMode.externalApplication);
             },
           ),
           ProfileMenu(
