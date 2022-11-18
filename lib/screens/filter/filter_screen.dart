@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:kettik/components/csc_picker/csc_picker.dart';
 import 'package:kettik/components/default_button.dart';
 import 'package:kettik/components/form_error.dart';
 import 'package:kettik/helper/keyboard.dart';
@@ -10,7 +11,6 @@ import 'package:kettik/screens/filter/filter_controller.dart';
 import 'package:kettik/screens/filter/filter_loading_overlay.dart';
 import 'package:get/get.dart';
 import 'package:kettik/constants.dart';
-import 'package:csc_picker/csc_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart';
@@ -160,10 +160,6 @@ class FilterDiologState extends State<FilterDiolog> {
                         onStateChanged: (value) {
                           setState(() {
                             debug.log("stateValue: $value");
-                            if (value != null) {
-                              removeError(error: kNullRegionField);
-                              stateValue = value.toString();
-                            }
                           });
                         },
                         citySearchPlaceholder: "city".tr,
@@ -171,10 +167,6 @@ class FilterDiologState extends State<FilterDiolog> {
                         onCityChanged: (value) {
                           setState(() {
                             debug.log("cityValue: $value");
-                            if (value != null) {
-                              removeError(error: kNullCityField);
-                              cityValue = value;
-                            }
                           });
                         },
                       ),
@@ -196,7 +188,6 @@ class FilterDiologState extends State<FilterDiolog> {
                         onCountryChanged: (value) {
                           setState(() {
                             debug.log("toCountryValue: $value");
-
                             if (value.isNotEmpty) {
                               removeError(error: kNullToCountryField);
                               toCountryValue = value;
@@ -208,10 +199,6 @@ class FilterDiologState extends State<FilterDiolog> {
                         onStateChanged: (value) {
                           setState(() {
                             debug.log("toStateValue: $value");
-                            if (value != null) {
-                              removeError(error: kNullToRegionField);
-                              toStateValue = value;
-                            }
                           });
                         },
                         citySearchPlaceholder: "city".tr,
@@ -219,10 +206,6 @@ class FilterDiologState extends State<FilterDiolog> {
                         onCityChanged: (value) {
                           setState(() {
                             debug.log("toCityValue: $value");
-                            if (value != null) {
-                              removeError(error: kNullToCityField);
-                              toCityValue = value;
-                            }
                           });
                         },
                       ),
@@ -270,15 +253,9 @@ class FilterDiologState extends State<FilterDiolog> {
                           return null;
                         },
                         validator: (value) {
-                          // if (value!.isEmpty || value == "0") {
-                          //   addError(error: kNullWeightField);
-                          //   return "";
-                          // }
                           return null;
                         },
                       ),
-
-                      // onTap: () => {_showNumberPicker(context)},
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 15.0),
@@ -304,14 +281,9 @@ class FilterDiologState extends State<FilterDiolog> {
                           return null;
                         },
                         validator: (value) {
-                          // if (value!.isEmpty || value == "0") {
-                          //   addError(error: kNullPriceField);
-                          //   return "";
-                          // }
                           return null;
                         },
                       ),
-                      // onTap: () => {_showNumberPicker(context)},
                     ),
                     SizedBox(
                       height: 5.h,
@@ -344,11 +316,15 @@ class FilterDiologState extends State<FilterDiolog> {
                                     from: Destination(
                                         country: countryValue.split(" ").last,
                                         region: stateValue,
-                                        city: cityValue),
+                                        city: cityValue.isEmpty
+                                            ? stateValue
+                                            : cityValue),
                                     to: Destination(
                                         country: toCountryValue.split(" ").last,
                                         region: toStateValue,
-                                        city: toCityValue),
+                                        city: toCityValue.isEmpty
+                                            ? toStateValue
+                                            : toCityValue),
                                     deadline: _dateTime,
                                     user: UserProfile(
                                         id: "", phoneNumber: "phoneNumber"),

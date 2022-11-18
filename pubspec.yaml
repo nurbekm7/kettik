@@ -51,13 +51,12 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   url_launcher: ^6.0.20
   numberpicker: "^2.1.1"
-  csc_picker: ^0.2.6
   connectivity_plus: ^2.2.1
   cached_network_image: ^3.2.0
   shimmer: ^2.0.0
   cloud_firestore: ^3.4.9
   flutter_pdfview: ^1.2.5
-  
+  http: ^0.13.5
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -76,6 +75,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/files/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:kettik/components/csc_picker/csc_picker.dart';
 import 'package:kettik/components/default_button.dart';
 import 'package:kettik/components/form_error.dart';
 import 'package:kettik/components/settings_service.dart';
@@ -9,7 +10,6 @@ import 'package:kettik/screens/filter/date_time.dart';
 import 'package:get/get.dart';
 import 'package:kettik/constants.dart';
 import 'package:kettik/screens/transaction/create_request_controller.dart';
-import 'package:csc_picker/csc_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart';
@@ -229,12 +229,6 @@ class CreateRequestState extends State<CreateRequestScreen> {
                         onStateChanged: (value) {
                           setState(() {
                             debug.log("toStateValue: $value");
-                            if (value != null) {
-                              removeError(error: kNullToRegionField);
-                              toStateValue = value;
-                            } else {
-                              addError(error: kNullToRegionField);
-                            }
                           });
                         },
                         citySearchPlaceholder: "city".tr,
@@ -242,12 +236,6 @@ class CreateRequestState extends State<CreateRequestScreen> {
                         onCityChanged: (value) {
                           setState(() {
                             debug.log("toCityValue: $value");
-                            if (value != null) {
-                              removeError(error: kNullToCityField);
-                              toCityValue = value;
-                            } else {
-                              addError(error: kNullToCityField);
-                            }
                           });
                         },
                       ),
@@ -379,11 +367,15 @@ class CreateRequestState extends State<CreateRequestScreen> {
                                     from: Destination(
                                         country: countryValue.split(" ").last,
                                         region: stateValue,
-                                        city: cityValue),
+                                        city: cityValue.isEmpty
+                                            ? stateValue
+                                            : cityValue),
                                     to: Destination(
                                         country: toCountryValue.split(" ").last,
                                         region: toStateValue,
-                                        city: toCityValue),
+                                        city: toCityValue.isEmpty
+                                            ? toStateValue
+                                            : toCityValue),
                                     deadline: _dateTime,
                                     user: Get.find<SettingsService>()
                                         .userProfile!,
@@ -401,24 +393,6 @@ class CreateRequestState extends State<CreateRequestScreen> {
       ),
     );
   }
-
-  // _showNumberPicker(BuildContext context) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return NumberPicker(
-  //         minValue: 1,
-  //         maxValue: 150,
-  //         value: 1,
-  //         onChanged: (value) => setState(() => _weight = value),
-  //       );
-  //     },
-  //   ).then((value) {
-  //     if (value != null) {
-  //       setState(() => _weight = value);
-  //     }
-  //   });
-  // }
 
   void checkRequestType() async {
     debug.log("dropdownReqTypeValue: $dropdownReqTypeValue");
@@ -441,16 +415,8 @@ class CreateRequestState extends State<CreateRequestScreen> {
     if (countryValue.isEmpty) {
       debug.log("countryValue.isEmpt");
       addError(error: kNullCountryField);
-    } else if (stateValue.isEmpty) {
-      addError(error: kNullRegionField);
-    } else if (cityValue.isEmpty) {
-      addError(error: kNullCityField);
     } else if (toCountryValue.isEmpty) {
       addError(error: kNullToCountryField);
-    } else if (toStateValue.isEmpty) {
-      addError(error: kNullToRegionField);
-    } else if (toCityValue.isEmpty) {
-      addError(error: kNullToCityField);
     }
   }
 }

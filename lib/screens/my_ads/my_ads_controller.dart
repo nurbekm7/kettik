@@ -71,10 +71,9 @@ class MyAdsController extends GetxController {
         .toList();
   }
 
-  void getSenderRequests() {
+  Future<List<RequestEntity>> getSenderRequests() async {
     try {
-      print("getSenderRequests: ");
-      db
+      return db
           .collection("sender_transaction")
           .where("user.phoneNumber",
               isEqualTo: Get.find<SettingsService>().userProfile!.phoneNumber)
@@ -82,26 +81,22 @@ class MyAdsController extends GetxController {
           .get()
           .then(
         (res) async {
-          mySenderEntityList = res.docs.length == 0
+          print("mySenderEntityList res.docs: " + res.docs.toString());
+          return mySenderEntityList = res.docs.length == 0
               ? mySenderEntityList
               : await toRequestEntity(RequestType.sender, res.docs);
-          print("mySenderEntityList: " + mySenderEntityList.toString());
         },
         onError: (e) => print("Error completing: $e"),
       );
-      Future.delayed(Duration(milliseconds: 20), () {
-        update();
-      });
     } catch (e) {
-      print("get_my_sender_requests_exception: " + e.toString());
-
-      Fluttertoast.showToast(msg: 'get_my_sender_requests_exception'.tr);
+      Fluttertoast.showToast(msg: 'get_sender_requests_exception'.tr);
+      return mySenderEntityList;
     }
   }
 
-  void getCourierRequests() {
+  Future<List<RequestEntity>> getCourierRequests() async {
     try {
-      db
+      return db
           .collection("courier_transaction")
           .where("user.phoneNumber",
               isEqualTo: Get.find<SettingsService>().userProfile!.phoneNumber)
@@ -109,19 +104,17 @@ class MyAdsController extends GetxController {
           .get()
           .then(
         (res) async {
-          myCourierEntityList = res.docs.length == 0
+          print("myCourierEntityList res.docs: " + res.docs.toString());
+          return myCourierEntityList = res.docs.length == 0
               ? myCourierEntityList
               : await toRequestEntity(RequestType.courier, res.docs);
-          print("courierEntityList: " + myCourierEntityList.toString());
         },
         onError: (e) => print("Error completing: $e"),
       );
-      Future.delayed(Duration(milliseconds: 20), () {
-        update();
-      });
     } catch (e) {
-      print("get_my_courier_requests_exception: " + e.toString());
-      Fluttertoast.showToast(msg: 'get_my_courier_requests_exception'.tr);
+      print("get_courier_requests_exception: " + e.toString());
+      Fluttertoast.showToast(msg: 'get_courier_requests_exception'.tr);
+      return myCourierEntityList;
     }
   }
 

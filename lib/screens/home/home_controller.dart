@@ -25,9 +25,6 @@ class HomeController extends GetxController {
 
   Future<List<PromoEntity>> getPromoList() async {
     try {
-      // Future.delayed(const Duration(milliseconds: 20000), () {
-      //   print("Future.delayed(");
-      // });
       return db.collection("promo").orderBy("until").get().then(
         (res) async {
           return promoEntityList = res.docs.length == 0

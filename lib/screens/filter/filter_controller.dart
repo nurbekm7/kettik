@@ -47,7 +47,7 @@ class FilterController extends GetxController {
                     .collection(collection)
                     .where("deadline", isLessThan: requestEntity.deadline)
                     .where("from.city", isEqualTo: requestEntity.from.city)
-                : requestEntity.from.city.isNotEmpty
+                : requestEntity.to.city.isNotEmpty
                     ? db
                         .collection(collection)
                         .where("deadline", isLessThan: requestEntity.deadline)
