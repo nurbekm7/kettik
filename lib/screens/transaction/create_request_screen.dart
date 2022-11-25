@@ -228,6 +228,9 @@ class CreateRequestState extends State<CreateRequestScreen> {
                         stateDropdownLabel: "region".tr,
                         onStateChanged: (value) {
                           setState(() {
+                            if (value != null) {
+                              toStateValue = value;
+                            }
                             debug.log("toStateValue: $value");
                           });
                         },
@@ -235,7 +238,10 @@ class CreateRequestState extends State<CreateRequestScreen> {
                         cityDropdownLabel: "city".tr,
                         onCityChanged: (value) {
                           setState(() {
-                            debug.log("toCityValue: $value");
+                            if (value != null) {
+                              debug.log("toCityValue: $value");
+                              toCityValue = value;
+                            }
                           });
                         },
                       ),

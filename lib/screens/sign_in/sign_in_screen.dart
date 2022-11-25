@@ -134,7 +134,7 @@ class SignInScreen extends GetView<AuthController> {
       FocusManager.instance.primaryFocus?.unfocus();
       PhoneNumber number = await PhoneNumber.getRegionInfoFromPhoneNumber(
           _textEditController.text, countryIso);
-      await controller.submitPhoneNumber(phone: number.toString());
+      await controller.submitPhoneNumber(phone: number.phoneNumber!);
     }
   }
 }

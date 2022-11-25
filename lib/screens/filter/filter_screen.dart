@@ -198,6 +198,9 @@ class FilterDiologState extends State<FilterDiolog> {
                         stateDropdownLabel: "region".tr,
                         onStateChanged: (value) {
                           setState(() {
+                            if (value != null) {
+                              toStateValue = value;
+                            }
                             debug.log("toStateValue: $value");
                           });
                         },
@@ -205,6 +208,9 @@ class FilterDiologState extends State<FilterDiolog> {
                         cityDropdownLabel: "city".tr,
                         onCityChanged: (value) {
                           setState(() {
+                            if (value != null) {
+                              toCityValue = value;
+                            }
                             debug.log("toCityValue: $value");
                           });
                         },

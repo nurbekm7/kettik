@@ -15,7 +15,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+19
+version: 1.0.1+22
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
@@ -32,7 +32,7 @@ dependencies:
   # if you are using latest flutter please update your flutter_svg package to ^0.18.*
   flutter_svg: ^0.22.0 # help us to use SVG in our app
   provider: ^6.0.0 # for State management
-  firebase_auth: ^3.4.1
+  firebase_auth: ^4.1.4
   intl_phone_number_input: ^0.7.0+2
   get: 4.6.1
   fluttertoast: ^8.0.9
@@ -41,10 +41,11 @@ dependencies:
   auto_size_text: ^3.0.0
   flutter_offline: ^2.1.0
   device_preview: ^1.0.0
-  firebase_crashlytics: ^2.6.3
-  firebase_analytics: ^9.1.6
+  firebase_crashlytics: ^3.0.6
+  firebase_analytics: ^10.0.6
+  firebase_core: ^2.3.0
   get_storage: ^2.0.3
-  firebase_remote_config: ^2.0.9
+  firebase_remote_config: ^3.0.6
   flutter_staggered_animations: ^1.0.0
   folding_cell: ^1.0.2
   font_awesome_flutter: ^10.1.0
@@ -54,7 +55,7 @@ dependencies:
   connectivity_plus: ^2.2.1
   cached_network_image: ^3.2.0
   shimmer: ^2.0.0
-  cloud_firestore: ^3.4.9
+  cloud_firestore: ^4.1.0
   flutter_pdfview: ^1.2.5
   http: ^0.13.5
 dev_dependencies:

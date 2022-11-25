@@ -7,56 +7,28 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:132470415583:android:eeed3ac8ba77891eba496a",
-        "android_client_info": {
-          "package_name": "com.example.kettik"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "132470415583-4qp25ob7g3eod2oel8113ahh5cjnmfg7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.kettik",
-            "certificate_hash": "f8f97e121578ab1a291106f522317dce965bf0a1"
-          }
-        },
-        {
-          "client_id": "132470415583-7gm35cec2v7enfqfgnc3o79ultveposk.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAeCweON-Cxc1796CiYdm6ZVzVA4XkYDm8"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "132470415583-7gm35cec2v7enfqfgnc3o79ultveposk.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "132470415583-3snsvdubc1pdpi0rsh56tai3thuupgne.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.shopApp"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:132470415583:android:66c42f58025b3f1cba496a",
         "android_client_info": {
           "package_name": "kz.kettik.app"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "132470415583-5ul3fl2ccm7g2hrejbo5svfkv8qcgfkd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kz.kettik.app",
+            "certificate_hash": "0686aeea217a1ddf9ff086fa5de9971f9471aae9"
+          }
+        },
+        {
+          "client_id": "132470415583-do80fostck3ktj1uscbbtd1unmnm0m7j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kz.kettik.app",
+            "certificate_hash": "5c5b981401394050157faa45b44e61eab4570b52"
+          }
+        },
         {
           "client_id": "132470415583-jh04j71f0mo9crbfg0pmg3fn2dtt54ui.apps.googleusercontent.com",
           "client_type": 1,
