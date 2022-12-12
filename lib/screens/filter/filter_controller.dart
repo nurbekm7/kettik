@@ -14,6 +14,7 @@ class FilterController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    showLoadingOverlay = false;
   }
 
   @override
@@ -24,6 +25,7 @@ class FilterController extends GetxController {
   @override
   void onClose() {
     print("onClose: FilterController");
+    showLoadingOverlay = false;
     filteredSenderEntityList = List.empty();
     filteredCourierEntityList = List.empty();
   }
@@ -39,22 +41,28 @@ class FilterController extends GetxController {
         requestEntity.from.city.isNotEmpty && requestEntity.to.city.isNotEmpty
             ? db
                 .collection(collection)
-                .where("deadline", isLessThan: requestEntity.deadline)
+                .where("deadline",
+                    isLessThanOrEqualTo: requestEntity.deadline,
+                    isGreaterThanOrEqualTo: DateTime.now())
                 .where("from.city", isEqualTo: requestEntity.from.city)
                 .where("to.city", isEqualTo: requestEntity.to.city)
             : requestEntity.from.city.isNotEmpty
                 ? db
                     .collection(collection)
-                    .where("deadline", isLessThan: requestEntity.deadline)
+                    .where("deadline",
+                        isLessThanOrEqualTo: requestEntity.deadline,
+                        isGreaterThanOrEqualTo: DateTime.now())
                     .where("from.city", isEqualTo: requestEntity.from.city)
                 : requestEntity.to.city.isNotEmpty
                     ? db
                         .collection(collection)
-                        .where("deadline", isLessThan: requestEntity.deadline)
+                        .where("deadline",
+                            isLessThanOrEqualTo: requestEntity.deadline,
+                            isGreaterThanOrEqualTo: DateTime.now())
                         .where("to.city", isEqualTo: requestEntity.to.city)
-                    : db
-                        .collection(collection)
-                        .where("deadline", isLessThan: requestEntity.deadline);
+                    : db.collection(collection).where("deadline",
+                        isLessThan: requestEntity.deadline,
+                        isGreaterThanOrEqualTo: DateTime.now());
 
     filterQuery.get().then((res) async {
       print('filterRequest filtered: ${res.docs}');
@@ -72,7 +80,7 @@ class FilterController extends GetxController {
       }
 
       showLoadingOverlay = false;
-      Get.offAll(() => FilterResultScreen());
+      Get.to(() => FilterResultScreen());
     }).catchError((e) {
       print(e);
       showLoadingOverlay = false;

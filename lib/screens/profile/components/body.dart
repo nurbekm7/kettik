@@ -39,8 +39,7 @@ class Body extends StatelessWidget {
             text: "contact_us".tr,
             icon: "assets/icons/Mail.svg",
             press: () {
-              launchUrlString(
-                  'https://api.whatsapp.com/send/?phone=+77021821875',
+              launchUrlString('https://www.instagram.com/nurbek.m7/',
                   mode: LaunchMode.externalApplication);
             },
           ),
