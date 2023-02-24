@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:kettik/components/settings_service.dart';
 import 'package:kettik/screens/about/about_screen.dart';
@@ -8,6 +9,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import 'profile_menu.dart';
 import 'profile_pic.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -16,7 +18,12 @@ class Body extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          // ProfilePic(),
+          ProfilePic(),
+          SizedBox(height: 20),
+          AutoSizeText(
+            Get.find<SettingsService>().userProfile!.phoneNumber,
+            style: TextStyle(fontSize: 16.sp),
+          ),
           SizedBox(height: 20),
           ProfileMenu(
             text: "my_transactions".tr,

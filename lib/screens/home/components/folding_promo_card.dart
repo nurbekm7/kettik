@@ -103,43 +103,34 @@ class _FoldingPromoCardState extends State<FoldingPromoCard> {
                     borderRadius: BorderRadius.circular(5.0),
                     color: Colors.white,
                   ),
+                  padding: EdgeInsetsDirectional.all(8.0),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        AutoSizeText(promoEntity.name,
+                            maxLines: 3,
+                            style: TextStyle(
+                              color: kTextColor,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        SizedBox(height: 5.h),
                         Row(
-                          children: [
-                            Container(
-                                child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: AutoSizeText(promoEntity.name,
-                                  maxLines: 3,
+                          children: <Widget>[
+                            AutoSizeText("promo_price".tr,
+                                style: TextStyle(
+                                    color: kTextColor, fontSize: 16.0.sp)),
+                            Flexible(
+                              child: AutoSizeText(
+                                  promoEntity.price.toString() + "currency".tr,
                                   style: TextStyle(
                                     color: kTextColor,
-                                    fontSize: 16.sp,
+                                    fontSize: 18.0.sp,
                                     fontWeight: FontWeight.bold,
                                   )),
-                            )),
+                            )
                           ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: <Widget>[
-                              AutoSizeText("promo_price".tr,
-                                  style: TextStyle(
-                                      color: kTextColor, fontSize: 16.0.sp)),
-                              Flexible(
-                                child: AutoSizeText(
-                                    promoEntity.price.toString() +
-                                        "currency".tr,
-                                    style: TextStyle(
-                                      color: kTextColor,
-                                      fontSize: 18.0.sp,
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                              )
-                            ],
-                          ),
                         ),
                       ])),
             ),
@@ -166,28 +157,23 @@ class _FoldingPromoCardState extends State<FoldingPromoCard> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      Expanded(
-                        child: AutoSizeText('# ' + promoEntity.id,
-                            maxLines: 1,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ),
+                      AutoSizeText("promo_price".tr,
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          )),
                       SizedBox(
-                        width: _size.width * 0.5,
+                        width: 10.w,
                       ),
-                      Expanded(
-                        child:
-                            AutoSizeText(promoEntity.price.toString() + ' \$',
-                                maxLines: 1,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
-                                )),
-                      ),
+                      AutoSizeText(promoEntity.price.toString() + ' \$',
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          )),
                     ],
                   ),
                 ),

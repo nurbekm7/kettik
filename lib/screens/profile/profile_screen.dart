@@ -35,9 +35,8 @@ class ProfileScreenState extends State<ProfileScreen> {
       onWillPop: () async => false,
       child: Scaffold(
           appBar: AppBar(
-            title: Get.find<SettingsService>().userProfile == null
-                ? AutoSizeText("")
-                : AutoSizeText(Get.find<SettingsService>().userProfile!.name!),
+            centerTitle: true,
+            title: AutoSizeText(Get.find<SettingsService>().userProfile!.name!),
             backgroundColor: kPrimaryColor,
           ),
           body: Body(),

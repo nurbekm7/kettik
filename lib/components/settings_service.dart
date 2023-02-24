@@ -16,7 +16,7 @@ class SettingsService extends GetxService {
       WidgetsBinding.instance.window.locales.first.languageCode;
   Locale locale = WidgetsBinding.instance.window.locales.first;
   late bool isLoggedIn = false;
-  UserProfile? userProfile;
+  late UserProfile? userProfile;
   User? userFirebsase;
 
   @override
