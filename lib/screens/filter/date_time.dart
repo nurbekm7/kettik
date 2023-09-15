@@ -9,8 +9,7 @@ import 'package:kettik/components/settings_service.dart';
 
 class DateTimeItem extends StatelessWidget {
   DateTimeItem({Key? key, DateTime? dateTime, required this.onChanged})
-      : assert(onChanged != null),
-        date = dateTime == null
+      : date = dateTime == null
             ? new DateTime.now()
             : new DateTime(dateTime.year, dateTime.month, dateTime.day),
         // time = dateTime == null

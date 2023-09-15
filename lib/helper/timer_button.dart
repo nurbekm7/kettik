@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -139,7 +138,7 @@ class _TimerButtonState extends State<TimerButton> {
             onPressed: _onPressed,
             child: _buildChild(),
             style: ElevatedButton.styleFrom(
-              primary: timeUpFlag ? widget.color : widget.disabledColor,
+              backgroundColor: timeUpFlag ? widget.color : widget.disabledColor,
             ));
       case ButtonType.TextButton:
         return TextButton(

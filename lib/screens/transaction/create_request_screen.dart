@@ -64,6 +64,10 @@ class CreateRequestState extends State<CreateRequestScreen> {
 
   PreferredSizeWidget? _createAppBar(BuildContext context) {
     return new AppBar(
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back, color: Colors.white),
+        onPressed: () => Get.back(),
+      ),
       backgroundColor: kPrimaryColor,
       title: AutoSizeText('create_request'.tr),
       centerTitle: true,

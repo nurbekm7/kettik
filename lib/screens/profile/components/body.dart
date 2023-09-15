@@ -18,7 +18,6 @@ class Body extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          ProfilePic(),
           SizedBox(height: 20),
           AutoSizeText(
             Get.find<SettingsService>().userProfile!.phoneNumber,
@@ -28,7 +27,7 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "my_transactions".tr,
             icon: "assets/icons/Conversation.svg",
-            press: () => {Get.offAll(() => MyAdsScreen())},
+            press: () => {Get.to(() => MyAdsScreen())},
           ),
           // ProfileMenu(
           //   text: "Notifications",
@@ -46,7 +45,7 @@ class Body extends StatelessWidget {
             text: "contact_us".tr,
             icon: "assets/icons/Mail.svg",
             press: () {
-              launchUrlString('https://www.instagram.com/nurbek.m7/',
+              launchUrlString('https://www.instagram.com/bekofdevs/',
                   mode: LaunchMode.externalApplication);
             },
           ),
@@ -54,7 +53,7 @@ class Body extends StatelessWidget {
             text: "about".tr,
             icon: "assets/icons/Question mark.svg",
             press: () {
-              Get.off(() => AboutScreen());
+              Get.to(() => AboutScreen());
             },
           ),
           ProfileMenu(

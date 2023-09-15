@@ -96,7 +96,11 @@ class HomeController extends GetxController {
 
   Future<List<RequestEntity>> getSenderRequests() async {
     try {
-      return db.collection("sender_transaction").orderBy("deadline").get().then(
+      return db
+          .collection("sender_transaction")
+          .orderBy("deadline", descending: true)
+          .get()
+          .then(
         (res) async {
           print("senderEntityList res.docs: " + res.docs.toString());
           return senderEntityList = res.docs.length == 0
@@ -115,7 +119,7 @@ class HomeController extends GetxController {
     try {
       return db
           .collection("courier_transaction")
-          .orderBy("deadline")
+          .orderBy("deadline", descending: true)
           .get()
           .then(
         (res) async {

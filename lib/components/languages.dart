@@ -36,6 +36,7 @@ class Languages extends Translations {
           "currency": " \$",
           "buyer": "Байер: ",
           "send_request": "Жазу",
+          "buy_request": "Сатып алу",
           "sender": "Жіберушілер",
           "courier": "Курьерлер",
           "isender": "Жіберушімін",
@@ -77,7 +78,8 @@ class Languages extends Translations {
               "Біз бір реттік пароль кодты SMS арқылы жібердік",
           "enter_code_below": "Төменге OTP кодын енгізіңіз",
           "next": "Келесі",
-          "did_not_get_the_code": "Кодты алмадыңыз ба? ",
+          "did_not_get_the_code":
+              "Кодты алмадыңыз ба? Басқа номермен кіріп көрініз ",
           "resend": "Қайта жіберу",
           "invalid_otp": "Жарамсыз код",
           "find": "Нәтижелерді көрсету",
@@ -88,7 +90,9 @@ class Languages extends Translations {
           "account_delete_body": "Аккаунтты шынымен жойғыңыз келе ме?",
           "no": "Жоқ",
           "yes": "Йа",
-          "cancel": "Бас тарту"
+          "cancel": "Бас тарту",
+          "until_date": "Дейін",
+          "send_request_yours": "Бұл сіздін хабарландыруныз"
         },
         'en_US': {
           "helloWorld": "Welcome",
@@ -132,6 +136,7 @@ class Languages extends Translations {
           "currency": " \$",
           "buyer": "Buyer: ",
           "send_request": "Chat",
+          "buy_request": "Buy",
           "sender": "Senders",
           "courier": "Couriers",
           "isender": "Sender",
@@ -179,7 +184,9 @@ class Languages extends Translations {
               "Are you sure you want to delete your account?",
           "no": "No",
           "yes": "Yes",
-          "cancel": "Cancel"
+          "cancel": "Cancel",
+          "until_date": "Until",
+          "send_request_yours": "This is your request"
         },
         'ru_KZ': {
           "helloWorld": "Добро пожаловать",
@@ -210,7 +217,8 @@ class Languages extends Translations {
               "Мы отправили SMS с одноразовым паролем на номер ",
           "enter_code_below": "Введите код OTP ниже",
           "next": "Далее",
-          "did_not_get_the_code": "Не получили код?",
+          "did_not_get_the_code":
+              "Не получили код? Попробуйте зайти под другим номером, возможно ваш оператор не поддерживает зарубежные СМС",
           "resend": "Отправить повторно",
           "sender": "Отправители",
           "courier": "Курьеры",
@@ -221,6 +229,7 @@ class Languages extends Translations {
           "from": "Откуда",
           "to": "Куда",
           "send_request": "Написать",
+          "buy_request": "Купить",
           "my_transactions": "Мой объявления",
           "delete_account": "Удалить аккаунт",
           "help": "Помощь",
@@ -270,7 +279,9 @@ class Languages extends Translations {
           "account_delete_body": "Вы уверенны что хотите удалить ваш аккаунт?",
           "no": "Нет",
           "yes": "Да",
-          "cancel": "Отмена"
+          "cancel": "Отмена",
+          "until_date": "До",
+          "send_request_yours": "Это ваш запрос"
         },
         'ru_RU': {
           "helloWorld": "Добро пожаловать",
@@ -301,7 +312,8 @@ class Languages extends Translations {
               "Мы отправили SMS с одноразовым паролем на номер ",
           "enter_code_below": "Введите код OTP ниже",
           "next": "Далее",
-          "did_not_get_the_code": "Не получили код?",
+          "did_not_get_the_code":
+              "Не получили код? Попробуйте зайти под другим номером, возможно ваш оператор не поддерживает зарубежные СМС",
           "resend": "Отправить повторно",
           "sender": "Отправители",
           "courier": "Курьеры",
@@ -312,6 +324,7 @@ class Languages extends Translations {
           "from": "Откуда",
           "to": "Куда",
           "send_request": "Написать",
+          "buy_request": "Купить",
           "my_transactions": "Мой объявления",
           "delete_account": "Удалить аккаунт",
           "help": "Помощь",
@@ -361,7 +374,9 @@ class Languages extends Translations {
           "account_delete_body": "Вы уверенны что хотите удалить ваш аккаунт?",
           "no": "Нет",
           "yes": "Да",
-          "cancel": "Отмена"
+          "cancel": "Отмена",
+          "until_date": "До",
+          "send_request_yours": "Это ваш запрос"
         }
       };
 }

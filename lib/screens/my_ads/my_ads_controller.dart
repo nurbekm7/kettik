@@ -46,8 +46,6 @@ class MyAdsController extends GetxController {
   Future<List<RequestEntity>> toRequestEntity(RequestType requestType,
       List<QueryDocumentSnapshot<Map<String, dynamic>>> data) async {
     return data
-        .where((element) =>
-            compareDateTime((element.data()["deadline"] as Timestamp).toDate()))
         .map((e) => RequestEntity(
             id: e.id,
             description: e.data()["description"],
@@ -77,7 +75,7 @@ class MyAdsController extends GetxController {
           .collection("sender_transaction")
           .where("user.phoneNumber",
               isEqualTo: Get.find<SettingsService>().userProfile!.phoneNumber)
-          .orderBy("deadline")
+          .orderBy("deadline", descending: true)
           .get()
           .then(
         (res) async {
@@ -100,7 +98,7 @@ class MyAdsController extends GetxController {
           .collection("courier_transaction")
           .where("user.phoneNumber",
               isEqualTo: Get.find<SettingsService>().userProfile!.phoneNumber)
-          .orderBy("deadline")
+          .orderBy("deadline", descending: true)
           .get()
           .then(
         (res) async {

@@ -18,7 +18,7 @@ class FoldingRequestCard extends StatelessWidget {
   final _foldingCellKey = GlobalKey<SimpleFoldingCellState>();
   late Size _size;
   final DateFormat formatter =
-      DateFormat.MMMd(Get.find<SettingsService>().locale.toString());
+      DateFormat.yMMMd(Get.find<SettingsService>().locale.toString());
   FoldingRequestCard({Key? key, required this.requestEntity}) : super(key: key);
 
   @override
@@ -30,7 +30,7 @@ class FoldingRequestCard extends StatelessWidget {
         key: _foldingCellKey,
         frontWidget: frontWidget(),
         innerWidget: innerTopWidget(context),
-        cellSize: Size(MediaQuery.of(context).size.width.w, 140.h),
+        cellSize: Size(MediaQuery.of(context).size.width.w, 110.h),
         padding: EdgeInsets.all(5.0),
         animationDuration: Duration(milliseconds: 300),
         borderRadius: 3,
@@ -63,31 +63,15 @@ class FoldingRequestCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Container(
-                              child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: AutoSizeText(
-                              requestEntity.price.toString() + "currency".tr,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            ),
+                              child: AutoSizeText(
+                            requestEntity.price.toString() + "currency".tr,
+                            style: TextStyle(color: Colors.white, fontSize: 20),
                           )),
-                          // Container(
-                          //     child: Padding(
-                          //   padding: const EdgeInsets.all(8.0),
-                          //   child: AutoSizeText(
-                          //     'to_value'.tr,
-                          //     style: TextStyle(
-                          //         color: Colors.white, fontSize: 20.0),
-                          //   ),
-                          // )),
                           Container(
-                              child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: AutoSizeText(
-                              formatter.format(requestEntity.deadline),
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 20.0),
-                            ),
+                              child: AutoSizeText(
+                            formatter.format(requestEntity.deadline),
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 20.0),
                           )),
                         ],
                       ),
@@ -191,7 +175,10 @@ class FoldingRequestCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: AutoSizeText('# ' + requestEntity.id!,
+                        child: AutoSizeText(
+                            "until_date".tr +
+                                " " +
+                                formatter.format(requestEntity.deadline),
                             maxLines: 1,
                             style: TextStyle(
                               color: Colors.white,
@@ -199,13 +186,10 @@ class FoldingRequestCard extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             )),
                       ),
-                      // SizedBox(
-                      //   width: _size.width * 0.5,
-                      // ),
                       Align(
                         alignment: Alignment.centerRight,
                         child: AutoSizeText(
-                            requestEntity.price.toString() + "currency".tr,
+                            "price".tr + " " + requestEntity.price.toString(),
                             maxLines: 1,
                             style: TextStyle(
                               color: Colors.white,
@@ -240,49 +224,10 @@ class FoldingRequestCard extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             )),
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
-              //Rating
-              // Row(
-              //   children: [
-              //     Container(
-              //       width: _size.width * 0.5,
-              //       height: 15.h,
-              //       padding: EdgeInsetsDirectional.only(start: 50),
-              //       alignment: Alignment.topLeft,
-              //       child: RatingBar.builder(
-              //         initialRating: requestEntity.user.rating,
-              //         minRating: 1,
-              //         direction: Axis.horizontal,
-              //         allowHalfRating: true,
-              //         itemCount: 5,
-              //         itemSize: 15.h,
-              //         itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-              //         itemBuilder: (context, _) => Icon(
-              //           FontAwesomeIcons.solidHeart,
-              //           color: Colors.black,
-              //         ),
-              //         onRatingUpdate: (rating) {
-              //           print(rating);
-              //         },
-              //         ignoreGestures: true,
-              //       ),
-              //     ),
-              //     Container(
-              //       child: AutoSizeText(
-              //           '(' +
-              //               requestEntity.user.userReview.length.toString() +
-              //               ')',
-              //           style: TextStyle(
-              //             color: Colors.black,
-              //             fontSize: 14.0,
-              //             fontWeight: FontWeight.bold,
-              //           )),
-              //     ),
-              //   ],
-              // ),
               Divider(),
               Row(
                 children: [
@@ -338,15 +283,20 @@ class FoldingRequestCard extends StatelessWidget {
               ),
 
               Container(
-                  padding: EdgeInsets.all(10),
                   width: _size.width,
                   child: Get.find<SettingsService>().userProfile != null &&
                           requestEntity.user.phoneNumber ==
                               Get.find<SettingsService>()
                                   .userProfile!
                                   .phoneNumber
-                      ? SizedBox(
-                          height: 5.h,
+                      ? ElevatedButton(
+                          onPressed: () {},
+                          child: AutoSizeText(
+                            'send_request_yours'.tr,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: kPrimaryBtnColor),
                         )
                       : ElevatedButton(
                           onPressed: () {
@@ -380,7 +330,6 @@ class FoldingRequestCard extends StatelessWidget {
                                       ),
                                     ],
                                   );
-                                  ;
                                 },
                               );
                             }
@@ -390,7 +339,7 @@ class FoldingRequestCard extends StatelessWidget {
                             style: TextStyle(color: Colors.black),
                           ),
                           style: ElevatedButton.styleFrom(
-                              primary: kPrimaryBtnColor),
+                              backgroundColor: kPrimaryBtnColor),
                         ))
             ],
           ),

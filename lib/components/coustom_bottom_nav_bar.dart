@@ -24,7 +24,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       switch (pIndex) {
         case 0:
           print('0: ' + index.toString());
-          Get.to(() => HomeScreen());
+          Get.offAll(() => HomeScreen());
           break;
         case 1:
           if (!Get.find<SettingsService>().isLoggedIn) {
@@ -32,7 +32,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             break;
           } else {
             print('1: ' + index.toString());
-            Get.to(() => ProfileScreen());
+            Get.offAll(() => ProfileScreen());
             break;
           }
       }
@@ -60,12 +60,6 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   }
 
   Future _openSignInDialog() async {
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      Navigator.of(context).push(MaterialPageRoute<String>(
-          builder: (BuildContext context) {
-            return SignInScreen();
-          },
-          fullscreenDialog: true));
-    });
+    Get.to(() => SignInScreen());
   }
 }

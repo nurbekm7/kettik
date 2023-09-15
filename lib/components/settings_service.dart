@@ -24,7 +24,7 @@ class SettingsService extends GetxService {
     super.onInit();
   }
 
-  void login({userProfileParam: UserProfile}) async {
+  void login({userProfileParam = UserProfile}) async {
     isLoggedIn = true;
     await _getStorage.write('logged_in', isLoggedIn);
     await _getStorage.write('userProfile', jsonEncode(userProfileParam));
@@ -36,7 +36,7 @@ class SettingsService extends GetxService {
         .logAnalyticsEvent(logKey: AnalyticsConts.LOGIN_LOG);
   }
 
-  void signUp({userProfileParam: UserProfile}) async {
+  void signUp({userProfileParam = UserProfile}) async {
     isLoggedIn = true;
     await _getStorage.write('logged_in', isLoggedIn);
     await _getStorage.write('userProfile', jsonEncode(userProfileParam));

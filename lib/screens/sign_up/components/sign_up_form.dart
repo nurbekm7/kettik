@@ -58,7 +58,7 @@ class _SignUpFormState extends State<SignUpForm> {
           AutoSizeText(
             "terms_and_condition".tr,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.caption,
+            style: Theme.of(context).textTheme.bodySmall,
           ),
           SizedBox(height: 40.h),
           DefaultButton(

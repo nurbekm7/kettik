@@ -261,38 +261,22 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future _openFilterDialog() async {
-    RequestEntity? requestEntity =
-        await Navigator.of(context).push(new MaterialPageRoute<RequestEntity>(
-            builder: (BuildContext context) {
-              return new FilterDiolog();
-            },
-            fullscreenDialog: true));
-    print(requestEntity);
-    if (requestEntity != null) {
-      print("requestEntity: ${requestEntity.id}");
-    }
+    Get.to(() => FilterDiolog());
   }
 
   Future _openAddTransDialog() async {
-    RequestEntity? requestEntity =
-        await Navigator.of(context).push(new MaterialPageRoute<RequestEntity>(
-            builder: (BuildContext context) {
-              return new CreateRequestScreen();
-            },
-            fullscreenDialog: true));
-    print(requestEntity);
-    if (requestEntity != null) {
-      print("requestEntity: ${requestEntity.id}");
-    }
+    Get.to(() => CreateRequestScreen());
   }
 
   Future _openSignInDialog() async {
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      Navigator.of(context).push(MaterialPageRoute<String>(
-          builder: (BuildContext context) {
-            return SignInScreen();
-          },
-          fullscreenDialog: true));
-    });
+    Get.to(() => SignInScreen());
+
+    // SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+    //   Navigator.of(context).push(MaterialPageRoute<String>(
+    //       builder: (BuildContext context) {
+    //         return SignInScreen();
+    //       },
+    //       fullscreenDialog: true));
+    // });
   }
 }

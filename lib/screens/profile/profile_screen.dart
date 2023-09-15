@@ -55,30 +55,10 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future _openAddTransDialog() async {
-    RequestEntity? requestEntity =
-        await Navigator.of(context).push(new MaterialPageRoute<RequestEntity>(
-            builder: (BuildContext context) {
-              return new CreateRequestScreen();
-            },
-            fullscreenDialog: true));
-    print(requestEntity);
-    if (requestEntity != null) {
-      print("requestEntity: ${requestEntity.id}");
-      setState(() {
-        // requestEntityList.add(requestEntity);
-      });
-    }
+    Get.to(() => CreateRequestScreen());
   }
 
   Future _openSignInDialog() async {
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      Navigator.of(context).push(MaterialPageRoute<String>(
-          builder: (BuildContext context) {
-            return SignInScreen();
-          },
-          fullscreenDialog: true));
-
-      setState(() {});
-    });
+    Get.to(() => SignInScreen());
   }
 }

@@ -40,7 +40,7 @@ class Body extends StatelessWidget {
                 AutoSizeText(
                   '',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodySmall,
                 )
               ],
             ),

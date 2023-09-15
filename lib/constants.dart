@@ -10,7 +10,7 @@ const kPrimaryGradientColor = LinearGradient(
   colors: [Color(0xFFFFA53E), Color(0xFFFF7643)],
 );
 const kSecondaryColor = Color(0xFF979797);
-const kTextColor = Color(0xFF757575);
+const kTextColor = Colors.black;
 const kTabColor = Color.fromARGB(15, 31, 16, 128);
 const kLightGrey = Color(0xfff1f3f5);
 const kAnimationDuration = Duration(milliseconds: 200);
